@@ -3,7 +3,7 @@ package com.manichord.mgit.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.widget.Button
 import io.sentry.Sentry
 import kotlinx.android.synthetic.main.dialog_error.view.*
