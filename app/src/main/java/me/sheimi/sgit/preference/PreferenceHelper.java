@@ -2,7 +2,6 @@ package me.sheimi.sgit.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.io.File;
 
@@ -48,7 +47,7 @@ public class PreferenceHelper {
     }
 
     public void setPrivacyAccepted() {
-        edit(PRIVACY_ACCEPTED_KEY, PRIVACY_ACCEPTED_VERSION);
+        edit();
         Timber.d("Privacy policy accepted version:"+PRIVACY_ACCEPTED_VERSION);
     }
 
@@ -65,9 +64,9 @@ public class PreferenceHelper {
         editor.apply();
     }
 
-    private void edit(String name, int value) {
+    private void edit() {
         SharedPreferences.Editor editor =  getSharedPrefs().edit();
-        editor.putInt(name, value);
+        editor.putInt(PreferenceHelper.PRIVACY_ACCEPTED_KEY, PreferenceHelper.PRIVACY_ACCEPTED_VERSION);
         editor.apply();
     }
 

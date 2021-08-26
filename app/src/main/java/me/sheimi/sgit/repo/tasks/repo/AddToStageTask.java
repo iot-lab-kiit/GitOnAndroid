@@ -6,7 +6,7 @@ import me.sheimi.sgit.exception.StopTaskException;
 
 public class AddToStageTask extends RepoOpTask {
 
-    public String mFilePattern;
+    public final String mFilePattern;
 
     public AddToStageTask(Repo repo, String filepattern) {
         super(repo);

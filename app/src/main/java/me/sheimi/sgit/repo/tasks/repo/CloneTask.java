@@ -72,7 +72,7 @@ public class CloneTask extends RepoRemoteOpTask {
             cloneCommand.call();
             Profile.setLastCloneSuccess();
         } catch (InvalidRemoteException e) {
-            setError(R.string.error_invalid_remote);
+            setError();
             Profile.setLastCloneFailed(mRepo);
             return false;
         } catch (TransportException e) {
@@ -87,7 +87,7 @@ public class CloneTask extends RepoRemoteOpTask {
         catch (JGitInternalException e) {
             // not supported when unsupported git remotehttp://asdgfkas URI
             if (e.getCause() instanceof NotSupportedException) {
-                setError(R.string.error_invalid_remote);
+                setError();
             } else {
                 setException(e);
             }

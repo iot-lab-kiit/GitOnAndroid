@@ -24,10 +24,10 @@ import me.sheimi.sgit.fragments.ViewFileFragment;
 
 public class ViewFileActivity extends SheimiFragmentActivity {
 
-    public static String TAG_FILE_NAME = "file_name";
-    public static String TAG_MODE = "mode";
-    public static short TAG_MODE_NORMAL = 0;
-    public static short TAG_MODE_SSH_KEY = 1;
+    public static final String TAG_FILE_NAME = "file_name";
+    public static final String TAG_MODE = "mode";
+    public static final short TAG_MODE_NORMAL = 0;
+    public static final short TAG_MODE_SSH_KEY = 1;
     private CommitsFragment mCommitsFragment;
     private short mActivityMode = TAG_MODE_NORMAL;
     private static final int FILE_FRAGMENT_INDEX = 0;

@@ -5,8 +5,8 @@ import me.sheimi.sgit.database.models.Repo;
 
 public abstract class RepoAction {
 
-    protected Repo mRepo;
-    protected RepoDetailActivity mActivity;
+    protected final Repo mRepo;
+    protected final RepoDetailActivity mActivity;
 
     public RepoAction(Repo repo, RepoDetailActivity activity) {
         mRepo = repo;

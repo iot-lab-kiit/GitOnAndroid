@@ -68,9 +68,7 @@ public class CommitChangesTask extends RepoOpTask {
     }
 
     public static void commit(Repo repo, boolean stageAll, boolean isAmend,
-            String msg, String authorName, String authorEmail) throws Exception, NoHeadException, NoMessageException,
-            UnmergedPathsException, ConcurrentRefUpdateException,
-            WrongRepositoryStateException, GitAPIException, StopTaskException {
+            String msg, String authorName, String authorEmail) throws Exception {
         Context context = MGitApplication.getContext();
         StoredConfig config = repo.getGit().getRepository().getConfig();
         String committerEmail = config.getString("user", null, "email");

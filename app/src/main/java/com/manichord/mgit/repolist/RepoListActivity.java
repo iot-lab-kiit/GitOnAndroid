@@ -1,6 +1,5 @@
 package com.manichord.mgit.repolist;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
@@ -61,7 +60,7 @@ public class RepoListActivity extends SheimiFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        checkAndRequestRequiredPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        checkAndRequestRequiredPermissions();
 
         enforcePrivacy(this);
 

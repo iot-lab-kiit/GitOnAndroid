@@ -14,7 +14,7 @@ import timber.log.Timber;
 public abstract class RepoOpTask extends SheimiAsyncTask<Void, String, Boolean> {
 
     protected Repo mRepo;
-    protected boolean mIsTaskAdded;
+    protected final boolean mIsTaskAdded;
     private int mSuccessMsg = 0;
 
     public RepoOpTask(Repo repo) {

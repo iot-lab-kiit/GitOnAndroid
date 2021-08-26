@@ -49,8 +49,8 @@ public class RepoOperationsAdapter extends ArrayAdapter<DrawerItem>
     }
 
     public static class DrawerItem {
-        public String name;
-        public int icon;
+        public final String name;
+        public final int icon;
 
         public DrawerItem(String name, int icon) {
             this.name = name;

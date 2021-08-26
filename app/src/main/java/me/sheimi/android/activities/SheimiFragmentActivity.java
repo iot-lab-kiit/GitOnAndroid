@@ -108,10 +108,10 @@ public class SheimiFragmentActivity extends AppCompatActivity {
         }
     }
 
-    protected void checkAndRequestRequiredPermissions(String permission) {
-        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+    protected void checkAndRequestRequiredPermissions() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted, so request it from user
-            ActivityCompat.requestPermissions(this, new String[]{permission}, MGIT_PERMISSIONS_REQUEST);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MGIT_PERMISSIONS_REQUEST);
         }
     }
 

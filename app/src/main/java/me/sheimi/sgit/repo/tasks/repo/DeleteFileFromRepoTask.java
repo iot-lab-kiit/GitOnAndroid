@@ -9,8 +9,8 @@ import me.sheimi.sgit.exception.StopTaskException;
 
 public class DeleteFileFromRepoTask extends RepoOpTask {
 
-    public String mFilePattern;
-    public AsyncTaskPostCallback mCallback;
+    public final String mFilePattern;
+    public final AsyncTaskPostCallback mCallback;
     private final DeleteOperationType mOperationType;
 
     public DeleteFileFromRepoTask(Repo repo, String filepattern,

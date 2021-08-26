@@ -8,7 +8,7 @@ import org.eclipse.jgit.lib.ObjectId;
 
 public class CherryPickTask extends RepoOpTask {
 
-    public String mCommitStr;
+    public final String mCommitStr;
     private final AsyncTaskPostCallback mCallback;
 
     public CherryPickTask(Repo repo, String commit,

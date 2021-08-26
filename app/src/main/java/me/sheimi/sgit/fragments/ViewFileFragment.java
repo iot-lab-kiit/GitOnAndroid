@@ -124,7 +124,7 @@ public class ViewFileFragment extends BaseFragment {
                     try {
                         mCode = FileUtils.readFileToString(mFile);
                     } catch (IOException e) {
-                        showUserError(e, R.string.error_can_not_open_file);
+                        showUserError(e);
                     }
                     display();
                 }
@@ -172,13 +172,13 @@ public class ViewFileFragment extends BaseFragment {
     }
 
 
-    private void showUserError(Throwable e, final int errorMessageId) {
+    private void showUserError(Throwable e) {
         Timber.e(e);
         Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 ((SheimiFragmentActivity) Objects.requireNonNull(getActivity())).
-                    showMessageDialog(R.string.dialog_error_title, getString(errorMessageId));
+                    showMessageDialog(R.string.dialog_error_title, getString(R.string.error_can_not_open_file));
             }
         });
     }

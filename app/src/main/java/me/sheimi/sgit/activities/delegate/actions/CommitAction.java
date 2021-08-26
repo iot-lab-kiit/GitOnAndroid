@@ -138,7 +138,7 @@ public class CommitAction extends RepoAction {
     private class AuthorsAdapter extends BaseAdapter implements Filterable {
         List<Author> arrayList;
         List<Author> mOriginalValues;
-        LayoutInflater inflater;
+        final LayoutInflater inflater;
 
         public AuthorsAdapter(Context context, List<Author> arrayList) {
             this.arrayList = arrayList;

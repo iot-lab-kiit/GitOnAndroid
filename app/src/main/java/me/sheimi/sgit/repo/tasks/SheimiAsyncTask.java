@@ -22,9 +22,9 @@ public abstract class SheimiAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
         mErrorRes = errorRes;
     }
 
-    protected void setError(int errorRes) {
-        Timber.e("set error res id: %d", errorRes);
-        mErrorRes = errorRes;
+    protected void setError() {
+        Timber.e("set error res id: %d", R.string.error_invalid_remote);
+        mErrorRes = R.string.error_invalid_remote;
     }
 
     private boolean mIsCanceled = false;
