@@ -9,9 +9,9 @@ import org.eclipse.jgit.api.errors.JGitInternalException;
 
 public class CheckoutTask extends RepoOpTask {
 
-    private AsyncTaskPostCallback mCallback;
-    private String mCommitName;
-    private String mBranch;
+    private final AsyncTaskPostCallback mCallback;
+    private final String mCommitName;
+    private final String mBranch;
 
     public CheckoutTask(Repo repo, String name, String branch, AsyncTaskPostCallback callback) {
         super(repo);

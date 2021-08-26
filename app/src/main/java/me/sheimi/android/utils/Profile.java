@@ -16,7 +16,7 @@ public class Profile {
 
     private static boolean sHasLastCloneFail = false;
     private static Repo sLastFailRepo;
-    private static int sTheme = -1;
+    private static final int sTheme = -1;
 
     private static SharedPreferences getProfileSharedPreference(Context context) {
         if (sSharedPreference == null) {

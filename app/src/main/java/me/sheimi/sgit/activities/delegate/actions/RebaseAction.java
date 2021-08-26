@@ -51,7 +51,6 @@ public class RebaseAction extends RepoAction {
 
         private Repo mRepo;
         private RepoDetailActivity mActivity;
-        private ListView mBranchTagList;
         private BranchTagListAdapter mAdapter;
 
         @Override
@@ -65,7 +64,7 @@ public class RebaseAction extends RepoAction {
             mActivity = (RepoDetailActivity) getActivity();
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 
-            mBranchTagList = new ListView(mActivity);
+            ListView mBranchTagList = new ListView(mActivity);
 
             mAdapter = new BranchTagListAdapter(mActivity);
             mBranchTagList.setAdapter(mAdapter);

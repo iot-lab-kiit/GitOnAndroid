@@ -28,7 +28,6 @@ public class CheckoutDialog extends SheimiDialogFragment implements
     private EditText mBranchName;
     private RepoDetailActivity mActivity;
     public static final String BASE_COMMIT = "base commit";
-    private Repo mRepo;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
 	    mCommit = "";
 	}
 
-	mRepo = (Repo) args.getSerializable(Repo.TAG);
+        Repo mRepo = (Repo) args.getSerializable(Repo.TAG);
 
 	String message = getString(R.string.dialog_comfirm_checkout_commit_msg)
 	    + " "

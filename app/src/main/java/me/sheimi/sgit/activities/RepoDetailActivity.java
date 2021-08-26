@@ -35,16 +35,12 @@ import me.sheimi.sgit.repo.tasks.SheimiAsyncTask.AsyncTaskCallback;
 
 public class RepoDetailActivity extends SheimiFragmentActivity {
 
-    private ActionBar mActionBar;
-
     private FilesFragment mFilesFragment;
     private CommitsFragment mCommitsFragment;
     private StatusFragment mStatusFragment;
 
     private RelativeLayout mRightDrawer;
-    private ListView mRepoOperationList;
     private DrawerLayout mDrawerLayout;
-    private RepoOperationsAdapter mDrawerAdapter;
     private TabItemPagerAdapter mTabItemPagerAdapter;
     private ViewPager mViewPager;
     private Button mCommitNameButton;
@@ -134,8 +130,8 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     private void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mRightDrawer = (RelativeLayout) findViewById(R.id.right_drawer);
-        mRepoOperationList = (ListView) findViewById(R.id.repoOperationList);
-        mDrawerAdapter = new RepoOperationsAdapter(this);
+        ListView mRepoOperationList = (ListView) findViewById(R.id.repoOperationList);
+        RepoOperationsAdapter mDrawerAdapter = new RepoOperationsAdapter(this);
         mRepoOperationList.setAdapter(mDrawerAdapter);
         mRepoOperationList.setOnItemClickListener(mDrawerAdapter);
     }
@@ -153,7 +149,7 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     }
 
     private void setupActionBar() {
-        mActionBar = getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
         mActionBar.setDisplayShowTitleEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -273,7 +269,7 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
     public class ProgressCallback implements AsyncTaskCallback {
 
-        private int mInitMsg;
+        private final int mInitMsg;
 
         public ProgressCallback(int initMsg) {
             mInitMsg = initMsg;

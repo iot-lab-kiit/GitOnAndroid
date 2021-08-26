@@ -41,13 +41,11 @@ public class CommitsFragment extends BaseFragment implements
     private final static String IS_ACTION_MODE = "is action mode";
     private final static String CHOSEN_ITEM = "chosen item";
 
-    private ListView mCommitsList;
     private CommitsListAdapter mCommitsListAdapter;
 
     private ActionMode mActionMode;
-    private Set<Integer> mChosenItem = new HashSet<Integer>();
+    private final Set<Integer> mChosenItem = new HashSet<Integer>();
     private Repo mRepo;
-    private String mFile;
     private static final String FILE = "commit_file";
 
     private ClipboardManager mClipboard;
@@ -80,10 +78,10 @@ public class CommitsFragment extends BaseFragment implements
         if (mRepo == null) {
             return v;
         }
-        mFile = bundle.getString(FILE);
+        String mFile = bundle.getString(FILE);
         mClipboard = (ClipboardManager) getRawActivity().getSystemService(
                 Activity.CLIPBOARD_SERVICE);
-        mCommitsList = (ListView) v.findViewById(R.id.commitsList);
+        ListView mCommitsList = (ListView) v.findViewById(R.id.commitsList);
         mCommitsListAdapter = new CommitsListAdapter(getRawActivity(),
                 mChosenItem, mRepo, mFile);
         mCommitsListAdapter.resetCommit();

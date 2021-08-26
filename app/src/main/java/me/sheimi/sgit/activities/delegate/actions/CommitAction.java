@@ -59,9 +59,9 @@ public class CommitAction extends RepoAction {
     }
 
     private class Author implements Comparable<Author> {
-        private String mName;
-        private String mEmail;
-        private ArrayList<String> mKeywords;
+        private final String mName;
+        private final String mEmail;
+        private final ArrayList<String> mKeywords;
         private final String SPLIT_KEYWORDS = " |\\.|-|_|@";
 
         Author (String username, String email) {

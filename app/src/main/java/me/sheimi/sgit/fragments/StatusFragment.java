@@ -24,8 +24,6 @@ public class StatusFragment extends RepoDetailFragment {
     private Repo mRepo;
     private ProgressBar mLoadding;
     private TextView mStatus;
-    private Button mUnstagedDiff;
-    private Button mStagedDiff;
 
     public static StatusFragment newInstance(Repo mRepo) {
         StatusFragment fragment = new StatusFragment();
@@ -51,8 +49,8 @@ public class StatusFragment extends RepoDetailFragment {
         }
         mLoadding = (ProgressBar) v.findViewById(R.id.loading);
         mStatus = (TextView) v.findViewById(R.id.status);
-        mStagedDiff = (Button) v.findViewById(R.id.button_staged_diff);
-        mUnstagedDiff = (Button) v.findViewById(R.id.button_unstaged_diff);
+        Button mStagedDiff = (Button) v.findViewById(R.id.button_staged_diff);
+        Button mUnstagedDiff = (Button) v.findViewById(R.id.button_unstaged_diff);
         mStagedDiff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

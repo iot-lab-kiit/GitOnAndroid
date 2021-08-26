@@ -9,7 +9,7 @@ import org.eclipse.jgit.transport.Transport;
  */
 public class SgitTransportCallback implements TransportConfigCallback {
 
-    private SGitSessionFactory ssh;
+    private final SGitSessionFactory ssh;
 
     public SgitTransportCallback() {
         ssh = new SGitSessionFactory();

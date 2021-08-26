@@ -11,7 +11,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class MGitSSLSocketFactory extends SSLSocketFactory {
 
-    private SSLSocketFactory wrappedSSLSocketFactory;
+    private final SSLSocketFactory wrappedSSLSocketFactory;
     public static String[] enabledProtocols = new String[] {"TLSv1.2", "TLSv1.1", "TLSv1"};
 
     public MGitSSLSocketFactory(SSLSocketFactory wrapped) {

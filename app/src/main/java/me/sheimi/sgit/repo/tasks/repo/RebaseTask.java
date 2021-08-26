@@ -7,7 +7,7 @@ import me.sheimi.sgit.exception.StopTaskException;
 public class RebaseTask extends RepoOpTask {
 
     public String mUpstream;
-    private AsyncTaskPostCallback mCallback;
+    private final AsyncTaskPostCallback mCallback;
 
     public RebaseTask(Repo repo, String upstream, AsyncTaskPostCallback callback) {
         super(repo);

@@ -24,7 +24,6 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
     private EditText mNewFilename;
     private EditText mKeyLength;
     private RadioButton mDSAButton;
-    private RadioButton mRSAButton;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
 	mKeyLength = (EditText) view.findViewById(R.id.key_size);
 	mKeyLength.setText("4096");
 	mDSAButton = (RadioButton) view.findViewById(R.id.radio_dsa);
-	mRSAButton = (RadioButton) view.findViewById(R.id.radio_rsa);
+        RadioButton mRSAButton = (RadioButton) view.findViewById(R.id.radio_rsa);
 	mRSAButton.setChecked(true);
         builder.setMessage(R.string.label_dialog_generate_key)
 	    .setView(view)

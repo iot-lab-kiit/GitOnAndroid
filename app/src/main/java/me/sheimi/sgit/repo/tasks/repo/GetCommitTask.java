@@ -12,12 +12,12 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 public class GetCommitTask extends RepoOpTask {
 
-    private GetCommitCallback mCallback;
+    private final GetCommitCallback mCallback;
     private List<RevCommit> mResult;
-    private String mFile;
+    private final String mFile;
 
-    public static interface GetCommitCallback {
-        public void postCommits(List<RevCommit> commits);
+    public interface GetCommitCallback {
+        void postCommits(List<RevCommit> commits);
     }
 
     public void executeTask() {

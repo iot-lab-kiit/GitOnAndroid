@@ -39,9 +39,9 @@ import me.sheimi.sgit.repo.tasks.repo.MergeTask;
 import static me.sheimi.sgit.repo.tasks.repo.DeleteFileFromRepoTask.DeleteOperationType;
 
 public class RepoOperationDelegate {
-    private Repo mRepo;
-    private RepoDetailActivity mActivity;
-    private ArrayList<RepoAction> mActions = new ArrayList<>();
+    private final Repo mRepo;
+    private final RepoDetailActivity mActivity;
+    private final ArrayList<RepoAction> mActions = new ArrayList<>();
 
     public RepoOperationDelegate(Repo repo, RepoDetailActivity activity) {
         mRepo = repo;

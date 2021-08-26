@@ -24,7 +24,6 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
 
     private File mRootFolder;
     private File mCurrentDir;
-    private ListView mFileList;
     protected FilesListAdapter mFilesListAdapter;
     private TextView mCurrentPathView;
     private TextView mUpDir;
@@ -46,7 +45,7 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
         mRootFolder = getRootFolder();
         mCurrentDir = mRootFolder;
 
-        mFileList = (ListView) findViewById(R.id.fileList);
+        ListView mFileList = (ListView) findViewById(R.id.fileList);
         mCurrentPathView = (TextView) findViewById(R.id.currentPath);
         mCurrentPathView.setText(mCurrentDir.getPath());
 

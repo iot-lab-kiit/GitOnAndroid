@@ -27,16 +27,14 @@ public class InitDialog extends SheimiDialogFragment implements
         View.OnClickListener {
 
     private EditText mLocalPath;
-    private RepoListActivity mActivity;
-    private Repo mRepo;
     private PreferenceHelper mPrefsHelper;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
-        mActivity = (RepoListActivity) getActivity();
+        RepoListActivity mActivity = (RepoListActivity) getActivity();
 
-        mPrefsHelper = ((MGitApplication)mActivity.getApplicationContext()).getPrefenceHelper();
+        mPrefsHelper = ((MGitApplication) mActivity.getApplicationContext()).getPrefenceHelper();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         LayoutInflater inflater = mActivity.getLayoutInflater();
@@ -94,7 +92,7 @@ public class InitDialog extends SheimiDialogFragment implements
         }
 
         localPath = mLocalPath.getText().toString().trim();
-        mRepo = Repo.createRepo(localPath, "local repository", getString(R.string.initialising));
+        Repo mRepo = Repo.createRepo(localPath, "local repository", getString(R.string.initialising));
 
         InitLocalTask task = new InitLocalTask(mRepo);
         task.executeTask();

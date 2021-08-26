@@ -80,10 +80,10 @@ public class CodeGuesser {
             { "Kotlin", "text/x-kotlin", "kt", "kts" },
             { "YAML", "text/x-yaml", "yml", "yaml" }, };
 
-    private static Map<String, String> mFilenameExtensionMap = new HashMap<String, String>();
-    private static List<String> mSupportLanguageList = new ArrayList<String>();
+    private static final Map<String, String> mFilenameExtensionMap = new HashMap<String, String>();
+    private static final List<String> mSupportLanguageList = new ArrayList<String>();
 
-    private static Map<String, String> mDisplayTagMap = new HashMap<String, String>();
+    private static final Map<String, String> mDisplayTagMap = new HashMap<String, String>();
 
     static {
         for (int i = 0; i < FILENAME_EXTENSION_ARRAY.length; ++i) {

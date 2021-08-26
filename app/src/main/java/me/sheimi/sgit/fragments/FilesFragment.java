@@ -28,9 +28,8 @@ import timber.log.Timber;
  */
 public class FilesFragment extends RepoDetailFragment {
 
-    private static String CURRENT_DIR = "current_dir";
+    private static final String CURRENT_DIR = "current_dir";
 
-    private ListView mFilesList;
     private FilesListAdapter mFilesListAdapter;
 
     private File mCurrentDir;
@@ -62,7 +61,7 @@ public class FilesFragment extends RepoDetailFragment {
         }
         mRootDir = mRepo.getDir();
 
-        mFilesList = (ListView) v.findViewById(R.id.filesList);
+        ListView mFilesList = (ListView) v.findViewById(R.id.filesList);
 
         mFilesListAdapter = new FilesListAdapter(getActivity(),
                 new FileFilter() {

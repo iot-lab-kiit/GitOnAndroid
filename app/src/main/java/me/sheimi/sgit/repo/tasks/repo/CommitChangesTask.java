@@ -19,12 +19,12 @@ import me.sheimi.sgit.exception.StopTaskException;
 
 public class CommitChangesTask extends RepoOpTask {
 
-    private AsyncTaskPostCallback mCallback;
-    private String mCommitMsg;
-    private String mAuthorName;
-    private String mAuthorEmail;
-    private boolean mIsAmend;
-    private boolean mStageAll;
+    private final AsyncTaskPostCallback mCallback;
+    private final String mCommitMsg;
+    private final String mAuthorName;
+    private final String mAuthorEmail;
+    private final boolean mIsAmend;
+    private final boolean mStageAll;
 
     public CommitChangesTask(Repo repo, String commitMsg, boolean isAmend,
                              boolean stageAll, String authorName, String authorEmail,

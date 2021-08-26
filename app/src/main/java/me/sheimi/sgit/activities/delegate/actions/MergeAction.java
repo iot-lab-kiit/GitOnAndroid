@@ -43,7 +43,6 @@ public class MergeAction extends RepoAction {
 
         private Repo mRepo;
         private RepoDetailActivity mActivity;
-        private ListView mBranchTagList;
         private Spinner mSpinner;
         private BranchTagListAdapter mAdapter;
         private CheckBox mCheckbox;
@@ -61,7 +60,7 @@ public class MergeAction extends RepoAction {
             View layout = inflater.inflate(R.layout.dialog_merge, null);
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 
-            mBranchTagList = (ListView) layout.findViewById(R.id.branchList);
+            ListView mBranchTagList = (ListView) layout.findViewById(R.id.branchList);
             mSpinner = (Spinner) layout.findViewById(R.id.ffSpinner);
             mCheckbox = (CheckBox) layout.findViewById(R.id.autoCommit);
             mAdapter = new BranchTagListAdapter(mActivity);

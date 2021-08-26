@@ -51,7 +51,6 @@ public class PullAction extends RepoAction {
         private Repo mRepo;
         private RepoDetailActivity mActivity;
         private CheckBox mForcePull;
-        private ListView mRemoteList;
         private ArrayAdapter<String> mAdapter;
 
         @Override
@@ -68,7 +67,7 @@ public class PullAction extends RepoAction {
 
             View layout = inflater.inflate(R.layout.dialog_pull, null);
             mForcePull = (CheckBox) layout.findViewById(R.id.forcePull);
-            mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

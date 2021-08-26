@@ -45,7 +45,6 @@ import timber.log.Timber;
 
 public class RepoListActivity extends SheimiFragmentActivity {
 
-    private Context mContext;
     private RepoListAdapter mRepoListAdapter;
 
     private static final int REQUEST_IMPORT_REPO = 0;
@@ -91,7 +90,7 @@ public class RepoListActivity extends SheimiFragmentActivity {
         mRepoListAdapter.queryAllRepo();
         binding.repoList.setOnItemClickListener(mRepoListAdapter);
         binding.repoList.setOnItemLongClickListener(mRepoListAdapter);
-        mContext = getApplicationContext();
+        Context mContext = getApplicationContext();
 
         Uri uri = this.getIntent().getData();
         if (uri != null) {

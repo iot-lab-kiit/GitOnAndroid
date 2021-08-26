@@ -48,17 +48,17 @@ public abstract class SheimiAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
         return mIsCanceled;
     }
 
-    public static interface AsyncTaskPostCallback {
-        public void onPostExecute(Boolean isSuccess);
+    public interface AsyncTaskPostCallback {
+        void onPostExecute(Boolean isSuccess);
     }
 
-    public static interface AsyncTaskCallback {
-        public boolean doInBackground(Void... params);
+    public interface AsyncTaskCallback {
+        boolean doInBackground(Void... params);
 
-        public void onPreExecute();
+        void onPreExecute();
 
-        public void onProgressUpdate(String... progress);
+        void onProgressUpdate(String... progress);
 
-        public void onPostExecute(Boolean isSuccess);
+        void onPostExecute(Boolean isSuccess);
     }
 }

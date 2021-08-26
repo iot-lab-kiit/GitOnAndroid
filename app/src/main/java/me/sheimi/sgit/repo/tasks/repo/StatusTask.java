@@ -11,11 +11,11 @@ import org.eclipse.jgit.errors.NoWorkTreeException;
 public class StatusTask extends RepoOpTask {
 
     public interface GetStatusCallback {
-        public void postStatus(String result);
+        void postStatus(String result);
     }
 
-    private GetStatusCallback mCallback;
-    private StringBuffer mResult = new StringBuffer();
+    private final GetStatusCallback mCallback;
+    private final StringBuffer mResult = new StringBuffer();
 
     public StatusTask(Repo repo, GetStatusCallback callback) {
         super(repo);

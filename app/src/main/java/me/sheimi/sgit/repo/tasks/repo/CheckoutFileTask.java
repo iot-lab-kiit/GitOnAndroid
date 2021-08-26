@@ -6,8 +6,8 @@ import me.sheimi.sgit.exception.StopTaskException;
 
 public class CheckoutFileTask extends RepoOpTask {
 
-    private AsyncTaskPostCallback mCallback;
-    private String mPath;
+    private final AsyncTaskPostCallback mCallback;
+    private final String mPath;
 
     public CheckoutFileTask(Repo repo, String path,
             AsyncTaskPostCallback callback) {

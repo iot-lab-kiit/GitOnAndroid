@@ -46,9 +46,9 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
     private static final int QUERY_TYPE_QUERY = 1;
 
     private int mQueryType = QUERY_TYPE_QUERY;
-    private DateFormat mCommitDateFormatter;
+    private final DateFormat mCommitDateFormatter;
     private String mSearchQueryString;
-    private RepoListActivity mActivity;
+    private final RepoListActivity mActivity;
     private static final String TAG = RepoListAdapter.class.getSimpleName();
 
     public RepoListAdapter(Context context) {

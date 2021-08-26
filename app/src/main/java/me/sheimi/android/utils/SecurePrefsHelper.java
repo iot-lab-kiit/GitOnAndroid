@@ -46,7 +46,7 @@ public class SecurePrefsHelper {
     private static final String KEY_ALGORITHM_RSA = "RSA"; //KeyProperties.KEY_ALGORITHM_RSA is only available in API 23, so need to define it here
 
     SharedPreferences mSecurePrefs;
-    private KeyStore mKeyStore;
+    private final KeyStore mKeyStore;
 
     public SecurePrefsHelper(Context context) throws SecurePrefsException {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {

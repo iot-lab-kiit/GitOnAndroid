@@ -21,8 +21,7 @@ import me.sheimi.sgit.R;
  */
 public class FilesListAdapter extends ArrayAdapter<File> {
 
-    private File mDir;
-    private FileFilter mFileFilter;
+    private final FileFilter mFileFilter;
 
     public FilesListAdapter(Context context, FileFilter fileFilter) {
         super(context, 0);
@@ -63,7 +62,6 @@ public class FilesListAdapter extends ArrayAdapter<File> {
     }
 
     public void setDir(File dir) {
-        mDir = dir;
         clear();
         File[] files = null;
         if (mFileFilter == null) {

@@ -47,7 +47,6 @@ public class RemoveRemoteAction extends RepoAction {
     public static class RemoveRemoteDialog extends SheimiDialogFragment {
         private Repo mRepo;
         private RepoDetailActivity mActivity;
-        private ListView mRemoteList;
         private ArrayAdapter<String> mAdapter;
 
         @Override
@@ -63,7 +62,7 @@ public class RemoveRemoteAction extends RepoAction {
             LayoutInflater inflater = mActivity.getLayoutInflater();
 
             View layout = inflater.inflate(R.layout.dialog_remove_remote, null);
-            mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

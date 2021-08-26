@@ -27,19 +27,19 @@ import org.eclipse.jgit.treewalk.FileTreeIterator;
 
 public class CommitDiffTask extends RepoOpTask {
 
-    private String mOldCommit;
-    private String mNewCommit;
+    private final String mOldCommit;
+    private final String mNewCommit;
     private List<DiffEntry> mDiffEntries;
     private List<String> mDiffStrs;
-    private CommitDiffResult mCallback;
-    private boolean mShowDescription;
+    private final CommitDiffResult mCallback;
+    private final boolean mShowDescription;
     private Iterable<RevCommit> mCommits;
     private DiffFormatter mDiffFormatter;
     private ByteArrayOutputStream mDiffOutput;
 
     public interface CommitDiffResult {
-        public void pushResult(List<DiffEntry> diffEntries,
-                               List<String> diffStrs, RevCommit description);
+        void pushResult(List<DiffEntry> diffEntries,
+                        List<String> diffStrs, RevCommit description);
     }
 
     public CommitDiffTask(Repo repo, String oldCommit, String newCommit,

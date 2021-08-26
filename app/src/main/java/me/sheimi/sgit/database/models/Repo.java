@@ -76,7 +76,7 @@ public class Repo implements Comparable<Repo>, Serializable {
     public static final String EXTERNAL_PREFIX = "external://";
     public static final String REPO_DIR = "repo";
 
-    private static SparseArray<RepoOpTask> mRepoTasks = new SparseArray<RepoOpTask>();
+    private static final SparseArray<RepoOpTask> mRepoTasks = new SparseArray<RepoOpTask>();
 
     public Repo(Cursor cursor) {
         mID = RepoContract.getRepoID(cursor);

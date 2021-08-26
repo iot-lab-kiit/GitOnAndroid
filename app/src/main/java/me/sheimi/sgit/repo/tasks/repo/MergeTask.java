@@ -11,10 +11,10 @@ import org.eclipse.jgit.lib.Ref;
 
 public class MergeTask extends RepoOpTask {
 
-    private AsyncTaskPostCallback mCallback;
-    private Ref mCommit;
-    private String mFFModeStr;
-    private boolean mAutoCommit;
+    private final AsyncTaskPostCallback mCallback;
+    private final Ref mCommit;
+    private final String mFFModeStr;
+    private final boolean mAutoCommit;
 
     public MergeTask(Repo repo, Ref commit, String ffModeStr,
             boolean autoCommit, AsyncTaskPostCallback callback) {

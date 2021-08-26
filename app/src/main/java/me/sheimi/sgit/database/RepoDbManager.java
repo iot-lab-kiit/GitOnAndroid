@@ -19,14 +19,13 @@ public class RepoDbManager {
 
     private static RepoDbManager mInstance;
 
-    private SQLiteDatabase mWritableDatabase;
-    private SQLiteDatabase mReadableDatabase;
-    private RepoDbHelper mDbHelper;
+    private final SQLiteDatabase mWritableDatabase;
+    private final SQLiteDatabase mReadableDatabase;
 
-    private static Map<String, Set<RepoDbObserver>> mObservers = new HashMap<String, Set<RepoDbObserver>>();
+    private static final Map<String, Set<RepoDbObserver>> mObservers = new HashMap<String, Set<RepoDbObserver>>();
 
     private RepoDbManager(Context context) {
-        mDbHelper = new RepoDbHelper(context);
+        RepoDbHelper mDbHelper = new RepoDbHelper(context);
         mWritableDatabase = mDbHelper.getWritableDatabase();
         mReadableDatabase = mDbHelper.getReadableDatabase();
     }
@@ -76,8 +75,8 @@ public class RepoDbManager {
         updateRepo(repoId, values);
     }
 
-    public static interface RepoDbObserver {
-        public void nofityChanged();
+    public interface RepoDbObserver {
+        void nofityChanged();
     }
 
     public static Cursor searchRepo(String query) {

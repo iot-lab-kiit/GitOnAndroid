@@ -52,7 +52,6 @@ public class PushAction extends RepoAction {
         private RepoDetailActivity mActivity;
         private CheckBox mPushAll;
         private CheckBox mForcePush;
-        private ListView mRemoteList;
         private ArrayAdapter<String> mAdapter;
 
         @Override
@@ -70,7 +69,7 @@ public class PushAction extends RepoAction {
             View layout = inflater.inflate(R.layout.dialog_push, null);
             mPushAll = (CheckBox) layout.findViewById(R.id.pushAll);
             mForcePush = (CheckBox) layout.findViewById(R.id.forcePush);
-            mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

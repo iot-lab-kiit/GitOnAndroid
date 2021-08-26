@@ -41,8 +41,8 @@ public class SheimiFragmentActivity extends AppCompatActivity {
 
     private static final int MGIT_PERMISSIONS_REQUEST = 123;
 
-    public static interface OnBackClickListener {
-        public boolean onClick();
+    public interface OnBackClickListener {
+        boolean onClick();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class SheimiFragmentActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MGIT_PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
@@ -275,11 +275,11 @@ public class SheimiFragmentActivity extends AppCompatActivity {
                         }).show();
     }
 
-    public static interface onOptionDialogClicked {
+    public interface onOptionDialogClicked {
         void onClicked();
     }
 
-    public static interface OnEditTextDialogClicked {
+    public interface OnEditTextDialogClicked {
         void onClicked(String text);
     }
 
@@ -287,7 +287,7 @@ public class SheimiFragmentActivity extends AppCompatActivity {
      * Callback interface to receive credentials entered via UI by the user after being prompted
      * in the UI in order to connect to a remote repo
      */
-    public static interface OnPasswordEntered {
+    public interface OnPasswordEntered {
 
         /**
          * Handle retrying a Remote Repo task after user supplies requested credentials

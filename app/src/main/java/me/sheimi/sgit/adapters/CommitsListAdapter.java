@@ -32,17 +32,17 @@ import android.widget.TextView;
  */
 public class CommitsListAdapter extends BaseAdapter {
 
-    private Repo mRepo;
-    private DateFormat mCommitDateFormatter;
-    private Set<Integer> mChosenItems;
+    private final Repo mRepo;
+    private final DateFormat mCommitDateFormatter;
+    private final Set<Integer> mChosenItems;
     private String mFilter;
     private ArrayList<RevCommit> mAll;
     private ArrayList<Integer> mFiltered;
-    private Context mContext;
-    private String mFile;
+    private final Context mContext;
+    private final String mFile;
     private BackgroundUpdate mUpdate;
     private int mPosted;
-    private Object mProgressLock = new Object();
+    private final Object mProgressLock = new Object();
     private boolean mIsIncomplete;
     private int mProgressCursor;
     private long mPostAtTime;

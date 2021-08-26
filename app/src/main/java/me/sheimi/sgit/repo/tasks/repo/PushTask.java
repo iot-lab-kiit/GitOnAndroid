@@ -17,11 +17,11 @@ import me.sheimi.sgit.ssh.SgitTransportCallback;
 
 public class PushTask extends RepoRemoteOpTask {
 
-    private AsyncTaskCallback mCallback;
-    private boolean mPushAll;
-    private boolean mForcePush;
-    private String mRemote;
-    private StringBuffer resultMsg = new StringBuffer();
+    private final AsyncTaskCallback mCallback;
+    private final boolean mPushAll;
+    private final boolean mForcePush;
+    private final String mRemote;
+    private final StringBuffer resultMsg = new StringBuffer();
 
     public PushTask(Repo repo, String remote, boolean pushAll, boolean forcePush,
             AsyncTaskCallback callback) {
