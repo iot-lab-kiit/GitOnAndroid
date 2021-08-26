@@ -58,7 +58,7 @@ public class CommitAction extends RepoAction {
         commitTask.executeTask();
     }
 
-    private class Author implements Comparable<Author> {
+    private static class Author implements Comparable<Author> {
         private final String mName;
         private final String mEmail;
         private final ArrayList<String> mKeywords;
@@ -167,7 +167,7 @@ public class CommitAction extends RepoAction {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            ViewHolder holder = null;
+            ViewHolder holder;
 
             if (convertView == null) {
 
@@ -184,7 +184,7 @@ public class CommitAction extends RepoAction {
 
         @Override
         public Filter getFilter() {
-            Filter filter = new Filter() {
+            return new Filter() {
 
                 @SuppressWarnings("unchecked")
                 @Override
@@ -219,7 +219,6 @@ public class CommitAction extends RepoAction {
                     return results;
                 }
             };
-            return filter;
         }
     }
 
@@ -227,12 +226,12 @@ public class CommitAction extends RepoAction {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         LayoutInflater inflater = mActivity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_commit, null);
-        final EditText commitMsg = (EditText) layout
+        final EditText commitMsg = layout
                 .findViewById(R.id.commitMsg);
-	    final AutoCompleteTextView commitAuthor = (AutoCompleteTextView) layout
+	    final AutoCompleteTextView commitAuthor = layout
                 .findViewById(R.id.commitAuthor);
-        final CheckBox isAmend = (CheckBox) layout.findViewById(R.id.isAmend);
-        final CheckBox autoStage = (CheckBox) layout
+        final CheckBox isAmend = layout.findViewById(R.id.isAmend);
+        final CheckBox autoStage = layout
                 .findViewById(R.id.autoStage);
 	    HashSet<Author> authors = new HashSet<Author>();
         try {

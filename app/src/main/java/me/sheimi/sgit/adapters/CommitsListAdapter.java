@@ -209,8 +209,7 @@ public class CommitsListAdapter extends BaseAdapter {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         if (isProgressBar(position)) {
-            ProgressBar pb = new ProgressBar(mContext, null, android.R.attr.progressBarStyleLarge);
-            return pb;
+            return new ProgressBar(mContext, null, android.R.attr.progressBarStyleLarge);
         }
         CommitsListItemHolder holder = null;
         if (convertView != null) {
@@ -220,15 +219,15 @@ public class CommitsListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.listitem_commits, parent,
                     false);
             holder = new CommitsListItemHolder();
-            holder.commitsTitle = (TextView) convertView
+            holder.commitsTitle = convertView
                     .findViewById(R.id.commitTitle);
-            holder.commitsIcon = (ImageView) convertView
+            holder.commitsIcon = convertView
                     .findViewById(R.id.commitIcon);
-            holder.commitAuthor = (TextView) convertView
+            holder.commitAuthor = convertView
                     .findViewById(R.id.commitAuthor);
-            holder.commitsMsg = (TextView) convertView
+            holder.commitsMsg = convertView
                     .findViewById(R.id.commitMsg);
-            holder.commitTime = (TextView) convertView
+            holder.commitTime = convertView
                     .findViewById(R.id.commitTime);
             convertView.setTag(holder);
         }

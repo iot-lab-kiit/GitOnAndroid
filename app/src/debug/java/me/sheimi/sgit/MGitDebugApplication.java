@@ -21,7 +21,7 @@ public class MGitDebugApplication extends MGitApplication {
 
         Stetho.initializeWithDefaults(this);
 
-        if (true == getResources().getBoolean(R.bool.enable_stetho_timber_logging)) {
+        if (getResources().getBoolean(R.bool.enable_stetho_timber_logging)) {
             Timber.plant(new ConfigurableStethoTree(new ConfigurableStethoTree.Configuration.Builder()
                 .showTags(true)
                 .minimumPriority(Log.DEBUG)

@@ -11,6 +11,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by sheimi on 8/16/13.
  */
@@ -18,6 +20,7 @@ public class ChooseLanguageDialog extends SheimiDialogFragment {
 
     private ViewFileActivity mActivity;
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);

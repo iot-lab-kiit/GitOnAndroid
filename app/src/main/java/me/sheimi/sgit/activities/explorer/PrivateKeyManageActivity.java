@@ -208,17 +208,13 @@ public class PrivateKeyManageActivity extends FileExplorerActivity implements Ac
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK)
             return;
-        switch (requestCode) {
-	case REQUEST_IMPORT_KEY:
-	    {
-                String path = data.getExtras().getString(
-                        ExploreFileActivity.RESULT_PATH);
-                File keyFile = new File(path);
-                File newKey = new File(getRootFolder(), keyFile.getName());
-                FsUtils.copyFile(keyFile, newKey);
-                refreshList();
-                break;
-	    }
+        if (requestCode == REQUEST_IMPORT_KEY) {
+            String path = data.getExtras().getString(
+                    ExploreFileActivity.RESULT_PATH);
+            File keyFile = new File(path);
+            File newKey = new File(getRootFolder(), keyFile.getName());
+            FsUtils.copyFile(keyFile, newKey);
+            refreshList();
         }
 
     }

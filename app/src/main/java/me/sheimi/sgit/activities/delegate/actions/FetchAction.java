@@ -40,7 +40,7 @@ public class FetchAction extends RepoAction {
                             remotes.add(originRemotes[index]);
                         } else {
                             for (int i = 0; i < remotes.size(); ++i) {
-                                if (remotes.get(i) == originRemotes[index]) {
+                                if (remotes.get(i).equals(originRemotes[index])) {
                                     remotes.remove(i);
                                 }
                             }

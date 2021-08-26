@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 import me.sheimi.android.views.SheimiDialogFragment;
@@ -53,6 +55,7 @@ public class PullAction extends RepoAction {
         private CheckBox mForcePull;
         private ArrayAdapter<String> mAdapter;
 
+        @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -66,8 +69,8 @@ public class PullAction extends RepoAction {
             LayoutInflater inflater = mActivity.getLayoutInflater();
 
             View layout = inflater.inflate(R.layout.dialog_pull, null);
-            mForcePull = (CheckBox) layout.findViewById(R.id.forcePull);
-            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            mForcePull = layout.findViewById(R.id.forcePull);
+            ListView mRemoteList = layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

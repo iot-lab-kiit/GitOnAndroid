@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 
 import me.sheimi.android.activities.SheimiFragmentActivity;
 import me.sheimi.android.utils.CodeGuesser;
@@ -57,8 +58,8 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_diff);
         setupActionBar();
-        mDiffContent = (WebView) findViewById(R.id.fileContent);
-        mLoading = (ProgressBar) findViewById(R.id.loading);
+        mDiffContent = findViewById(R.id.fileContent);
+        mLoading = findViewById(R.id.loading);
 
         Bundle extras = getIntent().getExtras();
         mOldCommit = extras.getString(OLD_COMMIT);
@@ -95,7 +96,7 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
     }
 
     private void setupActionBar() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -230,15 +231,13 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
         @JavascriptInterface
         public String getOldPath(int index) {
             DiffEntry diff = mDiffEntries.get(index);
-            String op = diff.getOldPath();
-            return op;
+            return diff.getOldPath();
         }
 
         @JavascriptInterface
         public String getNewPath(int index) {
             DiffEntry diff = mDiffEntries.get(index);
-            String np = diff.getNewPath();
-            return np;
+            return diff.getNewPath();
         }
 
         @JavascriptInterface

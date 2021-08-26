@@ -65,9 +65,6 @@ public class ConfigurableStethoTree extends Timber.DebugTree {
             case Log.DEBUG:
                 logLevel = Console.MessageLevel.DEBUG;
                 break;
-            case Log.INFO:
-                logLevel = Console.MessageLevel.LOG;
-                break;
             case Log.WARN:
                 logLevel = Console.MessageLevel.WARNING;
                 break;

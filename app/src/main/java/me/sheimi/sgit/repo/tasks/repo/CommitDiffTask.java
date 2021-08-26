@@ -147,8 +147,7 @@ public class CommitDiffTask extends RepoOpTask {
             mDiffOutput.reset();
             mDiffFormatter.format(diffEntry);
             mDiffFormatter.flush();
-            String diffText = mDiffOutput.toString("UTF-8");
-            return diffText;
+            return mDiffOutput.toString("UTF-8");
         } catch (UnsupportedEncodingException e) {
             setException(e, R.string.error_diff_failed);
             throw new StopTaskException();

@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import me.sheimi.android.activities.SheimiFragmentActivity;
 import me.sheimi.android.utils.CodeGuesser;
@@ -42,8 +43,8 @@ public class ViewFileFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_view_file, container, false);
 
-        mFileContent = (WebView) v.findViewById(R.id.fileContent);
-        mLoading = (ProgressBar) v.findViewById(R.id.loading);
+        mFileContent = v.findViewById(R.id.fileContent);
+        mLoading = v.findViewById(R.id.loading);
 
         String fileName = null;
         if (savedInstanceState != null) {
@@ -51,7 +52,7 @@ public class ViewFileFragment extends BaseFragment {
             mActivityMode = savedInstanceState.getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
         }
         if (fileName == null) {
-            fileName = getArguments().getString(ViewFileActivity.TAG_FILE_NAME);
+            fileName = Objects.requireNonNull(getArguments()).getString(ViewFileActivity.TAG_FILE_NAME);
             mActivityMode = getArguments().getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
         }
 
@@ -110,7 +111,7 @@ public class ViewFileFragment extends BaseFragment {
 
         @JavascriptInterface
         public void copy_all(final String content) {
-            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("mgit", content);
             clipboard.setPrimaryClip(clip);
         }
@@ -133,11 +134,11 @@ public class ViewFileFragment extends BaseFragment {
 
         @JavascriptInterface
         public String getTheme() {
-            return Profile.getCodeMirrorTheme(getActivity());
+            return Profile.getCodeMirrorTheme(Objects.requireNonNull(getActivity()));
         }
 
         private void display() {
-            getActivity().runOnUiThread(new Runnable() {
+            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     String lang;
@@ -173,10 +174,10 @@ public class ViewFileFragment extends BaseFragment {
 
     private void showUserError(Throwable e, final int errorMessageId) {
         Timber.e(e);
-        getActivity().runOnUiThread(new Runnable() {
+        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((SheimiFragmentActivity)getActivity()).
+                ((SheimiFragmentActivity) Objects.requireNonNull(getActivity())).
                     showMessageDialog(R.string.dialog_error_title, getString(errorMessageId));
             }
         });

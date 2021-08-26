@@ -31,9 +31,9 @@ public class BasicFunctions {
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
             for (int i = 0; i < messageDigest.length; ++i) {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & messageDigest[i]));
                 while (h.length() < 2)
-                    h = "0" + h;
+                    h.insert(0, "0");
                 hexString.append(h);
             }
             return hexString.toString();

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import me.sheimi.android.utils.Profile;
 import me.sheimi.android.views.SheimiDialogFragment;
 import me.sheimi.sgit.R;
@@ -53,6 +55,7 @@ public class RebaseAction extends RepoAction {
         private RepoDetailActivity mActivity;
         private BranchTagListAdapter mAdapter;
 
+        @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -108,9 +111,9 @@ public class RebaseAction extends RepoAction {
                             R.layout.listitem_dialog_choose_commit, parent,
                             false);
                     holder = new ListItemHolder();
-                    holder.commitTitle = (TextView) convertView
+                    holder.commitTitle = convertView
                             .findViewById(R.id.commitTitle);
-                    holder.commitIcon = (ImageView) convertView
+                    holder.commitIcon = convertView
                             .findViewById(R.id.commitIcon);
                     convertView.setTag(holder);
                 } else {

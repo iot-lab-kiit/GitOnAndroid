@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
+import java.util.Objects;
 
 import me.sheimi.android.views.SheimiDialogFragment;
 import me.sheimi.sgit.MGitApplication;
@@ -28,6 +31,7 @@ public class EditKeyPasswordDialog extends SheimiDialogFragment implements
     public static final String KEY_FILE_EXTRA = "extra_key_file";
     private EditText mPassword;
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -43,7 +47,7 @@ public class EditKeyPasswordDialog extends SheimiDialogFragment implements
                 R.layout.dialog_prompt_for_password_only, null);
 
         builder.setView(view);
-        mPassword = (EditText) view.findViewById(R.id.password);
+        mPassword = view.findViewById(R.id.password);
 
         // set button listener
         builder.setNegativeButton(R.string.label_cancel,
@@ -55,7 +59,7 @@ public class EditKeyPasswordDialog extends SheimiDialogFragment implements
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_FILE_EXTRA, mKeyFile.getAbsolutePath());
     }
@@ -75,7 +79,7 @@ public class EditKeyPasswordDialog extends SheimiDialogFragment implements
     public void onClick(View view) {
         String newPassword = mPassword.getText().toString().trim();
         try {
-            ((MGitApplication)getActivity().getApplicationContext()).getSecurePrefsHelper().
+            Objects.requireNonNull(((MGitApplication) getActivity().getApplicationContext()).getSecurePrefsHelper()).
                 set(mKeyFile.getName(), newPassword);
         } catch (Exception e) {
             Timber.e(e);

@@ -101,16 +101,16 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.repo_listitem, parent, false);
         RepoListItemHolder holder = new RepoListItemHolder();
-        holder.repoTitle = (TextView) view.findViewById(R.id.repoTitle);
-        holder.repoRemote = (TextView) view.findViewById(R.id.repoRemote);
-        holder.commitAuthor = (TextView) view.findViewById(R.id.commitAuthor);
-        holder.commitMsg = (TextView) view.findViewById(R.id.commitMsg);
-        holder.commitTime = (TextView) view.findViewById(R.id.commitTime);
-        holder.authorIcon = (ImageView) view.findViewById(R.id.authorIcon);
+        holder.repoTitle = view.findViewById(R.id.repoTitle);
+        holder.repoRemote = view.findViewById(R.id.repoRemote);
+        holder.commitAuthor = view.findViewById(R.id.commitAuthor);
+        holder.commitMsg = view.findViewById(R.id.commitMsg);
+        holder.commitTime = view.findViewById(R.id.commitTime);
+        holder.authorIcon = view.findViewById(R.id.authorIcon);
         holder.progressContainer = view.findViewById(R.id.progressContainer);
         holder.commitMsgContainer = view.findViewById(R.id.commitMsgContainer);
-        holder.progressMsg = (TextView) view.findViewById(R.id.progressMsg);
-        holder.cancelBtn = (ImageView) view.findViewById(R.id.cancelBtn);
+        holder.progressMsg = view.findViewById(R.id.progressMsg);
+        holder.cancelBtn = view.findViewById(R.id.cancelBtn);
         view.setTag(holder);
         return view;
     }
@@ -243,7 +243,7 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
                         if (!intentList.isEmpty()) {
                             String title = String.format(context.getString(R.string.dialog_open_remote_title), repo.getDiaplayName());
                             Intent chooserIntent = Intent.createChooser(intentList.remove(0), title);
-                            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[intentList.size()]));
+                            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[0]));
                             context.startActivity(chooserIntent);
                         } else
                         {
@@ -306,7 +306,7 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
         );
     }
 
-    private class RepoListItemHolder {
+    private static class RepoListItemHolder {
         public TextView repoTitle;
         public TextView repoRemote;
         public TextView commitAuthor;

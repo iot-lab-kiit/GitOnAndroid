@@ -61,11 +61,10 @@ public class ExploreRootDirActivity extends FileExplorerActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_select_root:
-                Repo.setLocalRepoRoot(this, getCurrentDir());
-                finish();
-                return true;
+        if (item.getItemId() == R.id.action_select_root) {
+            Repo.setLocalRepoRoot(this, getCurrentDir());
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

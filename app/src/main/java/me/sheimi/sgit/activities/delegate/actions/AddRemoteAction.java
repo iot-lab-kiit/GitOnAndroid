@@ -38,9 +38,9 @@ public class AddRemoteAction extends RepoAction {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         LayoutInflater inflater = mActivity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_add_remote, null);
-        final EditText remoteName = (EditText) layout
+        final EditText remoteName = layout
                 .findViewById(R.id.remoteName);
-        final EditText remoteUrl = (EditText) layout
+        final EditText remoteUrl = layout
                 .findViewById(R.id.remoteUrl);
 
         builder.setTitle(R.string.dialog_add_remote_title)

@@ -10,8 +10,7 @@ import me.sheimi.android.activities.SheimiFragmentActivity.OnPasswordEntered;
 
 public class SheimiDialogFragment extends DialogFragment {
 
-    @SuppressWarnings("NullableProblems") // It's safe to assume onAttach is called before other code.
-    @NonNull
+    // It's safe to assume onAttach is called before other code.
     private SheimiFragmentActivity mActivity;
 
     @Override

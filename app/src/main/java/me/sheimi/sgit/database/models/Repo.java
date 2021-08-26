@@ -396,8 +396,7 @@ public class Repo implements Comparable<Repo>, Serializable {
 
     public List<Ref> getLocalBranches() {
         try {
-            List<Ref> localRefs = getGit().branchList().call();
-            return localRefs;
+            return getGit().branchList().call();
         } catch (GitAPIException|StopTaskException e) {
             Timber.e(e);
         }
@@ -529,7 +528,7 @@ public class Repo implements Comparable<Repo>, Serializable {
     }
 
     public File getDir() {
-        PreferenceHelper prefHelper = ((MGitApplication) MGitApplication.getContext()).getPrefenceHelper();
+        PreferenceHelper prefHelper = MGitApplication.getContext().getPrefenceHelper();
         return Repo.getDir(prefHelper, getLocalPath());
     }
 
@@ -562,9 +561,8 @@ public class Repo implements Comparable<Repo>, Serializable {
             Set<String> remoteNames = config.getSubsections("remote");
             if (remoteNames.size() == 0)
                 return "";
-            String url = config.getString("remote", remoteNames.iterator()
+            return config.getString("remote", remoteNames.iterator()
                     .next(), "url");
-            return url;
         } catch (StopTaskException e) {
         }
         return "";

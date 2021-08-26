@@ -34,7 +34,7 @@ public class Preference extends android.preference.Preference {
             String value = sharedPreference.getString(getKey(), "");
             return String.format(summary.toString(), value);
         } else {
-            return summary;
+            return null;
         }
     }
 }

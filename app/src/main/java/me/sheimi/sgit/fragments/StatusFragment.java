@@ -47,10 +47,10 @@ public class StatusFragment extends RepoDetailFragment {
         if (mRepo == null) {
             return v;
         }
-        mLoadding = (ProgressBar) v.findViewById(R.id.loading);
-        mStatus = (TextView) v.findViewById(R.id.status);
-        Button mStagedDiff = (Button) v.findViewById(R.id.button_staged_diff);
-        Button mUnstagedDiff = (Button) v.findViewById(R.id.button_unstaged_diff);
+        mLoadding = v.findViewById(R.id.loading);
+        mStatus = v.findViewById(R.id.status);
+        Button mStagedDiff = v.findViewById(R.id.button_staged_diff);
+        Button mUnstagedDiff = v.findViewById(R.id.button_unstaged_diff);
         mStagedDiff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

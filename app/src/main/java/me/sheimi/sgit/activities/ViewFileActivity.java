@@ -43,7 +43,7 @@ public class ViewFileActivity extends SheimiFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_file);
         mRepo = (Repo) getIntent().getSerializableExtra(Repo.TAG);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = findViewById(R.id.pager);
         mTabItemPagerAdapter = new TabItemPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mTabItemPagerAdapter);
         mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
@@ -57,7 +57,7 @@ public class ViewFileActivity extends SheimiFragmentActivity {
             mCommitsFragment = CommitsFragment.newInstance(mRepo, FsUtils.getRelativePath(new File(fileName), mRepo.getDir()));
         }
         if (mRepo == null) {
-            PagerTitleStrip strip = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
+            PagerTitleStrip strip = findViewById(R.id.pager_title_strip);
             strip.setVisibility(View.GONE);
         }
         mFileFragment = new ViewFileFragment();
@@ -119,20 +119,16 @@ public class ViewFileActivity extends SheimiFragmentActivity {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(query);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(query);
             }
             return true;
         }
 
         @Override
         public boolean onQueryTextChange(String query) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(query);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(query);
             }
             return true;
         }
@@ -144,10 +140,8 @@ public class ViewFileActivity extends SheimiFragmentActivity {
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(null);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(null);
             }
             return true;
         }

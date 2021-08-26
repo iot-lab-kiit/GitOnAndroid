@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.util.Set;
 
@@ -49,6 +51,7 @@ public class RemoveRemoteAction extends RepoAction {
         private RepoDetailActivity mActivity;
         private ArrayAdapter<String> mAdapter;
 
+        @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -62,7 +65,7 @@ public class RemoveRemoteAction extends RepoAction {
             LayoutInflater inflater = mActivity.getLayoutInflater();
 
             View layout = inflater.inflate(R.layout.dialog_remove_remote, null);
-            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            ListView mRemoteList = layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

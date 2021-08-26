@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 import me.sheimi.android.utils.FsUtils;
@@ -36,6 +38,7 @@ public class ImportLocalRepoDialog extends SheimiDialogFragment implements
     private PreferenceHelper mPrefsHelper;
     public static final String FROM_PATH = "from path";
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -56,9 +59,9 @@ public class ImportLocalRepoDialog extends SheimiDialogFragment implements
                 R.layout.dialog_import_repo, null);
 
         builder.setView(view);
-        mLocalPath = (EditText) view.findViewById(R.id.localPath);
+        mLocalPath = view.findViewById(R.id.localPath);
         mLocalPath.setText(mFile.getName());
-        mImportAsExternal = (CheckBox) view.findViewById(R.id.importAsExternal);
+        mImportAsExternal = view.findViewById(R.id.importAsExternal);
         mImportAsExternal
                 .setOnCheckedChangeListener(new OnCheckedChangeListener() {
                     @Override
@@ -89,7 +92,7 @@ public class ImportLocalRepoDialog extends SheimiDialogFragment implements
         AlertDialog dialog = (AlertDialog) getDialog();
         if (dialog == null)
             return;
-        Button positiveButton = (Button) dialog
+        Button positiveButton = dialog
                 .getButton(Dialog.BUTTON_POSITIVE);
         positiveButton.setOnClickListener(this);
     }

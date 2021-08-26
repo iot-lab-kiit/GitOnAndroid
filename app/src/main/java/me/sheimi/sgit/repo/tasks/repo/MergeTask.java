@@ -64,7 +64,7 @@ public class MergeTask extends RepoOpTask {
         if (mAutoCommit) {
             String b1 = mRepo.getBranchName();
             String b2 = mCommit.getName();
-            String msg = null;
+            String msg;
             if (b1 == null) {
                 msg = String.format("Merge branch '%s'",
                         Repo.getCommitDisplayName(b2));

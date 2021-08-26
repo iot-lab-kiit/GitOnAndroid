@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 import me.sheimi.android.views.SheimiDialogFragment;
@@ -54,6 +56,7 @@ public class PushAction extends RepoAction {
         private CheckBox mForcePush;
         private ArrayAdapter<String> mAdapter;
 
+        @NotNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -67,9 +70,9 @@ public class PushAction extends RepoAction {
             LayoutInflater inflater = mActivity.getLayoutInflater();
 
             View layout = inflater.inflate(R.layout.dialog_push, null);
-            mPushAll = (CheckBox) layout.findViewById(R.id.pushAll);
-            mForcePush = (CheckBox) layout.findViewById(R.id.forcePush);
-            ListView mRemoteList = (ListView) layout.findViewById(R.id.remoteList);
+            mPushAll = layout.findViewById(R.id.pushAll);
+            mForcePush = layout.findViewById(R.id.forcePush);
+            ListView mRemoteList = layout.findViewById(R.id.remoteList);
 
             mAdapter = new ArrayAdapter<String>(mActivity,
                     android.R.layout.simple_list_item_1);

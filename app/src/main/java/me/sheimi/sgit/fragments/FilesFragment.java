@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -61,16 +63,14 @@ public class FilesFragment extends RepoDetailFragment {
         }
         mRootDir = mRepo.getDir();
 
-        ListView mFilesList = (ListView) v.findViewById(R.id.filesList);
+        ListView mFilesList = v.findViewById(R.id.filesList);
 
         mFilesListAdapter = new FilesListAdapter(getActivity(),
                 new FileFilter() {
                     @Override
                     public boolean accept(File file) {
                         String name = file.getName();
-                        if (name.equals(".git"))
-                            return false;
-                        return true;
+                        return !name.equals(".git");
                     }
                 });
         mFilesList.setAdapter(mFilesListAdapter);
@@ -133,7 +133,7 @@ public class FilesFragment extends RepoDetailFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(Repo.TAG, mRepo);
         if (mCurrentDir != null) {

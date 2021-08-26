@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.jetbrains.annotations.NotNull;
+
 import me.sheimi.sgit.ssh.PrivateKeyUtils;
 
 /**
@@ -28,6 +31,7 @@ public class RenameKeyDialog extends SheimiDialogFragment implements
     private PrivateKeyManageActivity mActivity;
     public static final String FROM_PATH = "from path";
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -44,7 +48,7 @@ public class RenameKeyDialog extends SheimiDialogFragment implements
                 R.layout.dialog_rename_key, null);
 
         builder.setView(view);
-        mNewFilename = (EditText) view.findViewById(R.id.newFilename);
+        mNewFilename = view.findViewById(R.id.newFilename);
         mNewFilename.setText(mFromFile.getName());
 
         // set button listener
@@ -57,7 +61,7 @@ public class RenameKeyDialog extends SheimiDialogFragment implements
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(FROM_PATH, mFromPath);
     }
@@ -68,7 +72,7 @@ public class RenameKeyDialog extends SheimiDialogFragment implements
         AlertDialog dialog = (AlertDialog) getDialog();
         if (dialog == null)
             return;
-        Button positiveButton = (Button) dialog
+        Button positiveButton = dialog
                 .getButton(Dialog.BUTTON_POSITIVE);
         positiveButton.setOnClickListener(this);
     }

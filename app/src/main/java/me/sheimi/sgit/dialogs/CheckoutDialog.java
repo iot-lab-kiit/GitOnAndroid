@@ -1,6 +1,7 @@
 package me.sheimi.sgit.dialogs;
 
 import java.io.File;
+import java.util.Objects;
 
 import me.sheimi.android.utils.FsUtils;
 import me.sheimi.android.views.SheimiDialogFragment;
@@ -13,6 +14,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.jetbrains.annotations.NotNull;
+
 import me.sheimi.sgit.ssh.PrivateKeyUtils;
 import me.sheimi.sgit.database.models.Repo;
 import me.sheimi.sgit.activities.RepoDetailActivity;
@@ -29,6 +33,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
     private RepoDetailActivity mActivity;
     public static final String BASE_COMMIT = "base commit";
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -41,7 +46,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
 	    mCommit = "";
 	}
 
-        Repo mRepo = (Repo) args.getSerializable(Repo.TAG);
+        Repo mRepo = (Repo) Objects.requireNonNull(args).getSerializable(Repo.TAG);
 
 	String message = getString(R.string.dialog_comfirm_checkout_commit_msg)
 	    + " "
@@ -52,7 +57,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
                 R.layout.dialog_checkout, null);
 
         builder.setView(view);
-        mBranchName = (EditText) view.findViewById(R.id.newBranchName);
+        mBranchName = view.findViewById(R.id.newBranchName);
 
         // set button listener
         builder.setNegativeButton(R.string.label_cancel,
@@ -65,7 +70,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(BASE_COMMIT, mCommit);
     }
@@ -76,7 +81,7 @@ public class CheckoutDialog extends SheimiDialogFragment implements
         AlertDialog dialog = (AlertDialog) getDialog();
         if (dialog == null)
             return;
-	Button positiveButton = (Button) dialog
+	Button positiveButton = dialog
 	    .getButton(Dialog.BUTTON_POSITIVE);
         positiveButton.setOnClickListener(this);
     }

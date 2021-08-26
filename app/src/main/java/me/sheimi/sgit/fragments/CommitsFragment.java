@@ -14,6 +14,7 @@ import me.sheimi.sgit.database.models.Repo;
 import me.sheimi.sgit.dialogs.CheckoutDialog;
 
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.jetbrains.annotations.NotNull;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -81,7 +82,7 @@ public class CommitsFragment extends BaseFragment implements
         String mFile = bundle.getString(FILE);
         mClipboard = (ClipboardManager) getRawActivity().getSystemService(
                 Activity.CLIPBOARD_SERVICE);
-        ListView mCommitsList = (ListView) v.findViewById(R.id.commitsList);
+        ListView mCommitsList = v.findViewById(R.id.commitsList);
         mCommitsListAdapter = new CommitsListAdapter(getRawActivity(),
                 mChosenItem, mRepo, mFile);
         mCommitsListAdapter.resetCommit();
@@ -133,7 +134,7 @@ public class CommitsFragment extends BaseFragment implements
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(IS_ACTION_MODE, mActionMode != null);
         ArrayList<Integer> itemsList = new ArrayList<Integer>(mChosenItem);

@@ -21,6 +21,8 @@ import com.manichord.mgit.clone.CloneViewModel;
 import com.manichord.mgit.common.OnActionClickListener;
 import com.manichord.mgit.transport.MGitHttpConnectionFactory;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -72,7 +74,7 @@ public class RepoListActivity extends SheimiFragmentActivity {
         binding.setViewModel(viewModel);
         binding.setClickHandler(new OnActionClickListener() {
             @Override
-            public void onActionClick(String action) {
+            public void onActionClick(@NotNull String action) {
                 if (ClickActions.CLONE.name().equals(action)) {
                     cloneRepo();
                 } else {
@@ -180,36 +182,34 @@ public class RepoListActivity extends SheimiFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK)
             return;
-        switch (requestCode) {
-            case REQUEST_IMPORT_REPO:
-                final String path = data.getExtras().getString(
-                        ExploreFileActivity.RESULT_PATH);
-                File file = new File(path);
-                File dotGit = new File(file, Repo.DOT_GIT_DIR);
-                if (!dotGit.exists()) {
-                    showToastMessage(getString(R.string.error_no_repository));
-                    return;
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        this);
-                builder.setTitle(R.string.dialog_comfirm_import_repo_title);
-                builder.setMessage(R.string.dialog_comfirm_import_repo_msg);
-                builder.setNegativeButton(R.string.label_cancel,
-                        new DummyDialogListener());
-                builder.setPositiveButton(R.string.label_import,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(
-                                    DialogInterface dialogInterface, int i) {
-                                Bundle args = new Bundle();
-                                args.putString(ImportLocalRepoDialog.FROM_PATH, path);
-                                ImportLocalRepoDialog rld = new ImportLocalRepoDialog();
-                                rld.setArguments(args);
-                                rld.show(getSupportFragmentManager(), "import-local-dialog");
-                            }
-                        });
-                builder.show();
-                break;
+        if (requestCode == REQUEST_IMPORT_REPO) {
+            final String path = data.getExtras().getString(
+                ExploreFileActivity.RESULT_PATH);
+            File file = new File(path);
+            File dotGit = new File(file, Repo.DOT_GIT_DIR);
+            if (!dotGit.exists()) {
+                showToastMessage(getString(R.string.error_no_repository));
+                return;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                this);
+            builder.setTitle(R.string.dialog_comfirm_import_repo_title);
+            builder.setMessage(R.string.dialog_comfirm_import_repo_msg);
+            builder.setNegativeButton(R.string.label_cancel,
+                new DummyDialogListener());
+            builder.setPositiveButton(R.string.label_import,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(
+                        DialogInterface dialogInterface, int i) {
+                        Bundle args = new Bundle();
+                        args.putString(ImportLocalRepoDialog.FROM_PATH, path);
+                        ImportLocalRepoDialog rld = new ImportLocalRepoDialog();
+                        rld.setArguments(args);
+                        rld.show(getSupportFragmentManager(), "import-local-dialog");
+                    }
+                });
+            builder.show();
         }
     }
 

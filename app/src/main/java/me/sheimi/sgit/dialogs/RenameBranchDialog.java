@@ -54,7 +54,7 @@ public class RenameBranchDialog extends DialogFragment implements
                 R.layout.dialog_rename_branch, null);
 
         builder.setView(view);
-        mNewBranchname = (EditText) view.findViewById(R.id.newBranchname);
+        mNewBranchname = view.findViewById(R.id.newBranchname);
         mNewBranchname.setText(Repo.getCommitDisplayName(mFromCommit));
 
         // set button listener
@@ -78,7 +78,7 @@ public class RenameBranchDialog extends DialogFragment implements
         AlertDialog dialog = (AlertDialog) getDialog();
         if (dialog == null)
             return;
-        Button positiveButton = (Button) dialog
+        Button positiveButton = dialog
                 .getButton(Dialog.BUTTON_POSITIVE);
         positiveButton.setOnClickListener(this);
     }

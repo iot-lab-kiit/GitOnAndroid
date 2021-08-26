@@ -29,6 +29,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import me.sheimi.android.avatar.AvatarDownloader;
 import me.sheimi.android.utils.BasicFunctions;
 import me.sheimi.android.utils.Profile;
@@ -93,19 +95,16 @@ public class SheimiFragmentActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case MGIT_PERMISSIONS_REQUEST: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        if (requestCode == MGIT_PERMISSIONS_REQUEST) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                } else {
-                    // permission denied
-                    showMessageDialog(R.string.dialog_not_supported, getString(R.string.dialog_permission_not_granted));
-                }
-                return;
+            } else {
+                // permission denied
+                showMessageDialog(R.string.dialog_not_supported, getString(R.string.dialog_permission_not_granted));
             }
+            return;
         }
     }
 
@@ -204,7 +203,7 @@ public class SheimiFragmentActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_edit_text, null);
-        final EditText editText = (EditText) layout.findViewById(R.id.editText);
+        final EditText editText = layout.findViewById(R.id.editText);
         editText.setHint(hint);
         builder.setTitle(title)
                 .setView(layout)
@@ -246,9 +245,9 @@ public class SheimiFragmentActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_prompt_for_password,
                 null);
-        final EditText username = (EditText) layout.findViewById(R.id.username);
-        final EditText password = (EditText) layout.findViewById(R.id.password);
-        final CheckBox checkBox = (CheckBox) layout
+        final EditText username = layout.findViewById(R.id.username);
+        final EditText password = layout.findViewById(R.id.password);
+        final CheckBox checkBox = layout
                 .findViewById(R.id.savePassword);
         if (errorInfo == null) {
             errorInfo = getString(R.string.dialog_prompt_for_password_title);

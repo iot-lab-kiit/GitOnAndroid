@@ -45,14 +45,14 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
         mRootFolder = getRootFolder();
         mCurrentDir = mRootFolder;
 
-        ListView mFileList = (ListView) findViewById(R.id.fileList);
-        mCurrentPathView = (TextView) findViewById(R.id.currentPath);
+        ListView mFileList = findViewById(R.id.fileList);
+        mCurrentPathView = findViewById(R.id.currentPath);
         mCurrentPathView.setText(mCurrentDir.getPath());
 
-        mUpDirIcon = (ImageView) findViewById(R.id.upDirIcon);
+        mUpDirIcon = findViewById(R.id.upDirIcon);
         mUpDirIcon.setImageResource(Profile.getStyledResource(this, R.attr.ic_folder_fl));
 
-        mUpDir = (TextView) findViewById(R.id.upDir);
+        mUpDir = findViewById(R.id.upDir);
         mUpDir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,10 +81,9 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

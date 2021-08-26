@@ -93,11 +93,10 @@ public class RepoDbManager {
                 + " LIKE ?";
         query = "%" + query + "%";
         String[] selectionArgs = { query, query, query, query };
-        Cursor cursor = mReadableDatabase.query(true,
+        return mReadableDatabase.query(true,
                 RepoContract.RepoEntry.TABLE_NAME,
                 RepoContract.RepoEntry.ALL_COLUMNS, selection, selectionArgs,
                 null, null, null, null);
-        return cursor;
     }
 
     public static Cursor queryAllRepo() {
@@ -105,11 +104,10 @@ public class RepoDbManager {
     }
 
     private Cursor _queryAllRepo() {
-        Cursor cursor = mReadableDatabase.query(true,
+        return mReadableDatabase.query(true,
                 RepoContract.RepoEntry.TABLE_NAME,
                 RepoContract.RepoEntry.ALL_COLUMNS, null, null, null, null,
                 null, null);
-        return cursor;
     }
 
     public static Cursor getRepoById(long id) {

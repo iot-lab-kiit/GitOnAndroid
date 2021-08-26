@@ -65,16 +65,14 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-	switch (requestCode) {
-	case BRANCH_CHOOSE_ACTIVITY:
-	    String branchName = mRepo.getBranchName();
-	    if (branchName == null) {
-		showToastMessage(R.string.error_something_wrong);
-		return;
-	    }
-	    reset(branchName);
-	    break;
-	}
+        if (requestCode == BRANCH_CHOOSE_ACTIVITY) {
+            String branchName = mRepo.getBranchName();
+            if (branchName == null) {
+                showToastMessage(R.string.error_something_wrong);
+                return;
+            }
+            reset(branchName);
+        }
     }
 
     @Override
@@ -95,8 +93,8 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
         setupViewPager();
         setupPullProgressView();
         setupDrawer();
-        mCommitNameButton = (Button) findViewById(R.id.commitName);
-        mCommitType = (ImageView) findViewById(R.id.commitType);
+        mCommitNameButton = findViewById(R.id.commitName);
+        mCommitType = findViewById(R.id.commitType);
         mCommitNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,16 +119,16 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     }
 
     private void setupViewPager() {
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = findViewById(R.id.pager);
         mTabItemPagerAdapter = new TabItemPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mTabItemPagerAdapter);
         mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
     }
 
     private void setupDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mRightDrawer = (RelativeLayout) findViewById(R.id.right_drawer);
-        ListView mRepoOperationList = (ListView) findViewById(R.id.repoOperationList);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mRightDrawer = findViewById(R.id.right_drawer);
+        ListView mRepoOperationList = findViewById(R.id.repoOperationList);
         RepoOperationsAdapter mDrawerAdapter = new RepoOperationsAdapter(this);
         mRepoOperationList.setAdapter(mDrawerAdapter);
         mRepoOperationList.setOnItemClickListener(mDrawerAdapter);
@@ -139,12 +137,12 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     private void setupPullProgressView() {
         mPullProgressContainer = findViewById(R.id.pullProgressContainer);
         mPullProgressContainer.setVisibility(View.GONE);
-        mPullProgressBar = (ProgressBar) mPullProgressContainer
+        mPullProgressBar = mPullProgressContainer
                 .findViewById(R.id.pullProgress);
-        mPullMsg = (TextView) mPullProgressContainer.findViewById(R.id.pullMsg);
-        mPullLeftHint = (TextView) mPullProgressContainer
+        mPullMsg = mPullProgressContainer.findViewById(R.id.pullMsg);
+        mPullLeftHint = mPullProgressContainer
                 .findViewById(R.id.leftHint);
-        mPullRightHint = (TextView) mPullProgressContainer
+        mPullRightHint = mPullProgressContainer
                 .findViewById(R.id.rightHint);
     }
 
@@ -399,20 +397,16 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(query);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(query);
             }
             return true;
         }
 
         @Override
         public boolean onQueryTextChange(String query) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(query);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(query);
             }
             return true;
         }
@@ -424,10 +418,8 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
         @Override
         public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            switch (mViewPager.getCurrentItem()) {
-                case COMMITS_FRAGMENT_INDEX:
-                    mCommitsFragment.setFilter(null);
-                    break;
+            if (mViewPager.getCurrentItem() == COMMITS_FRAGMENT_INDEX) {
+                mCommitsFragment.setFilter(null);
             }
             return true;
         }

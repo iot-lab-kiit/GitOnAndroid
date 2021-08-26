@@ -37,9 +37,9 @@ public class FilesListAdapter extends ArrayAdapter<File> {
             convertView = inflater.inflate(R.layout.listitem_files, parent,
                     false);
             holder = new FilesListItemHolder();
-            holder.fileTitle = (TextView) convertView
+            holder.fileTitle = convertView
                     .findViewById(R.id.fileTitle);
-            holder.fileIcon = (ImageView) convertView
+            holder.fileIcon = convertView
                     .findViewById(R.id.fileIcon);
             convertView.setTag(holder);
         } else {
@@ -63,7 +63,7 @@ public class FilesListAdapter extends ArrayAdapter<File> {
 
     public void setDir(File dir) {
         clear();
-        File[] files = null;
+        File[] files;
         if (mFileFilter == null) {
             files = dir.listFiles();
         } else {

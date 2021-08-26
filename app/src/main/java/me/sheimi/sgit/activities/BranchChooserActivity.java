@@ -153,8 +153,8 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
 
         View v = getLayoutInflater().inflate(R.layout.fragment_branches, null);
         mRepo = (Repo) getIntent().getSerializableExtra(Repo.TAG);
-        mBranchTagList = (ListView) v.findViewById(R.id.branches);
-        mLoadding = (ProgressBar) v.findViewById(R.id.loading);
+        mBranchTagList = v.findViewById(R.id.branches);
+        mLoadding = v.findViewById(R.id.loading);
         mAdapter = new BranchTagListAdapter(this);
         mBranchTagList.setAdapter(mAdapter);
         mBranchTagList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -203,7 +203,7 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
         setContentView(v);
     }
 
-    private class BranchTagListAdapter extends ArrayAdapter<String> {
+    private static class BranchTagListAdapter extends ArrayAdapter<String> {
 
         public BranchTagListAdapter(Context context) {
             super(context, 0);
@@ -217,9 +217,9 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
                 convertView = inflater.inflate(
                         R.layout.listitem_dialog_choose_commit, parent, false);
                 holder = new ListItemHolder();
-                holder.commitTitle = (TextView) convertView
+                holder.commitTitle = convertView
                         .findViewById(R.id.commitTitle);
-                holder.commitIcon = (ImageView) convertView
+                holder.commitIcon = convertView
                         .findViewById(R.id.commitIcon);
                 convertView.setTag(holder);
             } else {

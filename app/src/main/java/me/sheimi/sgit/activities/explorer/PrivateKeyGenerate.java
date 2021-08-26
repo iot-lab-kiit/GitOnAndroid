@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.KeyPair;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -25,6 +27,7 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
     private EditText mKeyLength;
     private RadioButton mDSAButton;
 
+    @NotNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -32,11 +35,11 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
 	LayoutInflater inflater = getActivity().getLayoutInflater();
 	View view;
 	view = inflater.inflate(R.layout.dialog_generate_key, null);
-	mNewFilename = (EditText) view.findViewById(R.id.newFilename);
-	mKeyLength = (EditText) view.findViewById(R.id.key_size);
+	mNewFilename = view.findViewById(R.id.newFilename);
+	mKeyLength = view.findViewById(R.id.key_size);
 	mKeyLength.setText("4096");
-	mDSAButton = (RadioButton) view.findViewById(R.id.radio_dsa);
-        RadioButton mRSAButton = (RadioButton) view.findViewById(R.id.radio_rsa);
+	mDSAButton = view.findViewById(R.id.radio_dsa);
+        RadioButton mRSAButton = view.findViewById(R.id.radio_rsa);
 	mRSAButton.setChecked(true);
         builder.setMessage(R.string.label_dialog_generate_key)
 	    .setView(view)

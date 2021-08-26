@@ -33,7 +33,7 @@ public class RepoOperationsAdapter extends ArrayAdapter<DrawerItem>
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.drawer_list_item, parent, false);
         DrawerItemHolder holder = new DrawerItemHolder();
-        holder.name = (TextView) view.findViewById(R.id.name);
+        holder.name = view.findViewById(R.id.name);
         view.setTag(holder);
         return view;
     }
