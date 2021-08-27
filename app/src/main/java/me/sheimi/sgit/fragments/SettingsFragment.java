@@ -31,21 +31,18 @@ public class SettingsFragment extends PreferenceFragment {
         final String gravatarPrefKey = getString(R.string.pref_key_use_gravatar);
         final String useEnglishPrefKey = getString(R.string.pref_key_use_english);
 
-        mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (themePrefKey.equals(key) || useEnglishPrefKey.equals(key)) {
-                    // nice trick to recreate the back stack, to ensure existing activities onCreate() are
-                    // called to set new theme, courtesy of: http://stackoverflow.com/a/28799124/85472
-                    TaskStackBuilder.create(getActivity())
-                            .addNextIntent(new Intent(getActivity(), RepoListActivity.class))
-                            .addNextIntent(getActivity().getIntent())
-                            .startActivities();
-                }
-                else if (gravatarPrefKey.equals(key)) {
-                    BasicFunctions.getImageLoader().clearMemoryCache();
-                    BasicFunctions.getImageLoader().clearDiskCache();
-                }
+        mListener = (sharedPreferences, key) -> {
+            if (themePrefKey.equals(key) || useEnglishPrefKey.equals(key)) {
+                // nice trick to recreate the back stack, to ensure existing activities onCreate() are
+                // called to set new theme, courtesy of: http://stackoverflow.com/a/28799124/85472
+                TaskStackBuilder.create(getActivity())
+                        .addNextIntent(new Intent(getActivity(), RepoListActivity.class))
+                        .addNextIntent(getActivity().getIntent())
+                        .startActivities();
+            }
+            else if (gravatarPrefKey.equals(key)) {
+                BasicFunctions.getImageLoader().clearMemoryCache();
+                BasicFunctions.getImageLoader().clearDiskCache();
             }
         };
     }

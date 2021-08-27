@@ -110,15 +110,11 @@ public class PrivateKeyManageActivity extends FileExplorerActivity implements Ac
 		.setIcon(android.R.drawable.ic_dialog_alert)
 		.setTitle(R.string.dialog_key_delete)
 		.setMessage(getString(R.string.dialog_key_delete_msg) + " " + mChosenFile)
-		.setPositiveButton(R.string.label_delete, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			    FsUtils.deleteFile(mChosenFile);
-			    FsUtils.deleteFile(PrivateKeyUtils.getPublicKey(mChosenFile));
-			    refreshList();
-			}
-
-        		    })
+		.setPositiveButton(R.string.label_delete, (dialog, which) -> {
+            FsUtils.deleteFile(mChosenFile);
+            FsUtils.deleteFile(PrivateKeyUtils.getPublicKey(mChosenFile));
+            refreshList();
+        })
 		.setNegativeButton(R.string.label_cancel, null)
 		.show();
 	    return true;
@@ -151,29 +147,21 @@ public class PrivateKeyManageActivity extends FileExplorerActivity implements Ac
 
     @Override
     protected AdapterView.OnItemClickListener getOnListItemClickListener() {
-        return new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                                    int position, long id) {
-                Intent intent = new Intent(PrivateKeyManageActivity.this, ViewFileActivity.class);
-                intent.putExtra(ViewFileActivity.TAG_FILE_NAME,
-                        PrivateKeyUtils.getPublicKeyEnsure(mFilesListAdapter.getItem(position))
-                                .getAbsolutePath());
-                intent.putExtra(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_SSH_KEY);
-                startActivity(intent);
-            }
+        return (adapterView, view, position, id) -> {
+            Intent intent = new Intent(PrivateKeyManageActivity.this, ViewFileActivity.class);
+            intent.putExtra(ViewFileActivity.TAG_FILE_NAME,
+                    PrivateKeyUtils.getPublicKeyEnsure(mFilesListAdapter.getItem(position))
+                            .getAbsolutePath());
+            intent.putExtra(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_SSH_KEY);
+            startActivity(intent);
         };
     }
 
     @Override
     protected AdapterView.OnItemLongClickListener getOnListItemLongClickListener() {
-        return new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView,
-                    View view, int position, long id) {
-		runActionMode(view, position);
-		return true;
-            }
+        return (adapterView, view, position, id) -> {
+    runActionMode(view, position);
+    return true;
         };
     }
 

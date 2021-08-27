@@ -96,13 +96,10 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
         setupDrawer();
         mCommitNameButton = findViewById(R.id.commitName);
         mCommitType = findViewById(R.id.commitType);
-        mCommitNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-		Intent intent = new Intent(RepoDetailActivity.this, BranchChooserActivity.class);
-		intent.putExtra(Repo.TAG, mRepo);
-		startActivityForResult(intent, BRANCH_CHOOSE_ACTIVITY);
-            }
+        mCommitNameButton.setOnClickListener(view -> {
+    Intent intent = new Intent(RepoDetailActivity.this, BranchChooserActivity.class);
+    intent.putExtra(Repo.TAG, mRepo);
+    startActivityForResult(intent, BRANCH_CHOOSE_ACTIVITY);
         });
         String branchName = mRepo.getBranchName();
         if (branchName == null) {

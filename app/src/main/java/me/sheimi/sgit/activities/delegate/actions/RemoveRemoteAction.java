@@ -73,19 +73,15 @@ public class RemoveRemoteAction extends RepoAction {
             mAdapter.addAll(remotes);
             mRemoteList.setAdapter(mAdapter);
 
-            mRemoteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    String remote = mAdapter.getItem(position);
-                    try {
-                        removeRemote(mRepo, mActivity, remote);
-                    } catch (IOException e) {
-                        Timber.e(e);
-                        mActivity.showMessageDialog(R.string.dialog_error_title, getString(R.string.error_something_wrong));
-                    }
-                    dismiss();
+            mRemoteList.setOnItemClickListener((parent, view, position, id) -> {
+                String remote = mAdapter.getItem(position);
+                try {
+                    removeRemote(mRepo, mActivity, remote);
+                } catch (IOException e) {
+                    Timber.e(e);
+                    mActivity.showMessageDialog(R.string.dialog_error_title, getString(R.string.error_something_wrong));
                 }
+                dismiss();
             });
 
             builder.setTitle(R.string.dialog_remove_remote_title)

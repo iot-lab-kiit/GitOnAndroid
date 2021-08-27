@@ -1,15 +1,18 @@
 package me.sheimi.sgit.repo.tasks;
 
-import android.os.AsyncTask;
 import androidx.annotation.StringRes;
 
 import me.sheimi.sgit.R;
 import timber.log.Timber;
 
-public abstract class SheimiAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
+public abstract class SheimiAsyncTask<A, B, C> extends CoroutinesAsyncTask<A, B, C> {
 
     protected Throwable mException;
     protected int mErrorRes = 0;
+
+    public SheimiAsyncTask() {
+        super("task-"+System.currentTimeMillis());
+    }
 
     protected void setException(Throwable e) {
         Timber.e(e, "set exception");
@@ -61,4 +64,5 @@ public abstract class SheimiAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
 
         void onPostExecute(Boolean isSuccess);
     }
+
 }

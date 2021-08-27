@@ -118,16 +118,13 @@ public class ViewFileFragment extends BaseFragment {
 
         @JavascriptInterface()
         public void loadCode() {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        mCode = FileUtils.readFileToString(mFile);
-                    } catch (IOException e) {
-                        showUserError(e);
-                    }
-                    display();
+            Thread thread = new Thread(() -> {
+                try {
+                    mCode = FileUtils.readFileToString(mFile);
+                } catch (IOException e) {
+                    showUserError(e);
                 }
+                display();
             });
             thread.start();
         }
@@ -138,21 +135,18 @@ public class ViewFileFragment extends BaseFragment {
         }
 
         private void display() {
-            requireActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String lang;
-                    if (mActivityMode == ViewFileActivity.TAG_MODE_SSH_KEY) {
-                        lang = null;
-                    } else {
-                        lang = CodeGuesser.guessCodeType(mFile.getName());
-                    }
-                    String js = String.format("setLang('%s')", lang);
-                    mFileContent.loadUrl(CodeGuesser.wrapUrlScript(js));
-                    mLoading.setVisibility(View.INVISIBLE);
-                    mFileContent.loadUrl(CodeGuesser
-                            .wrapUrlScript("display();"));
+            requireActivity().runOnUiThread(() -> {
+                String lang;
+                if (mActivityMode == ViewFileActivity.TAG_MODE_SSH_KEY) {
+                    lang = null;
+                } else {
+                    lang = CodeGuesser.guessCodeType(mFile.getName());
                 }
+                String js = String.format("setLang('%s')", lang);
+                mFileContent.loadUrl(CodeGuesser.wrapUrlScript(js));
+                mLoading.setVisibility(View.INVISIBLE);
+                mFileContent.loadUrl(CodeGuesser
+                        .wrapUrlScript("display();"));
             });
         }
     }
@@ -163,23 +157,13 @@ public class ViewFileFragment extends BaseFragment {
 
     @Override
     public SheimiFragmentActivity.OnBackClickListener getOnBackClickListener() {
-        return new SheimiFragmentActivity.OnBackClickListener() {
-            @Override
-            public boolean onClick() {
-                return false;
-            }
-        };
+        return () -> false;
     }
 
 
     private void showUserError(Throwable e) {
         Timber.e(e);
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((SheimiFragmentActivity) requireActivity()).
-                    showMessageDialog(R.string.dialog_error_title, getString(R.string.error_can_not_open_file));
-            }
-        });
+        requireActivity().runOnUiThread(() -> ((SheimiFragmentActivity) requireActivity()).
+            showMessageDialog(R.string.dialog_error_title, getString(R.string.error_can_not_open_file)));
     }
 }

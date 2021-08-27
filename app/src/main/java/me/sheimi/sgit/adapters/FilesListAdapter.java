@@ -73,16 +73,13 @@ public class FilesListAdapter extends ArrayAdapter<File> {
         if (files == null) {
             files = new File[0];
         }
-        Arrays.sort(files, new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                // if file1 and file2 are the same type (dir or file)
-                if ((!file1.isDirectory() && !file2.isDirectory() || (file1
-                        .isDirectory() && file2.isDirectory()))) {
-                    return file1.toString().compareTo(file2.toString());
-                }
-                return file1.isDirectory() ? -1 : 1;
+        Arrays.sort(files, (file1, file2) -> {
+            // if file1 and file2 are the same type (dir or file)
+            if ((!file1.isDirectory() && !file2.isDirectory() || (file1
+                    .isDirectory() && file2.isDirectory()))) {
+                return file1.toString().compareTo(file2.toString());
             }
+            return file1.isDirectory() ? -1 : 1;
         });
         addAll(files);
         notifyDataSetChanged();

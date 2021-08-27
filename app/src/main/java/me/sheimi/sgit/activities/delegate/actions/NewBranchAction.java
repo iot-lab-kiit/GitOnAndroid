@@ -19,14 +19,11 @@ public class NewBranchAction extends RepoAction {
     public void execute() {
         mActivity.showEditTextDialog(R.string.dialog_create_branch_title,
                 R.string.dialog_create_branch_hint,R.string.label_create,
-                new SheimiFragmentActivity.OnEditTextDialogClicked() {
-                    @Override
-                    public void onClicked(String branchName) {
-                        CheckoutTask checkoutTask = new CheckoutTask(mRepo, null, branchName,
-                                new ActivityResetPostCallback(branchName));
-                        checkoutTask.executeTask();
-                    }
-                });
+            branchName -> {
+                CheckoutTask checkoutTask = new CheckoutTask(mRepo, null, branchName,
+                        new ActivityResetPostCallback(branchName));
+                checkoutTask.executeTask();
+            });
         mActivity.closeOperationDrawer();
     }
 

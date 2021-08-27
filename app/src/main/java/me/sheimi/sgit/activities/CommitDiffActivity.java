@@ -112,16 +112,14 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
         shareIntent.setData(futurePathName);
         shareIntent.setType("text/x-patch");
 
-        shareActionProvider.setOnShareTargetSelectedListener(new ShareActionProvider.OnShareTargetSelectedListener () {
-            public boolean onShareTargetSelected(ShareActionProvider source, Intent intent) {
-                try {
-                    File diff = sharedDiffPathName();
-                    saveDiff(new FileOutputStream(diff));
-                } catch (IOException e) {
-                    showToastMessage(R.string.alert_file_creation_failure);
-                }
-                return false;
+        shareActionProvider.setOnShareTargetSelectedListener((source, intent) -> {
+            try {
+                File diff = sharedDiffPathName();
+                saveDiff(new FileOutputStream(diff));
+            } catch (IOException e) {
+                showToastMessage(R.string.alert_file_creation_failure);
             }
+            return false;
         });
 
         shareActionProvider.setShareIntent(shareIntent);
@@ -245,17 +243,13 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
         public void getDiffEntries() {
             String oldCommit = mOldCommit != null ? mOldCommit : (mNewCommit + "^");
             CommitDiffTask diffTask = new CommitDiffTask(mRepo, oldCommit,
-                    mNewCommit, new CommitDiffResult() {
-                @Override
-                public void pushResult(List<DiffEntry> diffEntries,
-                                       List<String> diffStrs, RevCommit commit) {
-                    mDiffEntries = diffEntries;
-                    mDiffStrs = diffStrs;
-                    mCommit = commit;
-                    mLoading.setVisibility(View.GONE);
-                    mDiffContent.loadUrl(CodeGuesser.wrapUrlScript("notifyEntriesReady();"));
-                }
-            }, mShowDescription);
+                    mNewCommit, (diffEntries, diffStrs, commit) -> {
+                        mDiffEntries = diffEntries;
+                        mDiffStrs = diffStrs;
+                        mCommit = commit;
+                        mLoading.setVisibility(View.GONE);
+                        mDiffContent.loadUrl(CodeGuesser.wrapUrlScript("notifyEntriesReady();"));
+                    }, mShowDescription);
             diffTask.executeTask();
         }
 

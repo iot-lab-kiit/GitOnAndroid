@@ -124,29 +124,14 @@ public class SheimiFragmentActivity extends AppCompatActivity {
 
         showMessageDialog(R.string.dialog_privacy_title, getString(R.string.dialog_privacy_message),
             R.string.dialog_privacy_ok_button, R.string.dialog_privacy_close_button,
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    prefHelper.setPrivacyAccepted();
-                }
-            },
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    activity.finish();
-                }
-            });
+            (dialogInterface, i) -> prefHelper.setPrivacyAccepted(),
+            (dialogInterface, i) -> activity.finish());
     }
 
     /* View Utils Start */
     public void showToastMessage(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(SheimiFragmentActivity.this, msg,
-                        Toast.LENGTH_LONG).show();
-            }
-        });
+        runOnUiThread(() -> Toast.makeText(SheimiFragmentActivity.this, msg,
+                Toast.LENGTH_LONG).show());
     }
 
     public void showToastMessage(int resId) {
@@ -191,12 +176,7 @@ public class SheimiFragmentActivity extends AppCompatActivity {
                                   final onOptionDialogClicked[] option_listeners) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
-        builder.setItems(option_values,new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                option_listeners[which].onClicked();
-            }
-        }).create().show();
+        builder.setItems(option_values, (dialog, which) -> option_listeners[which].onClicked()).create().show();
     }
 
     public void showEditTextDialog(int title, int hint, int positiveBtn,
@@ -209,18 +189,14 @@ public class SheimiFragmentActivity extends AppCompatActivity {
         builder.setTitle(title)
                 .setView(layout)
                 .setPositiveButton(positiveBtn,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(
-                                    DialogInterface dialogInterface, int i) {
-                                String text = editText.getText().toString();
-                                if (text == null || text.trim().isEmpty()) {
-                                    showToastMessage(R.string.alert_you_should_input_something);
-                                    return;
-                                }
-                                positiveListener.onClicked(text);
-                            }
-                        })
+                    (dialogInterface, i) -> {
+                        String text = editText.getText().toString();
+                        if (text == null || text.trim().isEmpty()) {
+                            showToastMessage(R.string.alert_you_should_input_something);
+                            return;
+                        }
+                        positiveListener.onClicked(text);
+                    })
                 .setNegativeButton(R.string.label_cancel,
                         new DummyDialogListener()).show();
     }
@@ -232,12 +208,7 @@ public class SheimiFragmentActivity extends AppCompatActivity {
 
     public void promptForPassword(final OnPasswordEntered onPasswordEntered,
             final String errorInfo) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                promptForPasswordInner(onPasswordEntered, errorInfo);
-            }
-        });
+        runOnUiThread(() -> promptForPasswordInner(onPasswordEntered, errorInfo));
     }
 
     private void promptForPasswordInner(
@@ -256,23 +227,11 @@ public class SheimiFragmentActivity extends AppCompatActivity {
         builder.setTitle(errorInfo)
                 .setView(layout)
                 .setPositiveButton(R.string.label_done,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                onPasswordEntered.onClicked(username.getText()
-                                        .toString(), password.getText()
-                                        .toString(), checkBox.isChecked());
-
-                            }
-                        })
+                    (dialogInterface, i) -> onPasswordEntered.onClicked(username.getText()
+                            .toString(), password.getText()
+                            .toString(), checkBox.isChecked()))
                 .setNegativeButton(R.string.label_cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(
-                                    DialogInterface dialogInterface, int i) {
-                                onPasswordEntered.onCanceled();
-                            }
-                        }).show();
+                    (dialogInterface, i) -> onPasswordEntered.onCanceled()).show();
     }
 
     public interface onOptionDialogClicked {

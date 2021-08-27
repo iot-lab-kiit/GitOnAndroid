@@ -272,20 +272,16 @@ public class CommitsListAdapter extends BaseAdapter {
     public void resetCommit() {
         clear();
         GetCommitTask getCommitTask = new GetCommitTask(mRepo, mFile,
-                new GetCommitCallback() {
-
-                    @Override
-                    public void postCommits(List<RevCommit> commits) {
-                        if (commits != null) {
-                            // TODO why == null
-                            synchronized (mProgressLock) {
-                                stopFiltering();
-                                mAll = new ArrayList<>(commits);
-                                doFiltering();
-                            }
-                        }
+            commits -> {
+                if (commits != null) {
+                    // TODO why == null
+                    synchronized (mProgressLock) {
+                        stopFiltering();
+                        mAll = new ArrayList<>(commits);
+                        doFiltering();
                     }
-                });
+                }
+            });
         getCommitTask.executeTask();
     }
 

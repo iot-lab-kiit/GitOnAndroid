@@ -51,18 +51,8 @@ public class StatusFragment extends RepoDetailFragment {
         mStatus = v.findViewById(R.id.status);
         Button mStagedDiff = v.findViewById(R.id.button_staged_diff);
         Button mUnstagedDiff = v.findViewById(R.id.button_unstaged_diff);
-        mStagedDiff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDiff("HEAD", "dircache");
-            }
-        });
-        mUnstagedDiff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDiff("dircache", "filetree");
-            }
-        });
+        mStagedDiff.setOnClickListener(v12 -> showDiff("HEAD", "dircache"));
+        mUnstagedDiff.setOnClickListener(v1 -> showDiff("dircache", "filetree"));
         reset();
         return v;
     }
@@ -83,13 +73,10 @@ public class StatusFragment extends RepoDetailFragment {
             return;
         mLoadding.setVisibility(View.VISIBLE);
         mStatus.setVisibility(View.GONE);
-        StatusTask task = new StatusTask(mRepo, new GetStatusCallback() {
-            @Override
-            public void postStatus(String result) {
-                mStatus.setText(result);
-                mLoadding.setVisibility(View.GONE);
-                mStatus.setVisibility(View.VISIBLE);
-            }
+        StatusTask task = new StatusTask(mRepo, result -> {
+            mStatus.setText(result);
+            mLoadding.setVisibility(View.GONE);
+            mStatus.setVisibility(View.VISIBLE);
         });
         task.executeTask();
     }

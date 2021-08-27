@@ -43,16 +43,10 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
 	mRSAButton.setChecked(true);
         builder.setMessage(R.string.label_dialog_generate_key)
 	    .setView(view)
-	    .setPositiveButton(R.string.label_generate_key, new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			generateKey();
-		    }
-		})
-	    .setNegativeButton(R.string.label_cancel, new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			// Nothing to do
-		    }
-		});
+	    .setPositiveButton(R.string.label_generate_key, (dialog, id) -> generateKey())
+	    .setNegativeButton(R.string.label_cancel, (dialog, id) -> {
+        // Nothing to do
+        });
         return builder.create();
     }
 

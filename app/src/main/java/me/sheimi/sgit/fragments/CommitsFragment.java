@@ -89,29 +89,21 @@ public class CommitsFragment extends BaseFragment implements
         mCommitsList.setAdapter(mCommitsListAdapter);
 
         mCommitsList
-                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView,
-                            View view, int position, long id) {
-                        if (mActionMode == null) {
-                            RevCommit newCommit = mCommitsListAdapter.getItem(position);
-                            showDiff(null, null, newCommit.getName(), true);
-                            return;
-                        }
-                        chooseItem(position);
+                .setOnItemClickListener((adapterView, view, position, id) -> {
+                    if (mActionMode == null) {
+                        RevCommit newCommit = mCommitsListAdapter.getItem(position);
+                        showDiff(null, null, newCommit.getName(), true);
+                        return;
                     }
+                    chooseItem(position);
                 });
         mCommitsList
-                .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView,
-                            View view, int position, long l) {
-			if (mActionMode == null) {
-                            enterDiffActionMode();
-                        }
-			chooseItem(position);
-                        return true;
+                .setOnItemLongClickListener((adapterView, view, position, l) -> {
+        if (mActionMode == null) {
+                        enterDiffActionMode();
                     }
+        chooseItem(position);
+                    return true;
                 });
         reset();
         return v;

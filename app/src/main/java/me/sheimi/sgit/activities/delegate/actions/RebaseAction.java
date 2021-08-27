@@ -40,12 +40,7 @@ public class RebaseAction extends RepoAction {
     private static void rebase(Repo repo, String branch,
             final RepoDetailActivity activity) {
         RebaseTask rebaseTask = new RebaseTask(repo, branch,
-                new AsyncTaskPostCallback() {
-                    @Override
-                    public void onPostExecute(Boolean isSuccess) {
-                        activity.reset();
-                    }
-                });
+            isSuccess -> activity.reset());
         rebaseTask.executeTask();
     }
 
@@ -83,14 +78,10 @@ public class RebaseAction extends RepoAction {
 
             builder.setTitle(R.string.dialog_rebase_title);
             mBranchTagList
-                    .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView,
-                                View view, int position, long id) {
-                            String commit = mAdapter.getItem(position);
-                            rebase(mRepo, commit, mActivity);
-                            getDialog().cancel();
-                        }
+                    .setOnItemClickListener((adapterView, view, position, id) -> {
+                        String commit = mAdapter.getItem(position);
+                        rebase(mRepo, commit, mActivity);
+                        getDialog().cancel();
                     });
 
             return builder.create();

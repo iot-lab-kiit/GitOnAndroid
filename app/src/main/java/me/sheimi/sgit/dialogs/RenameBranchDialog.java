@@ -137,13 +137,8 @@ public class RenameBranchDialog extends DialogFragment implements
 	    fail = true;
 	}
 	if (fail) {
-	    mActivity.runOnUiThread(new Runnable() {
-		    @Override
-		    public void run() {
-			Toast.makeText(mActivity, "can't rename " + mFromCommit,
-				       Toast.LENGTH_LONG).show();
-		    }
-		});
+	    mActivity.runOnUiThread(() -> Toast.makeText(mActivity, "can't rename " + mFromCommit,
+                   Toast.LENGTH_LONG).show());
 	}
 
 	mActivity.refreshList();

@@ -66,59 +66,48 @@ public class FilesFragment extends RepoDetailFragment {
         ListView mFilesList = v.findViewById(R.id.filesList);
 
         mFilesListAdapter = new FilesListAdapter(getActivity(),
-                new FileFilter() {
-                    @Override
-                    public boolean accept(File file) {
-                        String name = file.getName();
-                        return !name.equals(".git");
-                    }
-                });
+            file -> {
+                String name = file.getName();
+                return !name.equals(".git");
+            });
         mFilesList.setAdapter(mFilesListAdapter);
 
         mFilesList
-                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView,
-                            View view, int position, long id) {
-                        File file = mFilesListAdapter.getItem(position);
-                        if (file.isDirectory()) {
-                            setCurrentDir(file);
-                            return;
-                        }
-                        String mime = FsUtils.getMimeType(file);
-                        if (FsUtils.isTextMimeType(mime)) {
-                            Intent intent = new Intent(getActivity(),
-                                    ViewFileActivity.class);
-                            intent.putExtra(ViewFileActivity.TAG_FILE_NAME,
-                                    file.getAbsolutePath());
-                            intent.putExtra(Repo.TAG, mRepo);
-                            getRawActivity().startActivity(intent);
-                            return;
-                        }
-                        try {
-                            FsUtils.openFile(((SheimiFragmentActivity) getActivity()), file);
-                        } catch (ActivityNotFoundException e) {
-                            Timber.e(e);
-                            ((SheimiFragmentActivity)getActivity()).showMessageDialog(R.string.dialog_error_title,
-                                getString(R.string.error_can_not_open_file));
-                        }
+                .setOnItemClickListener((adapterView, view, position, id) -> {
+                    File file = mFilesListAdapter.getItem(position);
+                    if (file.isDirectory()) {
+                        setCurrentDir(file);
+                        return;
+                    }
+                    String mime = FsUtils.getMimeType(file);
+                    if (FsUtils.isTextMimeType(mime)) {
+                        Intent intent = new Intent(getActivity(),
+                                ViewFileActivity.class);
+                        intent.putExtra(ViewFileActivity.TAG_FILE_NAME,
+                                file.getAbsolutePath());
+                        intent.putExtra(Repo.TAG, mRepo);
+                        getRawActivity().startActivity(intent);
+                        return;
+                    }
+                    try {
+                        FsUtils.openFile(((SheimiFragmentActivity) getActivity()), file);
+                    } catch (ActivityNotFoundException e) {
+                        Timber.e(e);
+                        ((SheimiFragmentActivity)getActivity()).showMessageDialog(R.string.dialog_error_title,
+                            getString(R.string.error_can_not_open_file));
                     }
                 });
 
         mFilesList
-                .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView,
-                            View view, int position, long id) {
-                        File file = mFilesListAdapter.getItem(position);
-                        RepoFileOperationDialog dialog = new RepoFileOperationDialog();
-                        Bundle args = new Bundle();
-                        args.putString(RepoFileOperationDialog.FILE_PATH,
-                                file.getAbsolutePath());
-                        dialog.setArguments(args);
-                        dialog.show(getFragmentManager(), "repo-file-op-dialog");
-                        return true;
-                    }
+                .setOnItemLongClickListener((adapterView, view, position, id) -> {
+                    File file = mFilesListAdapter.getItem(position);
+                    RepoFileOperationDialog dialog = new RepoFileOperationDialog();
+                    Bundle args = new Bundle();
+                    args.putString(RepoFileOperationDialog.FILE_PATH,
+                            file.getAbsolutePath());
+                    dialog.setArguments(args);
+                    dialog.show(getFragmentManager(), "repo-file-op-dialog");
+                    return true;
                 });
 
         if (savedInstanceState != null) {
@@ -194,17 +183,14 @@ public class FilesFragment extends RepoDetailFragment {
 
     @Override
     public OnBackClickListener getOnBackClickListener() {
-        return new OnBackClickListener() {
-            @Override
-            public boolean onClick() {
-                if (mRootDir == null || mCurrentDir == null)
-                    return false;
-                if (mRootDir.equals(mCurrentDir))
-                    return false;
-                File parent = mCurrentDir.getParentFile();
-                setCurrentDir(parent);
-                return true;
-            }
+        return () -> {
+            if (mRootDir == null || mCurrentDir == null)
+                return false;
+            if (mRootDir.equals(mCurrentDir))
+                return false;
+            File parent = mCurrentDir.getParentFile();
+            setCurrentDir(parent);
+            return true;
         };
     }
 }

@@ -80,17 +80,13 @@ public class MergeAction extends RepoAction {
 
             builder.setTitle(R.string.dialog_merge_title);
             mBranchTagList
-                    .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView,
-                                View view, int position, long id) {
-                            Ref commit = mAdapter.getItem(position);
-                            String mFFString = mSpinner.getSelectedItem()
-                                    .toString();
-                            mActivity.getRepoDelegate().mergeBranch(commit,
-                                    mFFString, mCheckbox.isChecked());
-                            getDialog().cancel();
-                        }
+                    .setOnItemClickListener((adapterView, view, position, id) -> {
+                        Ref commit = mAdapter.getItem(position);
+                        String mFFString = mSpinner.getSelectedItem()
+                                .toString();
+                        mActivity.getRepoDelegate().mergeBranch(commit,
+                                mFFString, mCheckbox.isChecked());
+                        getDialog().cancel();
                     });
 
             return builder.create();

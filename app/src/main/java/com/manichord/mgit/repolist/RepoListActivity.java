@@ -2,6 +2,8 @@ package com.manichord.mgit.repolist;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -63,22 +65,19 @@ public class RepoListActivity extends SheimiFragmentActivity {
         checkAndRequestRequiredPermissions();
 
         enforcePrivacy(this);
-
-        RepoListViewModel viewModel = ViewModelProviders.of(this).get(RepoListViewModel.class);
-        CloneViewModel cloneViewModel = ViewModelProviders.of(this).get(CloneViewModel.class);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(this);
+        RepoListViewModel viewModel = viewModelProvider.get(RepoListViewModel.class);
+        CloneViewModel cloneViewModel = viewModelProvider.get(CloneViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
         binding.setCloneViewModel(cloneViewModel);
         binding.setViewModel(viewModel);
-        binding.setClickHandler(new OnActionClickListener() {
-            @Override
-            public void onActionClick(@NotNull String action) {
-                if (ClickActions.CLONE.name().equals(action)) {
-                    cloneRepo();
-                } else {
-                    hideCloneView();
-                }
+        binding.setClickHandler(action -> {
+            if (ClickActions.CLONE.name().equals(action)) {
+                cloneRepo();
+            } else {
+                hideCloneView();
             }
         });
 
@@ -150,19 +149,19 @@ public class RepoListActivity extends SheimiFragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_new:
-                showCloneView();
-                return true;
-            case R.id.action_import_repo:
-                intent = new Intent(this, ImportRepositoryActivity.class);
-                startActivityForResult(intent, REQUEST_IMPORT_REPO);
-                forwardTransition();
-                return true;
-            case R.id.action_settings:
-                intent = new Intent(this, UserSettingsActivity.class);
-                startActivity(intent);
-                return true;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_new) {
+            showCloneView();
+            return true;
+        } else if (itemId == R.id.action_import_repo) {
+            intent = new Intent(this, ImportRepositoryActivity.class);
+            startActivityForResult(intent, REQUEST_IMPORT_REPO);
+            forwardTransition();
+            return true;
+        } else if (itemId == R.id.action_settings) {
+            intent = new Intent(this, UserSettingsActivity.class);
+            startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -198,16 +197,12 @@ public class RepoListActivity extends SheimiFragmentActivity {
             builder.setNegativeButton(R.string.label_cancel,
                 new DummyDialogListener());
             builder.setPositiveButton(R.string.label_import,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(
-                        DialogInterface dialogInterface, int i) {
-                        Bundle args = new Bundle();
-                        args.putString(ImportLocalRepoDialog.FROM_PATH, path);
-                        ImportLocalRepoDialog rld = new ImportLocalRepoDialog();
-                        rld.setArguments(args);
-                        rld.show(getSupportFragmentManager(), "import-local-dialog");
-                    }
+                (dialogInterface, i) -> {
+                    Bundle args = new Bundle();
+                    args.putString(ImportLocalRepoDialog.FROM_PATH, path);
+                    ImportLocalRepoDialog rld = new ImportLocalRepoDialog();
+                    rld.setArguments(args);
+                    rld.show(getSupportFragmentManager(), "import-local-dialog");
                 });
             builder.show();
         }

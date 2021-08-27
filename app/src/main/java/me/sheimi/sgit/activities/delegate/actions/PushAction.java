@@ -80,17 +80,12 @@ public class PushAction extends RepoAction {
             mAdapter.addAll(remotes);
             mRemoteList.setAdapter(mAdapter);
 
-            mRemoteList.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                        int position, long id) {
-                    String remote = mAdapter.getItem(position);
-                    boolean isPushAll = mPushAll.isChecked();
-                    boolean isForcePush = mForcePush.isChecked();
-                    push(mRepo, mActivity, remote, isPushAll, isForcePush);
-                    dismiss();
-                }
+            mRemoteList.setOnItemClickListener((parent, view, position, id) -> {
+                String remote = mAdapter.getItem(position);
+                boolean isPushAll = mPushAll.isChecked();
+                boolean isForcePush = mForcePush.isChecked();
+                push(mRepo, mActivity, remote, isPushAll, isForcePush);
+                dismiss();
             });
 
             builder.setTitle(R.string.dialog_push_repo_title)

@@ -79,35 +79,20 @@ public class RepoOperationDelegate {
 
     public void checkoutCommit(final String commitName) {
         CheckoutTask checkoutTask = new CheckoutTask(mRepo, commitName,
-                null, new AsyncTaskPostCallback() {
-                    @Override
-                    public void onPostExecute(Boolean isSuccess) {
-                        mActivity.reset(commitName);
-                    }
-                });
+                null, isSuccess -> mActivity.reset(commitName));
         checkoutTask.executeTask();
     }
 
     public void checkoutCommit(final String commitName, final String branch) {
         CheckoutTask checkoutTask = new CheckoutTask(mRepo, commitName, branch,
-                new AsyncTaskPostCallback() {
-                    @Override
-                    public void onPostExecute(Boolean isSuccess) {
-                        mActivity.reset(branch);
-                    }
-                });
+            isSuccess -> mActivity.reset(branch));
         checkoutTask.executeTask();
     }
 
     public void mergeBranch(final Ref commit, final String ffModeStr,
             final boolean autoCommit) {
         MergeTask mergeTask = new MergeTask(mRepo, commit, ffModeStr,
-                autoCommit, new AsyncTaskPostCallback() {
-                    @Override
-                    public void onPostExecute(Boolean isSuccess) {
-                        mActivity.reset();
-                    }
-                });
+                autoCommit, isSuccess -> mActivity.reset());
         mergeTask.executeTask();
     }
 
@@ -126,12 +111,9 @@ public class RepoOperationDelegate {
     public void deleteFileFromRepo(String filepath,DeleteOperationType deleteOperationType) {
         String relative = getRelativePath(filepath);
         DeleteFileFromRepoTask task = new DeleteFileFromRepoTask(mRepo,
-                relative,deleteOperationType, new AsyncTaskPostCallback() {
-                    @Override
-                    public void onPostExecute(Boolean isSuccess) {
-                        // TODO Auto-generated method stub
-                        mActivity.getFilesFragment().reset();
-                    }
+                relative,deleteOperationType, isSuccess -> {
+                    // TODO Auto-generated method stub
+                    mActivity.getFilesFragment().reset();
                 });
         task.executeTask();
     }

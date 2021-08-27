@@ -32,15 +32,11 @@ public class ChooseLanguageDialog extends SheimiDialogFragment {
 
         builder.setTitle(R.string.dialog_choose_language_title);
         builder.setItems(langs.toArray(new String[0]),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface,
-                            int position) {
-                        String lang = langs.get(position);
-                        String tag = CodeGuesser.getLanguageTag(lang);
-                        mActivity.setLanguage(tag);
-                    }
-                });
+            (dialogInterface, position) -> {
+                String lang = langs.get(position);
+                String tag = CodeGuesser.getLanguageTag(lang);
+                mActivity.setLanguage(tag);
+            });
 
         return builder.create();
     }

@@ -263,12 +263,7 @@ public class Repo implements Comparable<Repo>, Serializable {
     }
 
     public void deleteRepo() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                deleteRepoSync();
-            }
-        });
+        Thread thread = new Thread(() -> deleteRepoSync());
         thread.start();
     }
 

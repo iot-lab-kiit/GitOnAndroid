@@ -26,12 +26,7 @@ public class ImportRepositoryActivity extends FileExplorerActivity {
 
     @Override
     protected FileFilter getExplorerFileFilter() {
-        return new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                return file.isDirectory();
-            }
-        };
+        return file -> file.isDirectory();
     }
 
     @Override
@@ -53,14 +48,7 @@ public class ImportRepositoryActivity extends FileExplorerActivity {
                 showMessageDialog(R.string.dialog_create_external_title,
                         R.string.dialog_create_external_msg,
                         R.string.dialog_create_external_positive_label,
-                        new OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
-                                createExternalGitRepo();
-                            }
-                        });
+                    (dialog, which) -> createExternalGitRepo());
                 return true;
             case R.id.action_import_external:
                 Intent intent = new Intent();
@@ -74,15 +62,11 @@ public class ImportRepositoryActivity extends FileExplorerActivity {
 
     @Override
     protected AdapterView.OnItemClickListener getOnListItemClickListener() {
-        return new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                    int position, long id) {
-                File file = mFilesListAdapter.getItem(position);
-                if (file.isDirectory()) {
-                    setCurrentDir(file);
-                    return;
-                }
+        return (adapterView, view, position, id) -> {
+            File file = mFilesListAdapter.getItem(position);
+            if (file.isDirectory()) {
+                setCurrentDir(file);
+                return;
             }
         };
     }

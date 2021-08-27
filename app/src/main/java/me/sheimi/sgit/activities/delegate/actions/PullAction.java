@@ -78,16 +78,11 @@ public class PullAction extends RepoAction {
             mAdapter.addAll(remotes);
             mRemoteList.setAdapter(mAdapter);
 
-            mRemoteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                        int position, long id) {
-                    String remote = mAdapter.getItem(position);
-                    boolean isForcePull = mForcePull.isChecked();
-                    pull(mRepo, mActivity, remote, isForcePull);
-                    dismiss();
-                }
+            mRemoteList.setOnItemClickListener((parent, view, position, id) -> {
+                String remote = mAdapter.getItem(position);
+                boolean isForcePull = mForcePull.isChecked();
+                pull(mRepo, mActivity, remote, isForcePull);
+                dismiss();
             });
 
             builder.setTitle(R.string.dialog_pull_repo_title)

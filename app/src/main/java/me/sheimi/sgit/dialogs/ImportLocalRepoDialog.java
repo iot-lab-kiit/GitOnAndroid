@@ -63,18 +63,14 @@ public class ImportLocalRepoDialog extends SheimiDialogFragment implements
         mLocalPath.setText(mFile.getName());
         mImportAsExternal = view.findViewById(R.id.importAsExternal);
         mImportAsExternal
-                .setOnCheckedChangeListener(new OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,
-                            boolean isChecked) {
-                        if (isChecked) {
-                            mLocalPath.setText(Repo.EXTERNAL_PREFIX
-                                    + mFile.getAbsolutePath());
-                        } else {
-                            mLocalPath.setText(mFile.getName());
-                        }
-                        mLocalPath.setEnabled(isChecked);
+                .setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        mLocalPath.setText(Repo.EXTERNAL_PREFIX
+                                + mFile.getAbsolutePath());
+                    } else {
+                        mLocalPath.setText(mFile.getName());
                     }
+                    mLocalPath.setEnabled(isChecked);
                 });
 
         // set button listener
@@ -129,17 +125,9 @@ public class ImportLocalRepoDialog extends SheimiDialogFragment implements
             return;
         }
         final File repoFile = Repo.getDir(mPrefsHelper, localPath);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FsUtils.copyDirectory(mFile, repoFile);
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateRepoInformation(repo);
-                    }
-                });
-            }
+        Thread thread = new Thread(() -> {
+            FsUtils.copyDirectory(mFile, repoFile);
+            mActivity.runOnUiThread(() -> updateRepoInformation(repo));
         });
         thread.start();
         dismiss();

@@ -53,13 +53,10 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
         mUpDirIcon.setImageResource(Profile.getStyledResource(this, R.attr.ic_folder_fl));
 
         mUpDir = findViewById(R.id.upDir);
-        mUpDir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File parent = mCurrentDir.getParentFile();
-                if (parent != null) {
-                    setCurrentDir(parent);
-                }
+        mUpDir.setOnClickListener(v -> {
+            File parent = mCurrentDir.getParentFile();
+            if (parent != null) {
+                setCurrentDir(parent);
             }
         });
 

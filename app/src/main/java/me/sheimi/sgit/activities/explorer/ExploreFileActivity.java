@@ -18,31 +18,24 @@ public class ExploreFileActivity extends FileExplorerActivity {
 
     @Override
     protected FileFilter getExplorerFileFilter() {
-        return new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                String filename = file.getName();
-                return !filename.startsWith(".");
-            }
+        return file -> {
+            String filename = file.getName();
+            return !filename.startsWith(".");
         };
     }
 
     @Override
     protected AdapterView.OnItemClickListener getOnListItemClickListener() {
-        return new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                    int position, long id) {
-                File file = mFilesListAdapter.getItem(position);
-                if (file.isDirectory()) {
-                    setCurrentDir(file);
-                    return;
-                }
-                Intent intent = new Intent();
-                intent.putExtra(RESULT_PATH, file.getAbsolutePath());
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+        return (adapterView, view, position, id) -> {
+            File file = mFilesListAdapter.getItem(position);
+            if (file.isDirectory()) {
+                setCurrentDir(file);
+                return;
             }
+            Intent intent = new Intent();
+            intent.putExtra(RESULT_PATH, file.getAbsolutePath());
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         };
     }
 

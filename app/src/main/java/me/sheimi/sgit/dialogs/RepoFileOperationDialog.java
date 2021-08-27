@@ -44,37 +44,35 @@ public class RepoFileOperationDialog extends SheimiDialogFragment {
 
         builder.setTitle(R.string.dialog_title_you_want_to).setItems(
             R.array.repo_file_operations,
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case ADD_TO_STAGE: // Add to stage
-                            mActivity.getRepoDelegate().addToStage(
-                                mFilePath);
-                            break;
-                        case CHECKOUT_FILE:
-                            mActivity.getRepoDelegate().checkoutFile(mFilePath);
-                            break;
-                        case DELETE:
-                            showRemoveFileMessageDialog(R.string.dialog_file_delete,
-                                R.string.dialog_file_delete_msg,
-                                DeleteOperationType.DELETE);
-                            break;
-                        case REMOVE_CACHED:
-                            showRemoveFileMessageDialog(R.string.dialog_file_remove_cached,
-                                R.string.dialog_file_remove_cached_msg,
-                                DeleteOperationType.REMOVE_CACHED);
-                            break;
-                        case REMOVE_FORCE:
-                            showRemoveFileMessageDialog(R.string.dialog_file_remove_force,
-                                R.string.dialog_file_remove_force_msg,
-                                DeleteOperationType.REMOVE_FORCE);
-                            break;
-                        case MAKE_EXECUTABLE:
-                        case MAKE_NOT_EXECUTABLE:
-                            final boolean newExecutableState = which == MAKE_EXECUTABLE;
-                            mActivity.getRepoDelegate().updateIndex(mFilePath, UpdateIndexTask.Companion.calculateNewMode(newExecutableState));
-                            break;
-                    }
+            (dialog, which) -> {
+                switch (which) {
+                    case ADD_TO_STAGE: // Add to stage
+                        mActivity.getRepoDelegate().addToStage(
+                            mFilePath);
+                        break;
+                    case CHECKOUT_FILE:
+                        mActivity.getRepoDelegate().checkoutFile(mFilePath);
+                        break;
+                    case DELETE:
+                        showRemoveFileMessageDialog(R.string.dialog_file_delete,
+                            R.string.dialog_file_delete_msg,
+                            DeleteOperationType.DELETE);
+                        break;
+                    case REMOVE_CACHED:
+                        showRemoveFileMessageDialog(R.string.dialog_file_remove_cached,
+                            R.string.dialog_file_remove_cached_msg,
+                            DeleteOperationType.REMOVE_CACHED);
+                        break;
+                    case REMOVE_FORCE:
+                        showRemoveFileMessageDialog(R.string.dialog_file_remove_force,
+                            R.string.dialog_file_remove_force_msg,
+                            DeleteOperationType.REMOVE_FORCE);
+                        break;
+                    case MAKE_EXECUTABLE:
+                    case MAKE_NOT_EXECUTABLE:
+                        final boolean newExecutableState = which == MAKE_EXECUTABLE;
+                        mActivity.getRepoDelegate().updateIndex(mFilePath, UpdateIndexTask.Companion.calculateNewMode(newExecutableState));
+                        break;
                 }
             });
 
@@ -85,16 +83,8 @@ public class RepoFileOperationDialog extends SheimiDialogFragment {
         showMessageDialog(dialog_title,
                 dialog_msg,
             R.string.label_delete,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(
-                            DialogInterface dialogInterface,
-                            int i) {
-
-                        mActivity.getRepoDelegate()
-                                .deleteFileFromRepo(
-                                        mFilePath, deleteOperationType);
-                    }
-                });
+            (dialogInterface, i) -> mActivity.getRepoDelegate()
+                    .deleteFileFromRepo(
+                            mFilePath, deleteOperationType));
     }
 }
