@@ -52,7 +52,7 @@ public class ViewFileFragment extends BaseFragment {
             mActivityMode = savedInstanceState.getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
         }
         if (fileName == null) {
-            fileName = Objects.requireNonNull(getArguments()).getString(ViewFileActivity.TAG_FILE_NAME);
+            fileName = requireArguments().getString(ViewFileActivity.TAG_FILE_NAME);
             mActivityMode = getArguments().getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
         }
 
@@ -111,7 +111,7 @@ public class ViewFileFragment extends BaseFragment {
 
         @JavascriptInterface
         public void copy_all(final String content) {
-            ClipboardManager clipboard = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("mgit", content);
             clipboard.setPrimaryClip(clip);
         }
@@ -134,11 +134,11 @@ public class ViewFileFragment extends BaseFragment {
 
         @JavascriptInterface
         public String getTheme() {
-            return Profile.getCodeMirrorTheme(Objects.requireNonNull(getActivity()));
+            return Profile.getCodeMirrorTheme(requireActivity());
         }
 
         private void display() {
-            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+            requireActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     String lang;
@@ -174,10 +174,10 @@ public class ViewFileFragment extends BaseFragment {
 
     private void showUserError(Throwable e) {
         Timber.e(e);
-        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+        requireActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((SheimiFragmentActivity) Objects.requireNonNull(getActivity())).
+                ((SheimiFragmentActivity) requireActivity()).
                     showMessageDialog(R.string.dialog_error_title, getString(R.string.error_can_not_open_file));
             }
         });

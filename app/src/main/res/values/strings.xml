@@ -125,7 +125,7 @@
     <string name="dialog_not_supported">Not Supported</string>
     <string name="dialog_not_supported_msg">This feature is not supported on your device, please see the manual for more details.</string>
     <string name="dialog_error_title">Error occurred</string>
-    <string name="dialog_error_send_report">Send error report</string>
+    <string name="dialog_error_send_report" translatable="false">Send error report</string>
     <string name="dialog_error_occurred_msg">An unexpected error occurred</string>
     <string name="dialog_keymap_title">Shortcut Keys</string>
     <string name="dialog_keymap_mesg"> C - Commits\n F- Files\n S- Status\n ? - Help\n</string>
@@ -133,10 +133,10 @@
     <string name="dialog_open_remote_title">Choose app to open %s remote</string>
     <string name="dialog_open_remote_no_app_available">No Apps available to open the url</string>
     <string name="dialog_permission_not_granted">MGit requires that you grant it write access to be able to write local git repos to your storage, until you do this MGit will NOT work properly.</string>
-    <string name="dialog_privacy_title">Privacy</string>
-    <string name="dialog_privacy_message">We care about your privacy and data security.\nIn order to keep improving MGit needs to be able to send error and crash reports to Sentry.io that will be viewable only to the developers of MGit. The reports will contain information about the device you are using, a unique randomly generated ID and potentially some metadata about the git repo you are using.\nWe will never send any sensitive information such as login credentials.\nPlease click the "I agree" button to allow MGit to do so or if not, please close MGit now.</string>
-    <string name="dialog_privacy_ok_button">I agree</string>
-    <string name="dialog_privacy_close_button">Close MGit</string>
+    <string name="dialog_privacy_title" translatable="false">Privacy</string>
+    <string name="dialog_privacy_message" translatable="false">We care about your privacy and data security.\nIn order to keep improving MGit needs to be able to send error and crash reports to Sentry.io that will be viewable only to the developers of MGit. The reports will contain information about the device you are using, a unique randomly generated ID and potentially some metadata about the git repo you are using.\nWe will never send any sensitive information such as login credentials.\nPlease click the "I agree" button to allow MGit to do so or if not, please close MGit now.</string>
+    <string name="dialog_privacy_ok_button" translatable="false">I agree</string>
+    <string name="dialog_privacy_close_button" translatable="false">Close MGit</string>
 
     <!-- Others -->
     <string name="pull_msg_init">Pulling … </string>
@@ -205,9 +205,9 @@
     <string name="bitbucket.com" translatable="false">bitbucket.com</string>
     <string name="notabug.org" translatable="false">notabug.org</string>
     <string name="repository_already_present">Repository already present!</string>
-    <string name="error_no_worktree">This is a bare repository!</string>
-    <string name="error_invalid_index">The Git index is invalid!</string>
-    <string name="error_file_not_found">File not found!</string>
+    <string name="error_no_worktree" translatable="false">This is a bare repository!</string>
+    <string name="error_invalid_index" translatable="false">The Git index is invalid!</string>
+    <string name="error_file_not_found" translatable="false">File not found!</string>
     <string name="preference_eng_lang">English Language</string>
     <string name="preference_eng_lang_summary">Use English instead of the default language</string>
     <string name="pref_key_use_english" translatable="false">use.english</string>

@@ -65,6 +65,7 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BRANCH_CHOOSE_ACTIVITY) {
             String branchName = mRepo.getBranchName();
             if (branchName == null) {

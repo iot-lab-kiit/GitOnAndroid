@@ -166,6 +166,7 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SAVE_DIFF && resultCode == RESULT_OK) {
             Uri diffUri = data.getData();
             try {

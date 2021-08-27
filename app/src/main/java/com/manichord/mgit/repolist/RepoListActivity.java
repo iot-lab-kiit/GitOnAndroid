@@ -179,6 +179,7 @@ public class RepoListActivity extends SheimiFragmentActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode == REQUEST_IMPORT_REPO) {
