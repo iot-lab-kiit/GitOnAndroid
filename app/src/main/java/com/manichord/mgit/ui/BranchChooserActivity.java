@@ -35,7 +35,7 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
     private ProgressBar mLoadding;
     private BranchTagListAdapter mAdapter;
     private boolean mInActionMode;
-    private String mChosenCommit;
+    String mChosenCommit;
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
@@ -59,47 +59,52 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
 
             return true;
         } else if (itemId == R.id.action_mode_delete) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.dialog_branch_delete) + " " + mChosenCommit)
-                .setMessage(R.string.dialog_branch_delete_msg)
-                .setPositiveButton(R.string.label_delete, (dialog, which) -> {
-                    int commitType = Repo.getCommitType(mChosenCommit);
-                    try {
-                        switch (commitType) {
-                            case Repo.COMMIT_TYPE_HEAD:
-                                mRepo.getGit().branchDelete()
-                                    .setBranchNames(mChosenCommit)
-                                    .setForce(true)
-                                    .call();
-                                break;
-                            case Repo.COMMIT_TYPE_TAG:
-                                mRepo.getGit().tagDelete()
-                                    .setTags(mChosenCommit)
-                                    .call();
-                                break;
-                        }
-                    } catch (StopTaskException e) {
-                        Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
-                        runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
-                            Toast.LENGTH_LONG).show());
-                    } catch (CannotDeleteCurrentBranchException e) {
-                        Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
-                        runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_current_branch, mChosenCommit),
-                            Toast.LENGTH_LONG).show());
-                    } catch (GitAPIException e) {
-                        Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
-                        runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
-                            Toast.LENGTH_LONG).show());
-                    }
-                    refreshList();
-                })
-                .setNegativeButton(R.string.label_cancel, null);
+            tryDelete();
             mode.finish();
-            alert.show();
             return true;
         }
         return false;
+    }
+
+
+    private void tryDelete() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle(getString(R.string.dialog_branch_delete) + " " + mChosenCommit)
+            .setMessage(R.string.dialog_branch_delete_msg)
+            .setPositiveButton(R.string.label_delete, (dialog, which) -> {
+                int commitType = Repo.getCommitType(mChosenCommit);
+                try {
+                    switch (commitType) {
+                        case Repo.COMMIT_TYPE_HEAD:
+                            mRepo.getGit().branchDelete()
+                                .setBranchNames(mChosenCommit)
+                                .setForce(true)
+                                .call();
+                            break;
+                        case Repo.COMMIT_TYPE_TAG:
+                            mRepo.getGit().tagDelete()
+                                .setTags(mChosenCommit)
+                                .call();
+                            break;
+                    }
+                } catch (StopTaskException e) {
+                    Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
+                    runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
+                        Toast.LENGTH_LONG).show());
+                } catch (CannotDeleteCurrentBranchException e) {
+                    Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
+                    runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_current_branch, mChosenCommit),
+                        Toast.LENGTH_LONG).show());
+                } catch (GitAPIException e) {
+                    Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
+                    runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
+                        Toast.LENGTH_LONG).show());
+                }
+                refreshList();
+            })
+            .setNegativeButton(R.string.label_cancel, null);
+        alert.show();
     }
 
     @Override

@@ -5,11 +5,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.core.view.MenuItemCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,6 +31,8 @@ import android.widget.TextView;
 
 import me.sheimi.sgit.R;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.manichord.mgit.tasks.RepoOpTask;
 import com.manichord.mgit.ui.delegate.RepoOperationDelegate;
 import com.manichord.mgit.adapters.RepoOperationsAdapter;
@@ -45,7 +51,7 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     private RelativeLayout mRightDrawer;
     private DrawerLayout mDrawerLayout;
     private TabItemPagerAdapter mTabItemPagerAdapter;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private Button mCommitNameButton;
     private ImageView mCommitType;
     private MenuItem mSearchItem;
@@ -121,9 +127,17 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
 
     private void setupViewPager() {
         mViewPager = findViewById(R.id.pager);
-        mTabItemPagerAdapter = new TabItemPagerAdapter(getSupportFragmentManager());
+        mTabItemPagerAdapter = new TabItemPagerAdapter(this);
         mViewPager.setAdapter(mTabItemPagerAdapter);
-        mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
+//        mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
+        TabLayout tabLayout= findViewById(R.id.tabs_repo);
+        TabLayoutMediator.TabConfigurationStrategy tabsConfig= new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(mTabItemPagerAdapter.getPageTitle(position));
+            }
+        };
+        new TabLayoutMediator(tabLayout, mViewPager,tabsConfig).attach();
     }
 
     private void setupDrawer() {
@@ -231,7 +245,7 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
             case KeyEvent.KEYCODE_DEL:
                 int position = mViewPager.getCurrentItem();
                 OnBackClickListener onBackClickListener = mTabItemPagerAdapter
-                        .getItem(position).getOnBackClickListener();
+                        .createFragment(position).getOnBackClickListener();
                 if (onBackClickListener != null) {
                     if (onBackClickListener.onClick())
                         return true;
@@ -345,39 +359,33 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
         mRepo.getRemotes();
     }
 
-    class TabItemPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener, SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
+    class TabItemPagerAdapter extends FragmentStateAdapter implements ViewPager.OnPageChangeListener, SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
         private final int[] PAGE_TITLE = { R.string.tab_files_label,
                 R.string.tab_commits_label, R.string.tab_status_label };
 
-        public TabItemPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public TabItemPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
         }
 
-        @NonNull
-        @Override
-        public BaseFragment getItem(int position) {
-            switch (position) {
-                case FILES_FRAGMENT_INDEX:
-                    return mFilesFragment;
-                case COMMITS_FRAGMENT_INDEX:
-                    return mCommitsFragment;
-                case STATUS_FRAGMENT_INDEX:
-                    mStatusFragment.reset();
-                    return mStatusFragment;
-            }
-            return mFilesFragment;
-        }
+//        public TabItemPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
 
-        @Override
+//        @NonNull
+//        @Override
+//        public BaseFragment getItem(int position) {
+//
+//        }
+
+
         public CharSequence getPageTitle(int position) {
             return getString(PAGE_TITLE[position]);
         }
-
-        @Override
-        public int getCount() {
-            return PAGE_TITLE.length;
-        }
+//
+//        @Override
+//        public int getCount() {
+//        }
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -426,6 +434,25 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
             return true;
         }
 
+        @NonNull
+        @Override
+        public BaseFragment createFragment(int position) {
+            switch (position) {
+                case FILES_FRAGMENT_INDEX:
+                    return mFilesFragment;
+                case COMMITS_FRAGMENT_INDEX:
+                    return mCommitsFragment;
+                case STATUS_FRAGMENT_INDEX:
+                    mStatusFragment.reset();
+                    return mStatusFragment;
+            }
+            return mFilesFragment;
+        }
+
+        @Override
+        public int getItemCount() {
+            return PAGE_TITLE.length;
+        }
     }
 
 }
