@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
-import com.manichord.mgit.android.activities.SheimiFragmentActivity;
-import com.manichord.mgit.android.utils.BasicFunctions;
+import com.manichord.mgit.ui.SheimiFragmentActivity;
+import com.manichord.mgit.utils.BasicFunctions;
 import me.sheimi.sgit.R;
-import com.manichord.mgit.database.models.Repo;
-import com.manichord.mgit.tasks.repo.GetCommitTask;
+import com.manichord.mgit.models.Repo;
+import com.manichord.mgit.tasks.GetCommitTask;
 
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.revwalk.RevCommit;

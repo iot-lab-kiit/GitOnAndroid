@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.manichord.mgit.clone.CloneViewModel" />
+            type="com.manichord.mgit.common.CloneViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

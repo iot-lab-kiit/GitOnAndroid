@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.manichord.mgit.database.models.Repo;
+import com.manichord.mgit.models.Repo;
 
 public class RepoTest {
 

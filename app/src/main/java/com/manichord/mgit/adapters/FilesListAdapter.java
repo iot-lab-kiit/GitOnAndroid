@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 
-import com.manichord.mgit.android.utils.Profile;
+import com.manichord.mgit.utils.Profile;
 import me.sheimi.sgit.R;
 
 /**

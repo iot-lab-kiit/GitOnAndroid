@@ -6,7 +6,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.manichord.mgit.repolist.RepoListActivity">
+        tools:context="com.manichord.mgit.ui.RepoListActivity">
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

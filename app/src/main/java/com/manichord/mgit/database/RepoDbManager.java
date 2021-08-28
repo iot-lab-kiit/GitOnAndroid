@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.manichord.mgit.android.utils.BasicFunctions;
+import com.manichord.mgit.utils.BasicFunctions;
 
 /**
  * Manage entries in the persisted database tracking local repo metadata.

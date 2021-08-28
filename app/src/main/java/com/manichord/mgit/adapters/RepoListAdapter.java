@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.manichord.mgit.android.activities.SheimiFragmentActivity;
-import com.manichord.mgit.android.utils.BasicFunctions;
+import com.manichord.mgit.ui.SheimiFragmentActivity;
+import com.manichord.mgit.utils.BasicFunctions;
 import me.sheimi.sgit.R;
-import com.manichord.mgit.repolist.RepoListActivity;
-import com.manichord.mgit.activities.RepoDetailActivity;
+import com.manichord.mgit.ui.RepoListActivity;
+import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.database.RepoContract;
 import com.manichord.mgit.database.RepoDbManager;
-import com.manichord.mgit.database.models.Repo;
+import com.manichord.mgit.models.Repo;
 
 import android.content.ComponentName;
 import android.content.Context;

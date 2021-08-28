@@ -1,7 +1,7 @@
 package com.manichord.mgit.adapters;
 
 import me.sheimi.sgit.R;
-import com.manichord.mgit.activities.RepoDetailActivity;
+import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.adapters.RepoOperationsAdapter.DrawerItem;
 import android.content.Context;
 import android.view.LayoutInflater;

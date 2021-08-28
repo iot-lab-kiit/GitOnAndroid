@@ -3,12 +3,13 @@ package com.manichord.mgit
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.manichord.mgit.transport.MGitHttpConnectionFactory
+import com.manichord.mgit.utils.transport.MGitHttpConnectionFactory
+import com.manichord.mgit.utils.AndroidJschCredentialsProvider
 import io.sentry.Sentry
 import io.sentry.android.AndroidSentryClientFactory
-import com.manichord.mgit.android.utils.SecurePrefsException
-import com.manichord.mgit.android.utils.SecurePrefsHelper
-import com.manichord.mgit.preference.PreferenceHelper
+import com.manichord.mgit.utils.SecurePrefsException
+import com.manichord.mgit.utils.SecurePrefsHelper
+import com.manichord.mgit.utils.preference.PreferenceHelper
 import me.sheimi.sgit.BuildConfig
 import me.sheimi.sgit.R
 import org.eclipse.jgit.transport.CredentialsProvider

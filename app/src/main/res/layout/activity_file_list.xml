@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.manichord.mgit.activities.explorer.PrivateKeyManageActivity">
+                tools:context="com.manichord.mgit.ui.explorer.PrivateKeyManageActivity">
 
     <TextView
         android:id="@+id/currentPath"
