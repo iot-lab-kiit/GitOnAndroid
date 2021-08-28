@@ -3,6 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/repo_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <include layout="@layout/activity_repo_detail_content" />
 
     <RelativeLayout

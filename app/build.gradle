@@ -85,7 +85,7 @@ dependencies {
     implementation 'io.sentry:sentry-android:1.7.30'
     implementation 'com.afollestad.material-dialogs:core:3.2.1'
     implementation 'com.afollestad.material-dialogs:bottomsheets:3.2.1'
-    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'

@@ -1,13 +1,14 @@
 package com.manichord.mgit.repolist
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.LayoutMode
@@ -16,9 +17,9 @@ import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.manichord.mgit.clone.CloneViewModel
-import com.manichord.mgit.common.OnActionClickListener
 import com.manichord.mgit.hideKeyboard
 import com.manichord.mgit.transport.MGitHttpConnectionFactory
+import com.miguelcatalan.materialsearchview.MaterialSearchView
 import me.sheimi.android.activities.SheimiFragmentActivity
 import me.sheimi.sgit.MGitApplication
 import me.sheimi.sgit.R
@@ -42,8 +43,10 @@ import java.net.URL
 import java.util.*
 
 class RepoListActivity : SheimiFragmentActivity() {
-    private var mRepoListAdapter: RepoListAdapter? = null
+    private lateinit var mRepoListAdapter: RepoListAdapter
     private lateinit var cloneViewBinding: CloneViewBinding
+    private lateinit var binding: ActivityMainBinding
+
 
     enum class ClickActions {
         CLONE, CANCEL
@@ -54,31 +57,46 @@ class RepoListActivity : SheimiFragmentActivity() {
         checkAndRequestRequiredPermissions()
         enforcePrivacy(this)
         val viewModelProvider = ViewModelProvider(this)
-        val viewModel = viewModelProvider.get(
-            RepoListViewModel::class.java
-        )
+
         val cloneViewModel = viewModelProvider.get(CloneViewModel::class.java)
-        val binding:ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        binding.clickHandler = object : OnActionClickListener {
-            override fun onActionClick(action: String) {
-                if (ClickActions.CLONE.name == action) {
-                    cloneRepo()
-                } else {
-                    hideCloneView()
-                }
-            }
-        }
+
         PrivateKeyUtils.migratePrivateKeys()
         initUpdatedSSL()
-
-
+        setSupportActionBar(binding.toolbar)
         mRepoListAdapter = RepoListAdapter(this)
         binding.repoList.adapter = mRepoListAdapter
-        mRepoListAdapter!!.queryAllRepo()
+        mRepoListAdapter.queryAllRepo()
         binding.repoList.onItemClickListener = mRepoListAdapter
         binding.repoList.onItemLongClickListener = mRepoListAdapter
+        handleIntent(cloneViewModel)
+        binding.addRepoButton.setOnClickListener {
+            showCloneView()
+        }
+
+        val cloneDialog = MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
+            .customView(R.layout.clone_view)
+            .title(R.string.title_clone_repo)
+            .noAutoDismiss()
+            .positiveButton(R.string.label_clone) {
+                cloneRepo()
+            }.negativeButton(R.string.label_cancel) {
+                hideCloneView()
+            }
+        val customView = cloneDialog.getCustomView()
+        cloneViewBinding = CloneViewBinding.bind(customView)
+        cloneViewBinding.viewModel = viewModelProvider.get(CloneViewModel::class.java)
+
+        cloneViewBinding.viewModel?.visible?.observe(this) { visible ->
+            if (visible) cloneDialog.show() else cloneDialog.dismiss()
+        }
+        binding.searchView.setOnQueryTextListener(sd)
+    }
+
+    private fun handleIntent(
+        cloneViewModel: CloneViewModel
+    ) {
         val mContext = applicationContext
         val uri = this.intent.data
         if (uri != null) {
@@ -95,7 +113,9 @@ class RepoListActivity : SheimiFragmentActivity() {
                 val repoUrlBuilder = StringBuilder(remoteUrl)
 
                 //need git extension to clone some repos
-                if (!remoteUrl.toLowerCase(Locale.getDefault()).endsWith(getString(R.string.git_extension))) {
+                if (!remoteUrl.lowercase(Locale.getDefault())
+                        .endsWith(getString(R.string.git_extension))
+                ) {
                     repoUrlBuilder.append(getString(R.string.git_extension))
                 } else { //if has git extension remove it from repository name
                     repoName = repoName.substring(0, repoName.lastIndexOf('.'))
@@ -130,33 +150,13 @@ class RepoListActivity : SheimiFragmentActivity() {
                 }
             }
         }
-        binding.addRepoButton.setOnClickListener {
-            showCloneView()
-        }
-
-        val cloneDialog = MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
-            .customView(R.layout.clone_view)
-            .title(R.string.title_clone_repo)
-            . noAutoDismiss()
-            .positiveButton(R.string.label_clone){
-                cloneRepo()
-            }.negativeButton(R.string.label_cancel){
-                hideCloneView()
-            }
-        val customView = cloneDialog.getCustomView()
-        cloneViewBinding = CloneViewBinding.bind(customView)
-        cloneViewBinding.viewModel= viewModelProvider.get(CloneViewModel::class.java)
-
-        cloneViewBinding.viewModel?.visible?.observe(this){visible->
-            if (visible) cloneDialog.show() else cloneDialog.dismiss()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         val searchItem = menu.findItem(R.id.action_search)
-        configSearchAction(searchItem)
+        binding.searchView.setMenuItem(searchItem)
         return true
     }
 
@@ -180,13 +180,6 @@ class RepoListActivity : SheimiFragmentActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun configSearchAction(searchItem: MenuItem) {
-        val searchView = searchItem.actionView as SearchView
-        val searchListener = SearchListener()
-        searchItem.setOnActionExpandListener(searchListener)
-        searchView.isIconifiedByDefault = true
-        searchView.setOnQueryTextListener(searchListener)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -223,25 +216,27 @@ class RepoListActivity : SheimiFragmentActivity() {
         }
     }
 
-    inner class SearchListener : SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
-        override fun onQueryTextSubmit(s: String): Boolean {
-            return false
-        }
+    val sd: MaterialSearchView.OnQueryTextListener =
+        object : MaterialSearchView.OnQueryTextListener,
+            MenuItem.OnActionExpandListener {
+            override fun onQueryTextSubmit(s: String): Boolean {
+                return false
+            }
 
-        override fun onQueryTextChange(s: String): Boolean {
-            mRepoListAdapter!!.searchRepo(s)
-            return false
-        }
+            override fun onQueryTextChange(s: String): Boolean {
+                mRepoListAdapter.searchRepo(s)
+                return false
+            }
 
-        override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
-            return true
-        }
+            override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
+                return true
+            }
 
-        override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
-            mRepoListAdapter!!.queryAllRepo()
-            return true
+            override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
+                mRepoListAdapter.queryAllRepo()
+                return true
+            }
         }
-    }
 
     override fun finish() {
         rawfinish()

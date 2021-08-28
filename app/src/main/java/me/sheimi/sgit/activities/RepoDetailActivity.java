@@ -2,6 +2,8 @@ package me.sheimi.sgit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.core.view.MenuItemCompat;
@@ -145,9 +147,9 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
     }
 
     private void setupActionBar() {
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowTitleEnabled(true);
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar=findViewById(R.id.repo_toolbar);
+//        toolbar.setDisplayShowTitleEnabled(true);
+//        toolbar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void createFragments() {
