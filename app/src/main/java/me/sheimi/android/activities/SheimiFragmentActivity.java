@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -98,14 +99,11 @@ public class SheimiFragmentActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MGIT_PERMISSIONS_REQUEST) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-            } else {
-                // permission denied
-                showMessageDialog(R.string.dialog_not_supported, getString(R.string.dialog_permission_not_granted));
-            }
-            return;
+            if (grantResults.length <= 0
+                || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    // permission denied
+                    showMessageDialog(R.string.dialog_not_supported, getString(R.string.dialog_permission_not_granted));
+                }
         }
     }
 
@@ -118,14 +116,10 @@ public class SheimiFragmentActivity extends AppCompatActivity {
 
     protected void enforcePrivacy(final Activity activity) {
         final PreferenceHelper prefHelper = ((MGitApplication)activity.getApplication()).getPrefenceHelper();
-        if (prefHelper.isPrivacyAccepted()) {
-            return;
+        if (!Objects.requireNonNull(prefHelper).isPrivacyAccepted()) {
+            prefHelper.setPrivacyAccepted();
         }
 
-        showMessageDialog(R.string.dialog_privacy_title, getString(R.string.dialog_privacy_message),
-            R.string.dialog_privacy_ok_button, R.string.dialog_privacy_close_button,
-            (dialogInterface, i) -> prefHelper.setPrivacyAccepted(),
-            (dialogInterface, i) -> activity.finish());
     }
 
     /* View Utils Start */

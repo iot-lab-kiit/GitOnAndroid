@@ -73,7 +73,7 @@ dependencies {
 
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
     implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'com.jcraft:jsch:0.1.54'
@@ -83,6 +83,10 @@ dependencies {
     implementation 'com.scottyab:secure-preferences-lib:0.1.4'
     implementation 'org.conscrypt:conscrypt-android:1.1.0'
     implementation 'io.sentry:sentry-android:1.7.30'
+    implementation 'com.afollestad.material-dialogs:core:3.2.1'
+    implementation 'com.afollestad.material-dialogs:bottomsheets:3.2.1'
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
+
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     debugImplementation 'com.facebook.stetho:stetho-timber:1.5.0'

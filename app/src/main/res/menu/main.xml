@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_search"
@@ -6,11 +7,6 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="always|collapseActionView"
         android:title="@string/action_search"/>
-    <item
-        android:id="@+id/action_new"
-        android:icon="@drawable/ic_content_new"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_clone"/>
     <item
         android:id="@+id/action_import_repo"
         app:showAsAction="never"

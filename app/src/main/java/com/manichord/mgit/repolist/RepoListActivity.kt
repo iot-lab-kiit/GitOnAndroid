@@ -1,262 +1,274 @@
-package com.manichord.mgit.repolist;
+package com.manichord.mgit.repolist
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.afollestad.materialdialogs.LayoutMode
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import com.manichord.mgit.clone.CloneViewModel
+import com.manichord.mgit.common.OnActionClickListener
+import com.manichord.mgit.hideKeyboard
+import com.manichord.mgit.transport.MGitHttpConnectionFactory
+import me.sheimi.android.activities.SheimiFragmentActivity
+import me.sheimi.sgit.MGitApplication
+import me.sheimi.sgit.R
+import me.sheimi.sgit.activities.RepoDetailActivity
+import me.sheimi.sgit.activities.UserSettingsActivity
+import me.sheimi.sgit.activities.explorer.ExploreFileActivity
+import me.sheimi.sgit.activities.explorer.ImportRepositoryActivity
+import me.sheimi.sgit.adapters.RepoListAdapter
+import me.sheimi.sgit.database.RepoDbManager
+import me.sheimi.sgit.database.models.Repo
+import me.sheimi.sgit.databinding.ActivityMainBinding
+import me.sheimi.sgit.databinding.CloneViewBinding
+import me.sheimi.sgit.dialogs.DummyDialogListener
+import me.sheimi.sgit.dialogs.ImportLocalRepoDialog
+import me.sheimi.sgit.repo.tasks.repo.CloneTask
+import me.sheimi.sgit.ssh.PrivateKeyUtils
+import timber.log.Timber
+import java.io.File
+import java.net.MalformedURLException
+import java.net.URL
+import java.util.*
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
-import android.net.Uri;
-import android.os.Bundle;
-import androidx.core.view.MenuItemCompat;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.SearchView;
-import android.widget.Toast;
+class RepoListActivity : SheimiFragmentActivity() {
+    private var mRepoListAdapter: RepoListAdapter? = null
+    private lateinit var cloneViewBinding: CloneViewBinding
 
-import com.manichord.mgit.ViewHelperKt;
-import com.manichord.mgit.clone.CloneViewModel;
-import com.manichord.mgit.common.OnActionClickListener;
-import com.manichord.mgit.transport.MGitHttpConnectionFactory;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-
-import me.sheimi.android.activities.SheimiFragmentActivity;
-import me.sheimi.sgit.MGitApplication;
-import me.sheimi.sgit.R;
-import me.sheimi.sgit.activities.RepoDetailActivity;
-import me.sheimi.sgit.activities.UserSettingsActivity;
-import me.sheimi.sgit.activities.explorer.ExploreFileActivity;
-import me.sheimi.sgit.activities.explorer.ImportRepositoryActivity;
-import me.sheimi.sgit.adapters.RepoListAdapter;
-import me.sheimi.sgit.database.RepoDbManager;
-import me.sheimi.sgit.database.models.Repo;
-import me.sheimi.sgit.databinding.ActivityMainBinding;
-import me.sheimi.sgit.dialogs.DummyDialogListener;
-import me.sheimi.sgit.dialogs.ImportLocalRepoDialog;
-import me.sheimi.sgit.repo.tasks.repo.CloneTask;
-import me.sheimi.sgit.ssh.PrivateKeyUtils;
-import timber.log.Timber;
-
-public class RepoListActivity extends SheimiFragmentActivity {
-
-    private RepoListAdapter mRepoListAdapter;
-
-    private static final int REQUEST_IMPORT_REPO = 0;
-
-    private ActivityMainBinding binding;
-
-    public enum ClickActions {
+    enum class ClickActions {
         CLONE, CANCEL
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        checkAndRequestRequiredPermissions();
-
-        enforcePrivacy(this);
-        ViewModelProvider viewModelProvider = new ViewModelProvider(this);
-        RepoListViewModel viewModel = viewModelProvider.get(RepoListViewModel.class);
-        CloneViewModel cloneViewModel = viewModelProvider.get(CloneViewModel.class);
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setLifecycleOwner(this);
-        binding.setCloneViewModel(cloneViewModel);
-        binding.setViewModel(viewModel);
-        binding.setClickHandler(action -> {
-            if (ClickActions.CLONE.name().equals(action)) {
-                cloneRepo();
-            } else {
-                hideCloneView();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        checkAndRequestRequiredPermissions()
+        enforcePrivacy(this)
+        val viewModelProvider = ViewModelProvider(this)
+        val viewModel = viewModelProvider.get(
+            RepoListViewModel::class.java
+        )
+        val cloneViewModel = viewModelProvider.get(CloneViewModel::class.java)
+        val binding:ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.clickHandler = object : OnActionClickListener {
+            override fun onActionClick(action: String) {
+                if (ClickActions.CLONE.name == action) {
+                    cloneRepo()
+                } else {
+                    hideCloneView()
+                }
             }
-        });
+        }
+        PrivateKeyUtils.migratePrivateKeys()
+        initUpdatedSSL()
 
-        PrivateKeyUtils.migratePrivateKeys();
 
-        initUpdatedSSL();
-
-        mRepoListAdapter = new RepoListAdapter(this);
-        binding.repoList.setAdapter(mRepoListAdapter);
-        mRepoListAdapter.queryAllRepo();
-        binding.repoList.setOnItemClickListener(mRepoListAdapter);
-        binding.repoList.setOnItemLongClickListener(mRepoListAdapter);
-        Context mContext = getApplicationContext();
-
-        Uri uri = this.getIntent().getData();
+        mRepoListAdapter = RepoListAdapter(this)
+        binding.repoList.adapter = mRepoListAdapter
+        mRepoListAdapter!!.queryAllRepo()
+        binding.repoList.onItemClickListener = mRepoListAdapter
+        binding.repoList.onItemLongClickListener = mRepoListAdapter
+        val mContext = applicationContext
+        val uri = this.intent.data
         if (uri != null) {
-            URL mRemoteRepoUrl = null;
+            var mRemoteRepoUrl: URL? = null
             try {
-                mRemoteRepoUrl = new URL(uri.getScheme(), uri.getHost(), uri.getPort(), uri.getPath());
-            } catch (MalformedURLException e) {
-                Toast.makeText(mContext, R.string.invalid_url, Toast.LENGTH_LONG).show();
-                Timber.e(e);
+                mRemoteRepoUrl = URL(uri.scheme, uri.host, uri.port, uri.path)
+            } catch (e: MalformedURLException) {
+                Toast.makeText(mContext, R.string.invalid_url, Toast.LENGTH_LONG).show()
+                Timber.e(e)
             }
-
             if (mRemoteRepoUrl != null) {
-                String remoteUrl = mRemoteRepoUrl.toString();
-                String repoName = remoteUrl.substring(remoteUrl.lastIndexOf("/") + 1);
-                StringBuilder repoUrlBuilder = new StringBuilder(remoteUrl);
+                val remoteUrl = mRemoteRepoUrl.toString()
+                var repoName = remoteUrl.substring(remoteUrl.lastIndexOf("/") + 1)
+                val repoUrlBuilder = StringBuilder(remoteUrl)
 
                 //need git extension to clone some repos
-                if (!remoteUrl.toLowerCase().endsWith(getString(R.string.git_extension))) {
-                    repoUrlBuilder.append(getString(R.string.git_extension));
+                if (!remoteUrl.toLowerCase(Locale.getDefault()).endsWith(getString(R.string.git_extension))) {
+                    repoUrlBuilder.append(getString(R.string.git_extension))
                 } else { //if has git extension remove it from repository name
-                    repoName = repoName.substring(0, repoName.lastIndexOf('.'));
+                    repoName = repoName.substring(0, repoName.lastIndexOf('.'))
                 }
                 //Check if there are others repositories with same remote
-                List<Repo> repositoriesWithSameRemote = Repo.getRepoList(mContext, RepoDbManager.searchRepo(remoteUrl));
+                val repositoriesWithSameRemote =
+                    Repo.getRepoList(mContext, RepoDbManager.searchRepo(remoteUrl))
 
                 //if so, just open it
-                if (repositoriesWithSameRemote.size() > 0) {
-                    Toast.makeText(mContext, R.string.repository_already_present, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(mContext, RepoDetailActivity.class);
-                    intent.putExtra(Repo.TAG, repositoriesWithSameRemote.get(0));
-                    startActivity(intent);
-                } else if (Repo.getDir(((MGitApplication) getApplicationContext()).getPrefenceHelper(), repoName).exists()) {
+                if (repositoriesWithSameRemote.size > 0) {
+                    Toast.makeText(
+                        mContext,
+                        R.string.repository_already_present,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(mContext, RepoDetailActivity::class.java)
+                    intent.putExtra(Repo.TAG, repositoriesWithSameRemote[0])
+                    startActivity(intent)
+                } else if (Repo.getDir(
+                        (applicationContext as MGitApplication).prefenceHelper,
+                        repoName
+                    ).exists()
+                ) {
                     // Repository with name end already exists, see https://github.com/maks/MGit/issues/289
-                    cloneViewModel.setRemoteUrl(repoUrlBuilder.toString());
-                    showCloneView();
+                    cloneViewModel.remoteUrl = repoUrlBuilder.toString()
+                    showCloneView()
                 } else {
-                    final String cloningStatus = getString(R.string.cloning);
-                    Repo mRepo = Repo.createRepo(repoName, repoUrlBuilder.toString(), cloningStatus);
-                    Boolean isRecursive = true;
-                    CloneTask task = new CloneTask(mRepo, true, cloningStatus, null);
-                    task.executeTask();
+                    val cloningStatus = getString(R.string.cloning)
+                    val mRepo = Repo.createRepo(repoName, repoUrlBuilder.toString(), cloningStatus)
+                    val task = CloneTask(mRepo, true, cloningStatus, null)
+                    task.executeTask()
                 }
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        configSearchAction(searchItem);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        int itemId = item.getItemId();
-        if (itemId == R.id.action_new) {
-            showCloneView();
-            return true;
-        } else if (itemId == R.id.action_import_repo) {
-            intent = new Intent(this, ImportRepositoryActivity.class);
-            startActivityForResult(intent, REQUEST_IMPORT_REPO);
-            forwardTransition();
-            return true;
-        } else if (itemId == R.id.action_settings) {
-            intent = new Intent(this, UserSettingsActivity.class);
-            startActivity(intent);
-            return true;
+        binding.addRepoButton.setOnClickListener {
+            showCloneView()
         }
-        return super.onOptionsItemSelected(item);
-    }
 
-    public void configSearchAction(MenuItem searchItem) {
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        if (searchView == null)
-            return;
-        SearchListener searchListener = new SearchListener();
-        MenuItemCompat.setOnActionExpandListener(searchItem, searchListener);
-        searchView.setIconifiedByDefault(true);
-        searchView.setOnQueryTextListener(searchListener);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK)
-            return;
-        if (requestCode == REQUEST_IMPORT_REPO) {
-            final String path = data.getExtras().getString(
-                ExploreFileActivity.RESULT_PATH);
-            File file = new File(path);
-            File dotGit = new File(file, Repo.DOT_GIT_DIR);
-            if (!dotGit.exists()) {
-                showToastMessage(getString(R.string.error_no_repository));
-                return;
+        val cloneDialog = MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
+            .customView(R.layout.clone_view)
+            .title(R.string.title_clone_repo)
+            . noAutoDismiss()
+            .positiveButton(R.string.label_clone){
+                cloneRepo()
+            }.negativeButton(R.string.label_cancel){
+                hideCloneView()
             }
-            AlertDialog.Builder builder = new AlertDialog.Builder(
-                this);
-            builder.setTitle(R.string.dialog_comfirm_import_repo_title);
-            builder.setMessage(R.string.dialog_comfirm_import_repo_msg);
-            builder.setNegativeButton(R.string.label_cancel,
-                new DummyDialogListener());
-            builder.setPositiveButton(R.string.label_import,
-                (dialogInterface, i) -> {
-                    Bundle args = new Bundle();
-                    args.putString(ImportLocalRepoDialog.FROM_PATH, path);
-                    ImportLocalRepoDialog rld = new ImportLocalRepoDialog();
-                    rld.setArguments(args);
-                    rld.show(getSupportFragmentManager(), "import-local-dialog");
-                });
-            builder.show();
+        val customView = cloneDialog.getCustomView()
+        cloneViewBinding = CloneViewBinding.bind(customView)
+        cloneViewBinding.viewModel= viewModelProvider.get(CloneViewModel::class.java)
+
+        cloneViewBinding.viewModel?.visible?.observe(this){visible->
+            if (visible) cloneDialog.show() else cloneDialog.dismiss()
         }
     }
 
-    public class SearchListener implements SearchView.OnQueryTextListener,
-            MenuItemCompat.OnActionExpandListener {
-
-        @Override
-        public boolean onQueryTextSubmit(String s) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String s) {
-            mRepoListAdapter.searchRepo(s);
-            return false;
-        }
-
-        @Override
-        public boolean onMenuItemActionExpand(MenuItem menuItem) {
-            return true;
-        }
-
-        @Override
-        public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-            mRepoListAdapter.queryAllRepo();
-            return true;
-        }
-
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        val searchItem = menu.findItem(R.id.action_search)
+        configSearchAction(searchItem)
+        return true
     }
 
-    public void finish() {
-        rawfinish();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent: Intent
+        val itemId = item.itemId
+//        if (itemId == R.id.action_new) {
+//
+//            return true
+//        } else
+        if (itemId == R.id.action_import_repo) {
+            intent = Intent(this, ImportRepositoryActivity::class.java)
+            startActivityForResult(intent, REQUEST_IMPORT_REPO)
+            forwardTransition()
+            return true
+        } else if (itemId == R.id.action_settings) {
+            intent = Intent(this, UserSettingsActivity::class.java)
+            startActivity(intent)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
-    private void initUpdatedSSL() {
-        MGitHttpConnectionFactory.install();
-        Timber.i("Installed custom HTTPS factory");
+    fun configSearchAction(searchItem: MenuItem) {
+        val searchView = searchItem.actionView as SearchView
+        val searchListener = SearchListener()
+        searchItem.setOnActionExpandListener(searchListener)
+        searchView.isIconifiedByDefault = true
+        searchView.setOnQueryTextListener(searchListener)
     }
 
-    private void cloneRepo() {
-        if (binding.getCloneViewModel().validate()) {
-            hideCloneView();
-            binding.getCloneViewModel().cloneRepo();
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != RESULT_OK) return
+        if (requestCode == REQUEST_IMPORT_REPO) {
+            val path = data!!.extras!!.getString(
+                ExploreFileActivity.RESULT_PATH
+            )
+            val file = File(path)
+            val dotGit = File(file, Repo.DOT_GIT_DIR)
+            if (!dotGit.exists()) {
+                showToastMessage(getString(R.string.error_no_repository))
+                return
+            }
+            val builder = AlertDialog.Builder(
+                this
+            )
+            builder.setTitle(R.string.dialog_comfirm_import_repo_title)
+            builder.setMessage(R.string.dialog_comfirm_import_repo_msg)
+            builder.setNegativeButton(
+                R.string.label_cancel,
+                DummyDialogListener()
+            )
+            builder.setPositiveButton(
+                R.string.label_import
+            ) { dialogInterface: DialogInterface?, i: Int ->
+                val args = Bundle()
+                args.putString(ImportLocalRepoDialog.FROM_PATH, path)
+                val rld = ImportLocalRepoDialog()
+                rld.arguments = args
+                rld.show(supportFragmentManager, "import-local-dialog")
+            }
+            builder.show()
         }
     }
 
-    private void showCloneView() {
-        binding.getCloneViewModel().show(true);
+    inner class SearchListener : SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
+        override fun onQueryTextSubmit(s: String): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(s: String): Boolean {
+            mRepoListAdapter!!.searchRepo(s)
+            return false
+        }
+
+        override fun onMenuItemActionExpand(menuItem: MenuItem): Boolean {
+            return true
+        }
+
+        override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
+            mRepoListAdapter!!.queryAllRepo()
+            return true
+        }
     }
 
-    private void hideCloneView() {
-        binding.getCloneViewModel().show(false);
-        ViewHelperKt.hideKeyboard(this);
+    override fun finish() {
+        rawfinish()
+    }
+
+    private fun initUpdatedSSL() {
+        MGitHttpConnectionFactory.install()
+        Timber.i("Installed custom HTTPS factory")
+    }
+
+    private fun cloneRepo() {
+        if (cloneViewBinding.viewModel?.validate() == true) {
+            hideCloneView()
+            cloneViewBinding.viewModel?.cloneRepo()
+        }
+    }
+
+    private fun showCloneView() {
+        cloneViewBinding.viewModel?.show(true)
+    }
+
+    private fun hideCloneView() {
+        cloneViewBinding.viewModel?.show(false)
+        hideKeyboard(this)
+    }
+
+    companion object {
+        private const val REQUEST_IMPORT_REPO = 0
     }
 }
