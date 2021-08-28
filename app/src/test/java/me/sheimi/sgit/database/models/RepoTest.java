@@ -4,10 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.manichord.mgit.database.models.Repo;
+
 public class RepoTest {
 
     @Test
-    public void testGetCurrentDisplayName() throws Exception {
+    public void testGetCurrentDisplayName() {
         assertEquals("", "remotes/foo", Repo.getCommitDisplayName("refs/remotes/foo"));
         assertEquals("", "remotes/foo/bar", Repo.getCommitDisplayName("refs/remotes/foo/bar"));
         assertEquals("", "foo", Repo.getCommitDisplayName("refs/heads/foo"));

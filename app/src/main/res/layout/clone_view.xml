@@ -5,15 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
-        <import type="com.manichord.mgit.repolist.RepoListActivity.ClickActions"/>
         <variable
             name="viewModel"
             type="com.manichord.mgit.clone.CloneViewModel" />
-        
-        <variable
-            name="clickHandler"
-            type="com.manichord.mgit.common.OnActionClickListener" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

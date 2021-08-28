@@ -7,10 +7,9 @@ import androidx.annotation.StringRes
 import android.widget.Button
 import io.sentry.Sentry
 import kotlinx.android.synthetic.main.dialog_error.view.*
-import me.sheimi.android.views.SheimiDialogFragment
+import com.manichord.mgit.android.views.SheimiDialogFragment
 import me.sheimi.sgit.BuildConfig
 import me.sheimi.sgit.R
-import me.sheimi.sgit.dialogs.DummyDialogListener
 import timber.log.Timber
 
 class ErrorDialog : SheimiDialogFragment() {
@@ -41,7 +40,8 @@ class ErrorDialog : SheimiDialogFragment() {
         builder.setTitle(errorTitleRes)
         builder.setPositiveButton(
             getString(R.string.label_ok),
-            DummyDialogListener())
+            DummyDialogListener()
+        )
         return builder.create()
     }
 

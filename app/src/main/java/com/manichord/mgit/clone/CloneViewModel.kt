@@ -3,11 +3,11 @@ package com.manichord.mgit.clone
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import me.sheimi.sgit.MGitApplication
+import com.manichord.mgit.MGitApplication
 import me.sheimi.sgit.R
-import me.sheimi.sgit.database.models.Repo
-import me.sheimi.sgit.repo.tasks.repo.CloneTask
-import me.sheimi.sgit.repo.tasks.repo.InitLocalTask
+import com.manichord.mgit.database.models.Repo
+import com.manichord.mgit.tasks.repo.CloneTask
+import com.manichord.mgit.tasks.repo.InitLocalTask
 import timber.log.Timber
 
 class CloneViewModel(application: Application) : AndroidViewModel(application) {
@@ -46,7 +46,12 @@ class CloneViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             Timber.d("CLONE REPO %s %s [%b]", localRepoName.value, remoteUrl, cloneRecursively)
             val repo = Repo.createRepo(localRepoName.value, remoteUrl, "")
-            val task = CloneTask(repo, cloneRecursively, "", null)
+            val task = CloneTask(
+                repo,
+                cloneRecursively,
+                "",
+                null
+            )
             task.executeTask()
             remoteUrl = ""
             show(false)

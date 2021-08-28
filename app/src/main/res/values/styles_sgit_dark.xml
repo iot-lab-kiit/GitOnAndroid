@@ -20,7 +20,7 @@
 
 <resources>
 
-    <style name="Theme.SgitDark" parent="Theme.AppCompat">
+    <style name="Theme.SgitDark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item type="color" name="bt_branch_name_bg">@android:color/black</item>

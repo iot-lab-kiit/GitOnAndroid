@@ -1,14 +1,12 @@
 package com.manichord.mgit.repolist
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.LayoutMode
@@ -20,22 +18,22 @@ import com.manichord.mgit.clone.CloneViewModel
 import com.manichord.mgit.hideKeyboard
 import com.manichord.mgit.transport.MGitHttpConnectionFactory
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-import me.sheimi.android.activities.SheimiFragmentActivity
-import me.sheimi.sgit.MGitApplication
+import com.manichord.mgit.android.activities.SheimiFragmentActivity
+import com.manichord.mgit.MGitApplication
 import me.sheimi.sgit.R
-import me.sheimi.sgit.activities.RepoDetailActivity
-import me.sheimi.sgit.activities.UserSettingsActivity
-import me.sheimi.sgit.activities.explorer.ExploreFileActivity
-import me.sheimi.sgit.activities.explorer.ImportRepositoryActivity
-import me.sheimi.sgit.adapters.RepoListAdapter
-import me.sheimi.sgit.database.RepoDbManager
-import me.sheimi.sgit.database.models.Repo
+import com.manichord.mgit.activities.RepoDetailActivity
+import com.manichord.mgit.activities.UserSettingsActivity
+import com.manichord.mgit.activities.explorer.ExploreFileActivity
+import com.manichord.mgit.activities.explorer.ImportRepositoryActivity
+import com.manichord.mgit.adapters.RepoListAdapter
+import com.manichord.mgit.database.RepoDbManager
+import com.manichord.mgit.database.models.Repo
 import me.sheimi.sgit.databinding.ActivityMainBinding
 import me.sheimi.sgit.databinding.CloneViewBinding
-import me.sheimi.sgit.dialogs.DummyDialogListener
-import me.sheimi.sgit.dialogs.ImportLocalRepoDialog
-import me.sheimi.sgit.repo.tasks.repo.CloneTask
-import me.sheimi.sgit.ssh.PrivateKeyUtils
+import com.manichord.mgit.dialogs.DummyDialogListener
+import com.manichord.mgit.dialogs.ImportLocalRepoDialog
+import com.manichord.mgit.tasks.repo.CloneTask
+import com.manichord.mgit.ssh.PrivateKeyUtils
 import timber.log.Timber
 import java.io.File
 import java.net.MalformedURLException
@@ -46,11 +44,6 @@ class RepoListActivity : SheimiFragmentActivity() {
     private lateinit var mRepoListAdapter: RepoListAdapter
     private lateinit var cloneViewBinding: CloneViewBinding
     private lateinit var binding: ActivityMainBinding
-
-
-    enum class ClickActions {
-        CLONE, CANCEL
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +68,11 @@ class RepoListActivity : SheimiFragmentActivity() {
             showCloneView()
         }
 
+        setupCloneDialog(cloneViewModel)
+        binding.searchView.setOnQueryTextListener(sd)
+    }
+
+    private fun setupCloneDialog(cloneViewModel: CloneViewModel) {
         val cloneDialog = MaterialDialog(this, BottomSheet(LayoutMode.WRAP_CONTENT))
             .customView(R.layout.clone_view)
             .title(R.string.title_clone_repo)
@@ -86,12 +84,11 @@ class RepoListActivity : SheimiFragmentActivity() {
             }
         val customView = cloneDialog.getCustomView()
         cloneViewBinding = CloneViewBinding.bind(customView)
-        cloneViewBinding.viewModel = viewModelProvider.get(CloneViewModel::class.java)
+        cloneViewBinding.viewModel = cloneViewModel
 
         cloneViewBinding.viewModel?.visible?.observe(this) { visible ->
             if (visible) cloneDialog.show() else cloneDialog.dismiss()
         }
-        binding.searchView.setOnQueryTextListener(sd)
     }
 
     private fun handleIntent(
@@ -145,7 +142,12 @@ class RepoListActivity : SheimiFragmentActivity() {
                 } else {
                     val cloningStatus = getString(R.string.cloning)
                     val mRepo = Repo.createRepo(repoName, repoUrlBuilder.toString(), cloningStatus)
-                    val task = CloneTask(mRepo, true, cloningStatus, null)
+                    val task = CloneTask(
+                        mRepo,
+                        true,
+                        cloningStatus,
+                        null
+                    )
                     task.executeTask()
                 }
             }
@@ -163,10 +165,6 @@ class RepoListActivity : SheimiFragmentActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent: Intent
         val itemId = item.itemId
-//        if (itemId == R.id.action_new) {
-//
-//            return true
-//        } else
         if (itemId == R.id.action_import_repo) {
             intent = Intent(this, ImportRepositoryActivity::class.java)
             startActivityForResult(intent, REQUEST_IMPORT_REPO)

@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MGitApplication"
+        android:name="com.manichord.mgit.MGitApplication"
         android:allowBackup="true"
         android:largeHeap="true" 
         android:icon="@mipmap/ic_launcher"
@@ -52,7 +52,7 @@
 
 
         <activity
-            android:name=".activities.RepoDetailActivity"
+            android:name="com.manichord.mgit.activities.RepoDetailActivity"
             android:label="@string/title_activity_repo_detail"
             android:parentActivityName="com.manichord.mgit.repolist.RepoListActivity" >
             <meta-data
@@ -60,30 +60,30 @@
                 android:value="com.manichord.mgit.repolist.RepoListActivity" />
         </activity>
         <activity
-            android:name=".activities.ViewFileActivity"
+            android:name="com.manichord.mgit.activities.ViewFileActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".activities.RepoDetailActivity" >
+            android:parentActivityName="com.manichord.mgit.activities.RepoDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RepoDetailActivity" />
+                android:value="com.manichord.mgit.activities.RepoDetailActivity" />
         </activity>
 	<activity
-        android:name=".activities.BranchChooserActivity"
+        android:name="com.manichord.mgit.activities.BranchChooserActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:parentActivityName=".activities.RepoDetailActivity" >
+            android:parentActivityName="com.manichord.mgit.activities.RepoDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RepoDetailActivity" />
+                android:value="com.manichord.mgit.activities.RepoDetailActivity" />
         </activity>
         <activity
-            android:name=".activities.CommitDiffActivity"
-            android:parentActivityName=".activities.RepoDetailActivity" >
+            android:name="com.manichord.mgit.activities.CommitDiffActivity"
+            android:parentActivityName="com.manichord.mgit.activities.RepoDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RepoDetailActivity" />
+                android:value="com.manichord.mgit.activities.RepoDetailActivity" />
         </activity>
         <activity
-            android:name=".activities.explorer.ImportRepositoryActivity"
+            android:name="com.manichord.mgit.activities.explorer.ImportRepositoryActivity"
             android:label="@string/title_activity_import_repository"
             android:parentActivityName="com.manichord.mgit.repolist.RepoListActivity" >
             <meta-data
@@ -91,7 +91,7 @@
                 android:value="com.manichord.mgit.repolist.RepoListActivity" />
         </activity>
         <activity
-            android:name=".activities.explorer.PrivateKeyManageActivity"
+            android:name="com.manichord.mgit.activities.explorer.PrivateKeyManageActivity"
             android:label="@string/title_activity_private_key_manage"
             android:parentActivityName="com.manichord.mgit.repolist.RepoListActivity" >
             <meta-data
@@ -99,15 +99,15 @@
                 android:value="com.manichord.mgit.repolist.RepoListActivity" />
         </activity>
         <activity
-            android:name=".activities.explorer.ExploreFileActivity"
+            android:name="com.manichord.mgit.activities.explorer.ExploreFileActivity"
             android:label="@string/title_activity_explore_file"
-            android:parentActivityName=".activities.explorer.PrivateKeyManageActivity" >
+            android:parentActivityName="com.manichord.mgit.activities.explorer.PrivateKeyManageActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.explorer.PrivateKeyManageActivity" />
+                android:value="com.manichord.mgit.activities.explorer.PrivateKeyManageActivity" />
         </activity>
         <activity
-            android:name=".activities.UserSettingsActivity"
+            android:name="com.manichord.mgit.activities.UserSettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName="com.manichord.mgit.repolist.RepoListActivity" >
             <meta-data
@@ -115,12 +115,12 @@
                 android:value="com.manichord.mgit.repolist.RepoListActivity" />
         </activity>
         <activity
-            android:name=".activities.explorer.ExploreRootDirActivity"
+            android:name="com.manichord.mgit.activities.explorer.ExploreRootDirActivity"
             android:label="@string/title_activity_explore_file"
-            android:parentActivityName=".activities.UserSettingsActivity" >
+            android:parentActivityName="com.manichord.mgit.activities.UserSettingsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.UserSettingsActivity" />
+                android:value="com.manichord.mgit.activities.UserSettingsActivity" />
         </activity>
 
         <provider

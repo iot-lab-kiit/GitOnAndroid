@@ -38,7 +38,7 @@
                 android:layout_height="@dimen/repo_list_item_icon_size"
                 android:id="@+id/authorIcon"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 app:srcCompat="@drawable/ic_default_author"/>
 
         <LinearLayout
@@ -62,7 +62,7 @@
                         android:id="@+id/commitAuthor"
                         android:textSize="@dimen/repo_list_item_author_size"
                         android:textColor="@color/general_gray_text_color"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:textStyle="bold"/>
 
                 <TextView
