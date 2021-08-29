@@ -9,15 +9,17 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import co.zsmb.materialdrawerkt.builders.accountHeader
+import co.zsmb.materialdrawerkt.builders.drawer
+import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
-import com.manichord.mgit.adapters.RepoOperationsAdapter
 import com.manichord.mgit.models.Repo
 import com.manichord.mgit.tasks.RepoOpTask.AsyncTaskCallback
 import com.manichord.mgit.ui.delegate.RepoOperationDelegate
@@ -25,14 +27,13 @@ import com.manichord.mgit.ui.fragments.BaseFragment
 import com.manichord.mgit.ui.fragments.CommitsFragment
 import com.manichord.mgit.ui.fragments.FilesFragment
 import com.manichord.mgit.ui.fragments.StatusFragment
+import com.mikepenz.materialdrawer.Drawer
 import me.sheimi.sgit.R
 
 class RepoDetailActivity : SheimiFragmentActivity() {
       lateinit var filesFragment: FilesFragment
     private  lateinit var mCommitsFragment: CommitsFragment
     private  lateinit var mStatusFragment: StatusFragment
-    private  lateinit var mRightDrawer: RelativeLayout
-    private  lateinit var mDrawerLayout: DrawerLayout
     private  lateinit var mTabItemPagerAdapter: TabItemPagerAdapter
     private  lateinit var mViewPager: ViewPager2
     private  lateinit var mCommitNameButton: Button
@@ -44,8 +45,11 @@ class RepoDetailActivity : SheimiFragmentActivity() {
     private  lateinit var mPullMsg: TextView
     private  lateinit var mPullLeftHint: TextView
     private  lateinit var mPullRightHint: TextView
-    private  lateinit var mRepoDelegate: RepoOperationDelegate
+    private  val  mRepoDelegate by lazy {
+        RepoOperationDelegate(mRepo, this)
+    }
     private  var mSelectedTab = 0
+    private lateinit var drawer: Drawer
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -71,11 +75,12 @@ class RepoDetailActivity : SheimiFragmentActivity() {
         repoInit()
         title = mRepo?.diaplayName
         setContentView(R.layout.activity_repo_detail)
-        setupActionBar()
+        setupDrawer()
+        setupActionBar ()
         createFragments()
         setupViewPager()
         setupPullProgressView()
-        setupDrawer()
+
         mCommitNameButton = findViewById(R.id.commitName)
         mCommitType = findViewById(R.id.commitType)
         mCommitNameButton.setOnClickListener { view: View? ->
@@ -108,12 +113,24 @@ class RepoDetailActivity : SheimiFragmentActivity() {
     }
 
     private fun setupDrawer() {
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-        mRightDrawer = findViewById(R.id.right_drawer)
-        val mRepoOperationList = findViewById<ListView>(R.id.repoOperationList)
-        val mDrawerAdapter = RepoOperationsAdapter(this)
-        mRepoOperationList.adapter = mDrawerAdapter
-        mRepoOperationList.onItemClickListener = mDrawerAdapter
+        val repoItems = resources.getStringArray(
+            R.array.repo_operation_names
+        )
+        drawer = drawer {
+            accountHeader {
+                profile("User", "") {
+                    icon= R.drawable.ic_default_author
+                }
+            }
+            for((index, item) in repoItems.withIndex()){
+                primaryItem(item){
+                    onClick {i->
+                        repoDelegate.executeAction(index)
+                        return@onClick true
+                    }
+                }
+            }
+        }
     }
 
     private fun setupPullProgressView() {
@@ -129,9 +146,8 @@ class RepoDetailActivity : SheimiFragmentActivity() {
     }
 
     private fun setupActionBar() {
-//        val toolbar = findViewById<Toolbar>(R.id.repo_toolbar)
-        //        toolbar.setDisplayShowTitleEnabled(true);
-//        toolbar.setDisplayHomeAsUpEnabled(true);
+        val toolbar = findViewById<Toolbar>(R.id.toolbar2)
+        setSupportActionBar(toolbar)
     }
 
     private fun createFragments() {
@@ -283,18 +299,19 @@ class RepoDetailActivity : SheimiFragmentActivity() {
             finish()
             return true
         } else if (itemId == R.id.action_toggle_drawer) {
-            if (mDrawerLayout.isDrawerOpen(mRightDrawer)) {
-                mDrawerLayout.closeDrawer(mRightDrawer)
-            } else {
-                mDrawerLayout.openDrawer(mRightDrawer)
-            }
+            drawer.openDrawer()
+//            if (mDrawerLayout.isDrawerOpen(mRightDrawer)) {
+//                mDrawerLayout.closeDrawer(mRightDrawer)
+//            } else {
+//                mDrawerLayout.openDrawer(mRightDrawer)
+//            }
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
     fun closeOperationDrawer() {
-        mDrawerLayout.closeDrawer(mRightDrawer)
+//        mDrawerLayout.closeDrawer(mRightDrawer)
     }
 
     fun enterDiffActionMode() {
