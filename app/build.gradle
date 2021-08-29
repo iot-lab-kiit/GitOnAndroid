@@ -87,6 +87,7 @@ dependencies {
 // https://mvnrepository.com/artifact/com.miguelcatalan/materialsearchview
     implementation group: 'com.miguelcatalan', name: 'materialsearchview', version: '1.4.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+    implementation 'co.zsmb:materialdrawer-kt:3.0.0'
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     debugImplementation 'com.facebook.stetho:stetho-timber:1.5.0'
