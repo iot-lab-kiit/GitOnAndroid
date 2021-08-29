@@ -129,7 +129,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
     }
 
     private fun setupActionBar() {
-        val toolbar = findViewById<Toolbar>(R.id.repo_toolbar)
+//        val toolbar = findViewById<Toolbar>(R.id.repo_toolbar)
         //        toolbar.setDisplayShowTitleEnabled(true);
 //        toolbar.setDisplayHomeAsUpEnabled(true);
     }
