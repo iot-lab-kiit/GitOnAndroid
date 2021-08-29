@@ -77,7 +77,7 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'com.jcraft:jsch:0.1.54'
-    implementation 'commons-io:commons-io:2.6'
+    implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.scottyab:secure-preferences-lib:0.1.4'
