@@ -1,55 +1,61 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.manichord.mgit.ui.explorer.PrivateKeyManageActivity">
-
-    <TextView
-        android:id="@+id/currentPath"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="/foo/bar"
-        android:gravity="center_vertical"
-
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:paddingLeft="10dp" />
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.manichord.mgit.ui.explorer.PrivateKeyManageActivity">
 
     <View
         android:id="@+id/separator"
         android:layout_width="fill_parent"
         android:layout_height="0.2dp"
-        android:visibility="visible"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/currentPath"/>
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentPath" />
+
+    <TextView
+        android:id="@+id/upDir"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:text=".."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        app:layout_constraintBottom_toBottomOf="@+id/upDirIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/upDirIcon"
+        app:layout_constraintTop_toBottomOf="@+id/currentPath" />
 
     <ImageView
         android:id="@+id/upDirIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/separator"
-        android:layout_margin="@dimen/commit_list_item_icon_padding"
-        android:src="@drawable/ic_folder_d"/>
+        android:src="@drawable/ic_folder_d"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentPath" />
 
     <TextView
-        android:id="@+id/upDir"
-        android:layout_width="match_parent"
+        android:id="@+id/currentPath"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/upDirIcon"
-        android:layout_alignBaseline="@id/upDirIcon"
-        android:layout_below="@+id/separator"
-        android:layout_margin="@dimen/commit_list_item_icon_padding"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=".."
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
 
-        />
+        android:paddingBottom="7dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="/foo/bar" />
 
     <ListView
         android:id="@+id/fileList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/upDir" />
-</RelativeLayout>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upDir" />
+</androidx.constraintlayout.widget.ConstraintLayout>
