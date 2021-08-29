@@ -1,12 +1,13 @@
 package com.manichord.mgit.ui.dialogs
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.annotation.StringRes
 import android.widget.Button
+import android.widget.TextView
 import io.sentry.Sentry
-import kotlinx.android.synthetic.main.dialog_error.view.*
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment
 import me.sheimi.sgit.BuildConfig
 import me.sheimi.sgit.R
@@ -20,6 +21,7 @@ class ErrorDialog : SheimiDialogFragment() {
     var errorTitleRes: Int = 0
         get() = if (field != 0) field else R.string.dialog_error_title
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
 
@@ -32,7 +34,9 @@ class ErrorDialog : SheimiDialogFragment() {
             }
             else -> ""
         }
-        layout.error_message.setText(getString(mErrorRes) + "\n" + details)
+        val errorDialogMessage = layout.findViewById<TextView>(R.id.error_message)
+
+        errorDialogMessage.text = getString(mErrorRes) + "\n" + details
 
         builder.setView(layout)
 

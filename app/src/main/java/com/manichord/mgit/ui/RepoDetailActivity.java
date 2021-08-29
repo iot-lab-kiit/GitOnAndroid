@@ -129,7 +129,6 @@ public class RepoDetailActivity extends SheimiFragmentActivity {
         mViewPager = findViewById(R.id.pager);
         mTabItemPagerAdapter = new TabItemPagerAdapter(this);
         mViewPager.setAdapter(mTabItemPagerAdapter);
-//        mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
         TabLayout tabLayout= findViewById(R.id.tabs_repo);
         TabLayoutMediator.TabConfigurationStrategy tabsConfig= new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
