@@ -27,6 +27,7 @@ import com.manichord.mgit.ui.fragments.BaseFragment
 import com.manichord.mgit.ui.fragments.CommitsFragment
 import com.manichord.mgit.ui.fragments.FilesFragment
 import com.manichord.mgit.ui.fragments.StatusFragment
+import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.mikepenz.materialdrawer.Drawer
 import me.sheimi.sgit.R
 
@@ -203,12 +204,10 @@ class RepoDetailActivity : SheimiFragmentActivity() {
         mSearchItem = menu.findItem(R.id.action_search)
         mSearchItem?.setOnActionExpandListener(mTabItemPagerAdapter)
 
-        mSearchItem?.isVisible = mSelectedTab == COMMITS_FRAGMENT_INDEX
-        val searchView = mSearchItem?.actionView as SearchView?
-        if (searchView != null) {
-            searchView.isIconifiedByDefault = true
-            searchView.setOnQueryTextListener(mTabItemPagerAdapter)
-        }
+//        mSearchItem?.isVisible = mSelectedTab == COMMITS_FRAGMENT_INDEX
+        val searchView = findViewById<MaterialSearchView>(R.id.search_view)
+        searchView.setOnQueryTextListener(mTabItemPagerAdapter)
+
         return true
     }
 
@@ -300,19 +299,12 @@ class RepoDetailActivity : SheimiFragmentActivity() {
             return true
         } else if (itemId == R.id.action_toggle_drawer) {
             drawer.openDrawer()
-//            if (mDrawerLayout.isDrawerOpen(mRightDrawer)) {
-//                mDrawerLayout.closeDrawer(mRightDrawer)
-//            } else {
-//                mDrawerLayout.openDrawer(mRightDrawer)
-//            }
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun closeOperationDrawer() {
-//        mDrawerLayout.closeDrawer(mRightDrawer)
-    }
+
 
     fun enterDiffActionMode() {
         mViewPager.currentItem = COMMITS_FRAGMENT_INDEX
@@ -324,9 +316,13 @@ class RepoDetailActivity : SheimiFragmentActivity() {
         mRepo?.remotes
     }
 
+    fun closeOperationDrawer() {
+      drawer.closeDrawer()
+    }
+
     internal inner class TabItemPagerAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity), OnPageChangeListener,
-        SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
+        MaterialSearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
         private val PAGE_TITLE = intArrayOf(
             R.string.tab_files_label,
             R.string.tab_commits_label, R.string.tab_status_label
@@ -345,9 +341,8 @@ class RepoDetailActivity : SheimiFragmentActivity() {
 
         override fun onPageSelected(position: Int) {
             mSelectedTab = position
-            if (mSearchItem != null) {
-                mSearchItem?.isVisible = position == COMMITS_FRAGMENT_INDEX
-            }
+            mSearchItem?.isVisible = position == COMMITS_FRAGMENT_INDEX
+
         }
 
         override fun onPageScrollStateChanged(state: Int) {}

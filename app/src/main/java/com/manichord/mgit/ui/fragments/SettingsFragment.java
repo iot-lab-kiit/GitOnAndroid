@@ -4,15 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import androidx.core.app.TaskStackBuilder;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import com.manichord.mgit.utils.BasicFunctions;
 import me.sheimi.sgit.R;
 import com.manichord.mgit.ui.RepoListActivity;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
     private SharedPreferences.OnSharedPreferenceChangeListener mListener;
 
     @Override
@@ -35,9 +35,9 @@ public class SettingsFragment extends PreferenceFragment {
             if (themePrefKey.equals(key) || useEnglishPrefKey.equals(key)) {
                 // nice trick to recreate the back stack, to ensure existing activities onCreate() are
                 // called to set new theme, courtesy of: http://stackoverflow.com/a/28799124/85472
-                TaskStackBuilder.create(getActivity())
+                TaskStackBuilder.create(requireActivity())
                         .addNextIntent(new Intent(getActivity(), RepoListActivity.class))
-                        .addNextIntent(getActivity().getIntent())
+                        .addNextIntent(requireActivity().getIntent())
                         .startActivities();
             }
             else if (gravatarPrefKey.equals(key)) {
@@ -45,6 +45,11 @@ public class SettingsFragment extends PreferenceFragment {
                 BasicFunctions.getImageLoader().clearDiskCache();
             }
         };
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.preferences, rootKey);
     }
 
 

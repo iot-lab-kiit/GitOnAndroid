@@ -168,7 +168,7 @@ class RepoListActivity : SheimiFragmentActivity() {
             forwardTransition()
             return true
         } else if (itemId == R.id.action_settings) {
-            intent = Intent(this, UserSettingsActivity::class.java)
+            intent = Intent(this, UserSettingsActivity2::class.java)
             startActivity(intent)
             return true
         }

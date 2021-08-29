@@ -88,10 +88,12 @@ dependencies {
     implementation group: 'com.miguelcatalan', name: 'materialsearchview', version: '1.4.0'
     implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
     implementation 'co.zsmb:materialdrawer-kt:3.0.0'
+// https://mvnrepository.com/artifact/androidx.preference/preference
+    implementation group: 'androidx.preference', name: 'preference', version: '1.1.1'
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     debugImplementation 'com.facebook.stetho:stetho-timber:1.5.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.2.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 }
