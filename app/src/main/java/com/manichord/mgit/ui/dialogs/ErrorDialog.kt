@@ -9,8 +9,8 @@ import android.widget.Button
 import android.widget.TextView
 import io.sentry.Sentry
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment
-import me.sheimi.sgit.BuildConfig
-import me.sheimi.sgit.R
+import com.manichord.mgitt.BuildConfig
+import com.manichord.mgitt.R
 import timber.log.Timber
 
 class ErrorDialog : SheimiDialogFragment() {

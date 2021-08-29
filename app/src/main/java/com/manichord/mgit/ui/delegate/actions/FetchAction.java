@@ -5,7 +5,7 @@ import android.app.Dialog;
 
 import java.util.ArrayList;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.DummyDialogListener;

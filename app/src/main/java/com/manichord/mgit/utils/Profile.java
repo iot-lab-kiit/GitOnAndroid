@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 
 /**

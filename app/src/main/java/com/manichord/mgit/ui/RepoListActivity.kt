@@ -19,14 +19,14 @@ import com.manichord.mgit.hideKeyboard
 import com.manichord.mgit.utils.transport.MGitHttpConnectionFactory
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.manichord.mgit.MGitApplication
-import me.sheimi.sgit.R
+import com.manichord.mgitt.R
 import com.manichord.mgit.ui.explorer.ExploreFileActivity
 import com.manichord.mgit.ui.explorer.ImportRepositoryActivity
 import com.manichord.mgit.adapters.RepoListAdapter
 import com.manichord.mgit.database.RepoDbManager
 import com.manichord.mgit.models.Repo
-import me.sheimi.sgit.databinding.ActivityMainBinding
-import me.sheimi.sgit.databinding.CloneViewBinding
+import com.manichord.mgitt.databinding.ActivityMainBinding
+import com.manichord.mgitt.databinding.CloneViewBinding
 import com.manichord.mgit.ui.dialogs.DummyDialogListener
 import com.manichord.mgit.ui.dialogs.ImportLocalRepoDialog
 import com.manichord.mgit.tasks.CloneTask

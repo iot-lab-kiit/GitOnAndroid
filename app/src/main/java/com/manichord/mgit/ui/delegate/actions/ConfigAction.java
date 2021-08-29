@@ -4,11 +4,11 @@ import android.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.models.GitConfig;
 import com.manichord.mgit.models.Repo;
-import me.sheimi.sgit.databinding.DialogRepoConfigBinding;
+import com.manichord.mgitt.databinding.DialogRepoConfigBinding;
 import com.manichord.mgit.utils.exception.StopTaskException;
 import timber.log.Timber;
 

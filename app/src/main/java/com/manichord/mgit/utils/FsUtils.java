@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 
 /**
  * Created by sheimi on 8/8/13.

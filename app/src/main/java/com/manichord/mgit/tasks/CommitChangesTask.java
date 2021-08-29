@@ -8,7 +8,7 @@ import org.eclipse.jgit.lib.StoredConfig;
 
 import com.manichord.mgit.utils.Profile;
 import com.manichord.mgit.MGitApplication;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.utils.exception.StopTaskException;
 

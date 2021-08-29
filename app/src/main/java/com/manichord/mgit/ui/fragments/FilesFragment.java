@@ -17,7 +17,7 @@ import java.util.Objects;
 import com.manichord.mgit.ui.SheimiFragmentActivity;
 import com.manichord.mgit.ui.SheimiFragmentActivity.OnBackClickListener;
 import com.manichord.mgit.utils.FsUtils;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.ViewFileActivity;
 import com.manichord.mgit.adapters.FilesListAdapter;
 import com.manichord.mgit.models.Repo;
@@ -92,7 +92,7 @@ public class FilesFragment extends RepoDetailFragment {
                         FsUtils.openFile(((SheimiFragmentActivity) getActivity()), file);
                     } catch (ActivityNotFoundException e) {
                         Timber.e(e);
-                        ((SheimiFragmentActivity) Objects.requireNonNull(getActivity())).showMessageDialog(R.string.dialog_error_title,
+                        ((SheimiFragmentActivity) requireActivity()).showMessageDialog(R.string.dialog_error_title,
                             getString(R.string.error_can_not_open_file));
                     }
                 });
@@ -105,7 +105,7 @@ public class FilesFragment extends RepoDetailFragment {
                     args.putString(RepoFileOperationDialog.FILE_PATH,
                             file.getAbsolutePath());
                     dialog.setArguments(args);
-                    dialog.show(Objects.requireNonNull(getFragmentManager()), "repo-file-op-dialog");
+                    dialog.show(getParentFragmentManager(), "repo-file-op-dialog");
                     return true;
                 });
 

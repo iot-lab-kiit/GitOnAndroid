@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 import java.util.Objects;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.utils.ssh.PrivateKeyUtils;
 
 public class PrivateKeyGenerate extends SheimiDialogFragment {
@@ -32,7 +32,7 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
+	LayoutInflater inflater = requireActivity().getLayoutInflater();
 	View view;
 	view = inflater.inflate(R.layout.dialog_generate_key, null);
 	mNewFilename = view.findViewById(R.id.newFilename);
@@ -93,6 +93,6 @@ public class PrivateKeyGenerate extends SheimiDialogFragment {
 	    e.printStackTrace();
 	}
 
-		((PrivateKeyManageActivity) Objects.requireNonNull(getActivity())).refreshList();
+		((PrivateKeyManageActivity)requireActivity()).refreshList();
     }
 }

@@ -16,7 +16,7 @@ import java.io.FileFilter;
 
 import com.manichord.mgit.utils.BasicFunctions;
 import com.manichord.mgit.utils.FsUtils;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.ViewFileActivity;
 import com.manichord.mgit.ui.dialogs.EditKeyPasswordDialog;
 import com.manichord.mgit.ui.dialogs.RenameKeyDialog;

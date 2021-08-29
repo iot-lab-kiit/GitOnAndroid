@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import java.io.File;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import timber.log.Timber;
 
 /**

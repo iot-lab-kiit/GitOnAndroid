@@ -36,7 +36,7 @@ import com.manichord.mgit.utils.AvatarDownloader;
 import com.manichord.mgit.utils.BasicFunctions;
 import com.manichord.mgit.utils.Profile;
 import com.manichord.mgit.MGitApplication;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.dialogs.DummyDialogListener;
 import com.manichord.mgit.utils.preference.PreferenceHelper;
 

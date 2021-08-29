@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity;
 import com.manichord.mgit.utils.BasicFunctions;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.tasks.GetCommitTask;
 

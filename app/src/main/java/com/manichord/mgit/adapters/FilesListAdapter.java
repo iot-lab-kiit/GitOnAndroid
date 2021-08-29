@@ -13,7 +13,7 @@ import java.io.FileFilter;
 import java.util.Arrays;
 
 import com.manichord.mgit.utils.Profile;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 
 /**
  * Created by sheimi on 8/18/13.

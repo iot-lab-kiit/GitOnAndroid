@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity;
 import com.manichord.mgit.utils.BasicFunctions;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoListActivity;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.database.RepoContract;

@@ -2,7 +2,7 @@ package com.manichord.mgit.ui.dialogs;
 
 import java.util.List;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

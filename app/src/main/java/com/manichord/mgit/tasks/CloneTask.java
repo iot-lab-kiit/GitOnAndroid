@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.Locale;
 
 import com.manichord.mgit.utils.Profile;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.database.RepoContract;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.utils.ssh.SgitTransportCallback;

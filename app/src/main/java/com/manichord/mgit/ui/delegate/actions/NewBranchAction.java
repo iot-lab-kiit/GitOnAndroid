@@ -1,6 +1,6 @@
 package com.manichord.mgit.ui.delegate.actions;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 
 import com.manichord.mgit.tasks.RepoOpTask;
 import com.manichord.mgit.ui.RepoDetailActivity;

@@ -13,7 +13,7 @@ import java.util.Objects;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
 import com.manichord.mgit.MGitApplication;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoListActivity;
 
 import org.jetbrains.annotations.NotNull;

@@ -29,7 +29,7 @@ import com.manichord.mgit.ui.fragments.FilesFragment
 import com.manichord.mgit.ui.fragments.StatusFragment
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.mikepenz.materialdrawer.Drawer
-import me.sheimi.sgit.R
+import com.manichord.mgitt.R
 
 class RepoDetailActivity : SheimiFragmentActivity() {
       lateinit var filesFragment: FilesFragment

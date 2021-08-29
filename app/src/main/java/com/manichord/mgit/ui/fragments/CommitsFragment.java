@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity.OnBackClickListener;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.CommitDiffActivity;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.adapters.CommitsListAdapter;

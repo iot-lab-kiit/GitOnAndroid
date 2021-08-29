@@ -10,13 +10,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Objects;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity;
 import com.manichord.mgit.utils.Profile;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.adapters.FilesListAdapter;
 
 public abstract class FileExplorerActivity extends SheimiFragmentActivity {
@@ -42,7 +44,12 @@ public abstract class FileExplorerActivity extends SheimiFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_list);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        //Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Toolbar  toolbar=findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(event->{
+            onBackPressed();
+        });
         mRootFolder = getRootFolder();
         mCurrentDir = mRootFolder;
 

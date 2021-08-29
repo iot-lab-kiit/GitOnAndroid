@@ -10,8 +10,8 @@ import io.sentry.android.AndroidSentryClientFactory
 import com.manichord.mgit.utils.SecurePrefsException
 import com.manichord.mgit.utils.SecurePrefsHelper
 import com.manichord.mgit.utils.preference.PreferenceHelper
-import me.sheimi.sgit.BuildConfig
-import me.sheimi.sgit.R
+import com.manichord.mgitt.BuildConfig
+import com.manichord.mgitt.R
 import org.eclipse.jgit.transport.CredentialsProvider
 import timber.log.Timber
 

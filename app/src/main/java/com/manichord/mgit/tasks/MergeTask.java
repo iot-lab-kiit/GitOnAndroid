@@ -1,7 +1,7 @@
 package com.manichord.mgit.tasks;
 
 import com.manichord.mgit.utils.BasicFunctions;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.utils.exception.StopTaskException;
 

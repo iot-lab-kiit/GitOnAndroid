@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.manichord.mgit.tasks.UpdateIndexTask;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 
 import static com.manichord.mgit.tasks.DeleteFileFromRepoTask.DeleteOperationType;

@@ -21,7 +21,7 @@ import android.widget.Toast;
 import org.eclipse.jgit.api.errors.CannotDeleteCurrentBranchException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.RenameBranchDialog;
 import com.manichord.mgit.utils.exception.StopTaskException;

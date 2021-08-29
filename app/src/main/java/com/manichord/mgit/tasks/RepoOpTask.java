@@ -8,7 +8,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import com.manichord.mgit.ui.SheimiFragmentActivity.OnPasswordEntered;
 import com.manichord.mgit.utils.BasicFunctions;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 
 import timber.log.Timber;

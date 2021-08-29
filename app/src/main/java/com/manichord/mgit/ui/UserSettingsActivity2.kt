@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import com.manichord.mgit.ui.fragments.SettingsFragment
-import me.sheimi.sgit.R
+import com.manichord.mgitt.R
 
 class UserSettingsActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

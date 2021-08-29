@@ -1,6 +1,6 @@
 package com.manichord.mgit.ui.delegate.actions;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.tasks.CherryPickTask;

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.manichord.mgit.MGitApplication
-import me.sheimi.sgit.R
+import com.manichord.mgitt.R
 import com.manichord.mgit.models.Repo
 import com.manichord.mgit.tasks.CloneTask
 import com.manichord.mgit.tasks.InitLocalTask

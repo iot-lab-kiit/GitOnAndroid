@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.manichord.mgit.utils.BasicFunctions;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoListActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {

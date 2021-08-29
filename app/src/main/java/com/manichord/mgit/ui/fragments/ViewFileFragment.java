@@ -24,7 +24,7 @@ import java.util.Objects;
 import com.manichord.mgit.ui.SheimiFragmentActivity;
 import com.manichord.mgit.utils.CodeGuesser;
 import com.manichord.mgit.utils.Profile;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.ViewFileActivity;
 import timber.log.Timber;
 
@@ -53,7 +53,7 @@ public class ViewFileFragment extends BaseFragment {
         }
         if (fileName == null) {
             fileName = requireArguments().getString(ViewFileActivity.TAG_FILE_NAME);
-            mActivityMode = Objects.requireNonNull(getArguments()).getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
+            mActivityMode = requireArguments().getShort(ViewFileActivity.TAG_MODE, ViewFileActivity.TAG_MODE_NORMAL);
         }
 
         mFile = new File(fileName);

@@ -30,7 +30,7 @@ import java.util.Objects;
 import com.manichord.mgit.utils.CodeGuesser;
 import com.manichord.mgit.utils.FsUtils;
 import com.manichord.mgit.utils.Profile;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.tasks.CommitDiffTask;
 

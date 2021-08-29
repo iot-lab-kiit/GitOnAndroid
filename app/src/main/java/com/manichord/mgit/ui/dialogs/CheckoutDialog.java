@@ -3,7 +3,7 @@ package com.manichord.mgit.ui.dialogs;
 import java.util.Objects;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

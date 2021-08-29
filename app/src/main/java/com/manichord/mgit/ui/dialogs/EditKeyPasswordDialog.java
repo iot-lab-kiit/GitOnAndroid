@@ -15,7 +15,7 @@ import java.util.Objects;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
 import com.manichord.mgit.MGitApplication;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.explorer.PrivateKeyManageActivity;
 import timber.log.Timber;
 
@@ -79,7 +79,7 @@ public class EditKeyPasswordDialog extends SheimiDialogFragment implements
     public void onClick(View view) {
         String newPassword = mPassword.getText().toString().trim();
         try {
-            Objects.requireNonNull(((MGitApplication) Objects.requireNonNull(getActivity()).getApplicationContext()).getSecurePrefsHelper()).
+            Objects.requireNonNull(((MGitApplication) requireActivity().getApplicationContext()).getSecurePrefsHelper()).
                 set(mKeyFile.getName(), newPassword);
         } catch (Exception e) {
             Timber.e(e);

@@ -12,6 +12,7 @@
             android:persistent="true">
             <intent
                 android:targetClass="com.manichord.mgit.ui.explorer.ExploreRootDirActivity"
+                android:targetPackage="com.manichord.mgitt"
                 />
         </Preference>
         <ListPreference
@@ -66,7 +67,7 @@
             android:persistent="true"
             >
             <intent
-                android:targetClass="me.sheimi.sgit.activities.explorer.PrivateKeyManageActivity"
+                android:targetClass="com.manichord.mgitt.activities.explorer.PrivateKeyManageActivity"
                 android:targetPackage="com.manichord.mgit"
                 />
         </Preference>

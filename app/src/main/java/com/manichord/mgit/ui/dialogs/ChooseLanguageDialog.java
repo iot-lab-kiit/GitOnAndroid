@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.manichord.mgit.utils.CodeGuesser;
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.ViewFileActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;

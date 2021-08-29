@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.Objects;
 
 import com.manichord.mgit.utils.FsUtils;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.ChooseLanguageDialog;
 import com.manichord.mgit.ui.fragments.BaseFragment;

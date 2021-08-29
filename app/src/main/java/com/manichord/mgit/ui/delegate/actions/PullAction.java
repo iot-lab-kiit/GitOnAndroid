@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.DummyDialogListener;

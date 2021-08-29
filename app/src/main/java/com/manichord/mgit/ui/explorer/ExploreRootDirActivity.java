@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import java.io.File;
 import java.io.FileFilter;
 
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 
 public class ExploreRootDirActivity extends FileExplorerActivity {

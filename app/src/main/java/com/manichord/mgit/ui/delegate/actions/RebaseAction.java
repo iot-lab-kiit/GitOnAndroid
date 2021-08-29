@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.manichord.mgit.utils.Profile;
 import com.manichord.mgit.ui.fragments.SheimiDialogFragment;
-import me.sheimi.sgit.R;
+import com.manichord.mgitt.R;
 import com.manichord.mgit.ui.RepoDetailActivity;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.tasks.RebaseTask;
