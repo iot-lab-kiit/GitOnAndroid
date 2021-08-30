@@ -71,6 +71,7 @@
         <activity
             android:name="com.manichord.mgit.ui.BranchChooserActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/AppThemeX"
             android:parentActivityName="com.manichord.mgit.ui.RepoDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -118,10 +119,16 @@
         <activity
             android:name="com.manichord.mgit.ui.explorer.ExploreRootDirActivity"
             android:label="@string/title_activity_explore_file"
-            android:parentActivityName="com.manichord.mgit.ui.UserSettingsActivity2">
+            android:parentActivityName="com.manichord.mgit.ui.UserSettingsActivity2"
+            android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.manichord.mgit.ui.UserSettingsActivity2" />
+            <intent-filter>
+                <action android:name="ExploreRootDirActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
 
         <provider

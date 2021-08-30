@@ -66,7 +66,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mRepo = intent.getSerializableExtra(Repo.TAG) as Repo
+        mRepo = intent.getSerializableExtra(Repo.TAG) as Repo?
         // aweful hack! workaround for null repo when returning from BranchChooser, but going to
         // shortly refactor passing in serialised repo, so not worth doing more to fix for now
         if (mRepo == null) {

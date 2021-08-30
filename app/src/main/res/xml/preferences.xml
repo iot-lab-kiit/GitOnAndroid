@@ -11,6 +11,7 @@
             android:summary="@string/preference_repo_location"
             android:persistent="true">
             <intent
+                android:action="ExploreRootDirActivity"
                 android:targetClass="com.manichord.mgit.ui.explorer.ExploreRootDirActivity"
                 android:targetPackage="com.manichord.mgitt"
                 />

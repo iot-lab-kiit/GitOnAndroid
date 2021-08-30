@@ -21,6 +21,7 @@
 <resources>
 
     <style name="Theme.Sgit" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:actionBarItemBackground">@drawable/selectable_background_sgit</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Sgit</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Sgit</item>
@@ -39,7 +40,7 @@
         <item type="color" name="mgit_drawer_text_color">@android:color/background_dark</item>
         <item type="color" name="mgit_drawer_background">@android:color/background_light</item>
         <item type="drawable" name="ic_file_fl">@drawable/ic_file_d</item>
-        <item type="drawable" name="ic_folder_fl">@drawable/ic_folder_d</item>
+        <item type="drawable" name="ic_folder_fl">@drawable/ic_folder2</item>
         <item type="drawable" name="ic_branch_l">@drawable/ic_branch_d</item>
         <item type="drawable" name="ic_tag_l">@drawable/ic_tag_d</item>
 

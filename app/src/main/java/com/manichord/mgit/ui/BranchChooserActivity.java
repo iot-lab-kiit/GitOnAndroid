@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
+
 import org.eclipse.jgit.api.errors.CannotDeleteCurrentBranchException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
@@ -26,6 +29,8 @@ import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.RenameBranchDialog;
 import com.manichord.mgit.utils.exception.StopTaskException;
 import com.manichord.mgit.tasks.CheckoutTask;
+
+import java.util.Objects;
 
 public class BranchChooserActivity extends SheimiFragmentActivity implements ActionMode.Callback {
     private static final String LOGTAG = BranchChooserActivity.class.getSimpleName();
@@ -88,15 +93,11 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
                                 .call();
                             break;
                     }
-                } catch (StopTaskException e) {
-                    Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
-                    runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
-                        Toast.LENGTH_LONG).show());
                 } catch (CannotDeleteCurrentBranchException e) {
                     Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
                     runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_current_branch, mChosenCommit),
                         Toast.LENGTH_LONG).show());
-                } catch (GitAPIException e) {
+                } catch (StopTaskException | GitAPIException e) {
                     Log.e(LOGTAG, "can't delete " + mChosenCommit, e);
                     runOnUiThread(() -> Toast.makeText(BranchChooserActivity.this, getString(R.string.cannot_delete_branch, mChosenCommit),
                         Toast.LENGTH_LONG).show());
@@ -131,15 +132,18 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        View v = getLayoutInflater().inflate(R.layout.fragment_branches, null);
+        setContentView(R.layout.fragment_branches);
+        Toolbar toolbar=findViewById(R.id.toolbar5);
+        setSupportActionBar(toolbar);
         mRepo = (Repo) getIntent().getSerializableExtra(Repo.TAG);
-        mBranchTagList = v.findViewById(R.id.branches);
-        mLoadding = v.findViewById(R.id.loading);
+        mBranchTagList = findViewById(R.id.branches);
+        mLoadding = findViewById(R.id.loading);
         mAdapter = new BranchTagListAdapter(this);
         mBranchTagList.setAdapter(mAdapter);
         mBranchTagList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
         setTitle(R.string.dialog_choose_branch_title);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         refreshList();
 
@@ -162,13 +166,11 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
 
                     mInActionMode = true;
                     mChosenCommit = mAdapter.getItem(position);
-                    BranchChooserActivity.this.startActionMode(BranchChooserActivity.this);
+                    setSupportActionBar(toolbar);
                     view.setSelected(true);
                     mAdapter.notifyDataSetChanged();
                     return true;
                 });
-
-        setContentView(v);
     }
 
     private static class BranchTagListAdapter extends ArrayAdapter<String> {

@@ -13,9 +13,7 @@ class UserSettingsActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_user_settings2)
         val toolbar = findViewById<Toolbar>(R.id.toolbar3)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onResume() {

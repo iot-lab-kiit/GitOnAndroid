@@ -1,13 +1,16 @@
 package com.manichord.mgit.ui;
 
+
+//import android.app.Activity;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
