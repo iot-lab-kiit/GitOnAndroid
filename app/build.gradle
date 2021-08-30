@@ -93,7 +93,4 @@ dependencies {
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     debugImplementation 'com.facebook.stetho:stetho-timber:1.5.0'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.2.1'
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 }
