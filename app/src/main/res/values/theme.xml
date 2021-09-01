@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2019 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+  in compliance with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software distributed under the License
+  is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+  or implied. See the License for the specific language governing permissions and limitations under
+  the License.
+  -->
+<resources>
+
+    <!--Base theme, all common styling here-->
+    <style name="Base.Owl" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        <!--Material shape attributes-->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Owl.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Owl.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Owl.LargeComponent</item>
+
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Owl.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Owl.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Owl.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Owl.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Owl.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Owl.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Owl.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Owl.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Owl.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Owl.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Owl.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Owl.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Owl.Overline</item>
+
+        <!--Platform attributes-->
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+        <item name="android:statusBarColor">@color/immersive_sys_ui</item>
+
+        <!--Default styles-->
+        <item name="bottomNavigationStyle">@style/Widget.Owl.BottomNavigationView</item>
+
+    </style>
+
+    <style name="Owl" parent="@style/Base.Owl"/>
+
+    <style name="Owl.Yellow">
+        <item name="colorPrimary">@color/owl_yellow_500</item>
+        <item name="colorPrimaryVariant">@color/owl_yellow_400</item>
+        <item name="colorSecondary">@color/owl_blue_700</item>
+        <item name="colorSecondaryVariant">@color/owl_blue_800</item>
+    </style>
+
+    <style name="Owl.Blue">
+        <item name="colorPrimary">@color/owl_blue_700</item>
+        <item name="colorPrimaryVariant">@color/owl_blue_800</item>
+        <item name="colorSecondary">@color/owl_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/owl_yellow_400</item>
+    </style>
+
+    <style name="ThemeOverlay.Owl.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">
+        <item name="colorPrimary">@color/owl_blue_700</item>
+        <item name="colorPrimaryVariant">@color/owl_blue_800</item>
+        <item name="colorSecondary">@color/owl_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/owl_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+    </style>
+
+    <style name="ThemeOverlay.Owl.Blue.Dark" parent="@style/ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">@color/owl_blue_700</item>
+        <item name="colorPrimaryVariant">@color/owl_blue_800</item>
+        <item name="colorSecondary">@color/owl_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/owl_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+    </style>
+
+    <style name="Owl.Pink">
+        <item name="colorPrimary">@color/owl_pink_500</item>
+        <item name="colorSecondary">@color/owl_pink_500</item>
+        <item name="colorPrimaryVariant">@color/owl_pink_600</item>
+        <item name="colorOnPrimary">#000</item>
+    </style>
+
+    <style name="ThemeOverlay.Owl.TransitionShapeAppearance.Small" parent="">
+        <item name="transitionShapeAppearance">@style/ShapeAppearance.Owl.SmallComponent</item>
+    </style>
+
+
+    <style name="TextAppearance.Owl.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="lineHeight">40sp</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="lineHeight">28sp</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="lineHeight">22sp</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="lineHeight">28sp</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/rubik</item>
+    </style>
+
+    <style name="TextAppearance.Owl.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/rubik</item>
+    </style>
+
+    <style name="TextAppearance.Owl.BottomNavigation" parent="TextAppearance.Owl.Caption">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+
+
+<!--    <>-->
+
+    <style
+        name="Widget.Owl.BottomNavigationView"
+        parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="labelVisibilityMode">selected</item>
+<!--        <item name="itemIconTint">@color/bottom_nav_item</item>-->
+<!--        <item name="itemTextColor">@color/bottom_nav_item</item>-->
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Owl.BottomNavigation</item>
+    </style>
+
+    <style name="Widget.Owl.SeekBar" parent="@style/Widget.AppCompat.SeekBar">
+        <item name="android:progressTint">@color/owl_yellow_500</item>
+        <item name="android:secondaryProgressTint">#99ffffff</item>
+        <item name="android:thumbTint">@color/owl_yellow_500</item>
+<!--        <item name="android:progressDrawable">@drawable/seekbar_track</item>-->
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+<!--    -->
+
+
+    <!--Shape Appearance for small components like chips, buttons, text fields and FABs-->
+    <style name="ShapeAppearance.Owl.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0px</item>
+        <item name="cornerSizeTopLeft">@dimen/small_component_top_left_radius</item>
+    </style>
+
+    <!--Shape Appearance for medium components like cards, alert dialogs-->
+    <style name="ShapeAppearance.Owl.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0px</item>
+    </style>
+
+    <!--Shape Appearance for large components like side and bottom navigation drawers-->
+    <style name="ShapeAppearance.Owl.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0px</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Owl.MinimizedSheet" parent="ShapeAppearance.Owl.MediumComponent">
+        <item name="cornerSizeTopLeft">@dimen/minimized_sheet_top_left_radius</item>
+    </style>
+
+    <dimen name="small_component_top_left_radius">28dp</dimen>
+    <dimen name="minimized_sheet_top_left_radius">48dp</dimen>
+
+
+</resources>

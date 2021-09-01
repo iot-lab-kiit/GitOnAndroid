@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 
+import com.manichord.mgit.utils.FileUtil;
+import com.manichord.mgit.utils.FsUtils;
+import com.manichord.mgit.utils.MimeType;
 import com.manichord.mgit.utils.Profile;
 import com.manichord.mgitt.R;
 
@@ -49,7 +52,8 @@ public class FilesListAdapter extends ArrayAdapter<File> {
         if (item.isDirectory()) {
             holder.fileIcon.setImageResource(Profile.getStyledResource(getContext(), R.attr.ic_folder_fl));
         } else {
-            holder.fileIcon.setImageResource(Profile.getStyledResource(getContext(), R.attr.ic_file_fl));
+            String mimeType = FsUtils.getMimeType(item);
+            holder.fileIcon.setImageResource(FileUtil.INSTANCE.getIconRes(new MimeType(mimeType)));
         }
         // set if selected
         if (convertView.isSelected()) {

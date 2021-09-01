@@ -105,7 +105,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
     private fun setupViewPager() {
         mViewPager = findViewById(R.id.pager)
         mTabItemPagerAdapter = TabItemPagerAdapter(this)
-        mViewPager.setAdapter(mTabItemPagerAdapter)
+        mViewPager.adapter = mTabItemPagerAdapter
         val tabLayout = findViewById<TabLayout>(R.id.tabs_repo)
         val tabsConfig = TabConfigurationStrategy { tab, position ->
             tab.text = mTabItemPagerAdapter.getPageTitle(position)

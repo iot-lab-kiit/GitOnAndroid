@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.appcompat.widget.ShareActionProvider;
 import android.util.Log;
@@ -94,6 +96,8 @@ public class CommitDiffActivity extends SheimiFragmentActivity {
     }
 
     private void setupActionBar() {
+        Toolbar toolbar=findViewById(R.id.toolbar6);
+        setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 

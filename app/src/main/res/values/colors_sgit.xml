@@ -25,4 +25,38 @@
 
     <color name="general_gray_text_color">#999</color>
     <color name="chosen_sgit">#BC43C5D5</color>
+    <color name="file_icon_light_blue">#4B86F0</color>
+    <color name="file_icon_blue">#4285F4</color>
+    <color name="file_icon_cyan">#24C1E0</color>
+    <color name="file_icon_light_green">#34A853</color>
+    <color name="file_icon_green">#22A667</color>
+    <color name="file_icon_deep_green">#0F9D58</color>
+    <color name="file_icon_grey">#5F6368</color>
+    <color name="file_icon_orange">#FD7541</color>
+    <color name="file_icon_purple">#A142F4</color>
+    <color name="file_icon_red">#EA4335</color>
+    <color name="file_icon_deep_red">#DB4437</color>
+    <color name="file_icon_yellow">#F4B400</color>
+
+
+
+    <!--theme colors-->
+    <color name="owl_yellow_200">#ffeb46</color>
+    <color name="owl_yellow_400">#ffc000</color>
+    <color name="owl_yellow_500">#ffde03</color>
+    <color name="owl_yellow_dark_primary">#242316</color>
+
+    <color name="owl_blue_200">#91a4fc</color>
+    <color name="owl_blue_700">#0336ff</color>
+    <color name="owl_blue_800">#0035c9</color>
+    <color name="owl_blue_dark_primary">#1c1d24</color>
+
+    <color name="owl_pink_200">#ff7597</color>
+    <color name="owl_pink_500">#ff0266</color>
+    <color name="owl_pink_600">#d8004d</color>
+    <color name="owl_pink_dark_primary">#24191c</color>
+
+    <!--background protection for nav-bar, varied on Q+-->
+    <color name="immersive_sys_ui">#33000000</color>
+    <color name="nav_bar">@color/immersive_sys_ui</color>
 </resources>

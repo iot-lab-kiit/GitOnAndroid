@@ -71,7 +71,6 @@
         <activity
             android:name="com.manichord.mgit.ui.BranchChooserActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@style/AppThemeX"
             android:parentActivityName="com.manichord.mgit.ui.RepoDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

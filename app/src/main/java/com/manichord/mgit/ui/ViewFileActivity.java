@@ -3,24 +3,28 @@ package com.manichord.mgit.ui;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.viewpager.widget.PagerTitleStrip;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
-
 import java.io.File;
 import java.util.Objects;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.manichord.mgit.utils.FsUtils;
 import com.manichord.mgitt.R;
 import com.manichord.mgit.models.Repo;
 import com.manichord.mgit.ui.dialogs.ChooseLanguageDialog;
-import com.manichord.mgit.ui.fragments.BaseFragment;
 import com.manichord.mgit.ui.fragments.CommitsFragment;
 import com.manichord.mgit.ui.fragments.ViewFileFragment;
 
@@ -34,7 +38,7 @@ public class ViewFileActivity extends SheimiFragmentActivity {
     private short mActivityMode = TAG_MODE_NORMAL;
     private static final int FILE_FRAGMENT_INDEX = 0;
     private static final int COMMITS_FRAGMENT_INDEX = 1;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
     private Repo mRepo;
     private TabItemPagerAdapter mTabItemPagerAdapter;
     private ViewFileFragment mFileFragment;
@@ -46,9 +50,12 @@ public class ViewFileActivity extends SheimiFragmentActivity {
         setContentView(R.layout.activity_view_file);
         mRepo = (Repo) getIntent().getSerializableExtra(Repo.TAG);
         mViewPager = findViewById(R.id.pager);
-        mTabItemPagerAdapter = new TabItemPagerAdapter(getSupportFragmentManager());
+
+        mTabItemPagerAdapter = new TabItemPagerAdapter(this);
         mViewPager.setAdapter(mTabItemPagerAdapter);
-        mViewPager.setOnPageChangeListener(mTabItemPagerAdapter);
+        TabLayout layout=findViewById(R.id.tab_file_view);
+        new TabLayoutMediator(layout,mViewPager,mTabItemPagerAdapter).attach();
+
         Bundle b = new Bundle();
         Bundle extras = getIntent().getExtras();
         String fileName = extras.getString(TAG_FILE_NAME);
@@ -59,44 +66,33 @@ public class ViewFileActivity extends SheimiFragmentActivity {
             mCommitsFragment = CommitsFragment.newInstance(mRepo, FsUtils.getRelativePath(new File(fileName), mRepo.getDir()));
         }
         if (mRepo == null) {
-            PagerTitleStrip strip = findViewById(R.id.pager_title_strip);
-            strip.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
         }
         mFileFragment = new ViewFileFragment();
         mFileFragment.setArguments(b);
         mActivityMode = extras.getShort(TAG_MODE, TAG_MODE_NORMAL);
         b.putShort(TAG_MODE, mActivityMode);
+        Toolbar toolbar=findViewById(R.id.toolbar7);
+        setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle(new File(fileName).getName());
     }
 
 
-    class TabItemPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener, SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
+    class TabItemPagerAdapter extends FragmentStateAdapter implements ViewPager.OnPageChangeListener,
+        SearchView.OnQueryTextListener,
+        MenuItemCompat.OnActionExpandListener, TabLayoutMediator.TabConfigurationStrategy {
 
         private final int[] PAGE_TITLE = { R.string.tab_file_label, R.string.tab_commits_label };
 
-        public TabItemPagerAdapter(FragmentManager fm) {
+        public TabItemPagerAdapter(FragmentActivity fm) {
             super(fm);
         }
 
-        @NonNull
-        @Override
-        public BaseFragment getItem(int position) {
-            switch (position) {
-                case FILE_FRAGMENT_INDEX:
-                    return mFileFragment;
-                case COMMITS_FRAGMENT_INDEX:
-                    return mCommitsFragment;
-            }
-            return mFileFragment;
-        }
-
-        @Override
         public CharSequence getPageTitle(int position) {
             return getString(PAGE_TITLE[position]);
         }
 
-        @Override
         public int getCount() {
             if (mRepo == null) {
                 return 1;
@@ -149,6 +145,27 @@ public class ViewFileActivity extends SheimiFragmentActivity {
             return true;
         }
 
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            switch (position) {
+                case FILE_FRAGMENT_INDEX:
+                    return mFileFragment;
+                case COMMITS_FRAGMENT_INDEX:
+                    return mCommitsFragment;
+            }
+            return mFileFragment;
+        }
+
+        @Override
+        public int getItemCount() {
+            return getCount();
+        }
+
+        @Override
+        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            tab.setText(getPageTitle(position));
+        }
     }
 
     @Override
