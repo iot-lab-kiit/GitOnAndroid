@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         android:key="pref_key_storage_root_location"
         android:title="@string/pref_category_title_general">
 
-        <me.sheimi.sgit.preference.Preference
+        <Preference
             android:title="@string/preference_repo_location"
             android:key="@string/pref_key_repo_root_location"
-            android:summary="%s"
-            android:persistent="true"
-            >
+            android:summary="@string/preference_repo_location"
+            android:persistent="true">
             <intent
-                android:targetClass="me.sheimi.sgit.activities.explorer.ExploreRootDirActivity"
-                android:targetPackage="com.manichord.mgit"
+                android:action="ExploreRootDirActivity"
+                android:targetClass="com.manichord.mgit.ui.explorer.ExploreRootDirActivity"
+                android:targetPackage="com.manichord.mgitt"
                 />
-        </me.sheimi.sgit.preference.Preference>
+        </Preference>
         <ListPreference
             android:title="@string/preference_use_theme"
             android:key="@string/pref_key_use_theme_id"
@@ -27,14 +26,14 @@
 
         </ListPreference>
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:title="@string/preference_eng_lang"
             android:summary="@string/preference_eng_lang_summary"
             android:key="@string/pref_key_use_english"
             android:defaultValue="false"
             android:persistent="true"
             >
-        </SwitchPreference>
+        </SwitchPreferenceCompat>
 
     </PreferenceCategory>
 
@@ -42,22 +41,22 @@
         android:key="pref_key_storage_root_location"
         android:title="@string/pref_category_title_git_profile">
 
-        <me.sheimi.sgit.preference.EditTextPreference
+        <EditTextPreference
             android:title="@string/preference_git_user_name"
             android:key="@string/pref_key_git_user_name"
-            android:summary="%s"
+            android:summary="@string/preference_git_user_name"
             android:persistent="true"
             >
-        </me.sheimi.sgit.preference.EditTextPreference>
+        </EditTextPreference>
 
-        <me.sheimi.sgit.preference.EditTextPreference
+        <EditTextPreference
             android:title="@string/preference_git_user_email"
             android:key="@string/pref_key_git_user_email"
-            android:summary="%s"
+            android:summary="@string/pref_key_git_user_email"
             android:persistent="true"
             android:inputType="textEmailAddress"
             >
-        </me.sheimi.sgit.preference.EditTextPreference>
+        </EditTextPreference>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -69,37 +68,37 @@
             android:persistent="true"
             >
             <intent
-                android:targetClass="me.sheimi.sgit.activities.explorer.PrivateKeyManageActivity"
+                android:targetClass="com.manichord.mgitt.activities.explorer.PrivateKeyManageActivity"
                 android:targetPackage="com.manichord.mgit"
                 />
         </Preference>
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:title="@string/preference_use_gravatar"
             android:summary="@string/preference_use_gravatar_summary"
             android:key="@string/pref_key_use_gravatar"
             android:defaultValue="true"
             android:persistent="true"
             >
-        </SwitchPreference>
+        </SwitchPreferenceCompat>
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/pref_category_title_about">
 
-        <me.sheimi.sgit.preference.Preference
+        <Preference
             android:title="@string/preference_send_feedback"
             android:summary="@string/preference_send_feedback_summary"
             >
             <intent android:action="android.intent.action.VIEW"
                 android:data="@string/feedback_url" />
-        </me.sheimi.sgit.preference.Preference>
+        </Preference>
 
-        <me.sheimi.sgit.preference.Preference
+        <Preference
             android:key="@string/preference_key_app_version"
             android:title="@string/preference_app_version"
             android:selectable="false"
-            android:summary="%s"
+            android:summary="@string/preference_app_version"
             android:persistent="true"
             />
 

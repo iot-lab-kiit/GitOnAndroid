@@ -12,7 +12,7 @@
             android:layout_height="@dimen/commit_list_item_icon_size"
             android:id="@+id/commitIcon"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             app:srcCompat="@drawable/ic_default_author"
             android:padding="@dimen/commit_list_item_icon_padding"/>
 

@@ -2,13 +2,13 @@
 
     <item
         android:id="@+id/action_mode_rename_branch"
-	android:icon="@drawable/ic_tag_w"
-        app:showAsAction="ifRoom"
+	    android:icon="@drawable/ic_tag_w"
+        app:showAsAction="always"
         android:title="@string/action_mode_rename_branch"/>
     <item
         android:id="@+id/action_mode_delete"
-	android:icon="@drawable/ic_trash"
-        app:showAsAction="ifRoom"
+	    android:icon="@drawable/ic_trash"
+        app:showAsAction="always"
         android:title="@string/label_delete"/>
 
 </menu>
