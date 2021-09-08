@@ -94,6 +94,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
             showToastMessage(R.string.error_something_wrong)
             return
         }
+
         resetCommitButtonName(branchName)
     }
 
@@ -136,7 +137,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
 
     private fun setupPullProgressView() {
         mPullProgressContainer = findViewById(R.id.pullProgressContainer)
-        mPullProgressContainer.setVisibility(View.GONE)
+        mPullProgressContainer.visibility = View.GONE
         mPullProgressBar = mPullProgressContainer
             .findViewById(R.id.pullProgress)
         mPullMsg = mPullProgressContainer.findViewById(R.id.pullMsg)
@@ -176,7 +177,7 @@ class RepoDetailActivity : SheimiFragmentActivity() {
             }
             Repo.COMMIT_TYPE_TEMP -> mCommitType.visibility = View.GONE
         }
-        val displayName = Repo.getCommitDisplayName(commitName)
+        val displayName = Repo.getCommitName(commitName)
         mCommitNameButton.text = displayName
     }
 

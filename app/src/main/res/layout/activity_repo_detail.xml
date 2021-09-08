@@ -73,17 +73,15 @@
 
     <LinearLayout
         android:id="@+id/pullProgressContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/general_horizontal_margin"
-        android:layout_marginTop="@dimen/general_horizontal_margin"
-        android:layout_marginEnd="@dimen/general_horizontal_margin"
-        android:layout_marginBottom="@dimen/general_horizontal_margin"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_listitem"
         android:orientation="vertical"
         android:padding="@dimen/general_padding_larger"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/pager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView

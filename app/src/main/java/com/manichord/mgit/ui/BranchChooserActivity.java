@@ -198,6 +198,7 @@ public class BranchChooserActivity extends SheimiFragmentActivity implements Act
             String commitName = getItem(position);
             String displayName = Repo.getCommitDisplayName(commitName);
             int commitType = Repo.getCommitType(commitName);
+
             switch (commitType) {
                 case Repo.COMMIT_TYPE_HEAD:
                     holder.commitIcon.setImageResource(R.drawable.ic_branch_d);
