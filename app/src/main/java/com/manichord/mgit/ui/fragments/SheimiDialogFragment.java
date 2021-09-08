@@ -32,6 +32,7 @@ public class SheimiDialogFragment extends BottomSheetDialogFragment {
                 positiveListener);
     }
 
+
     public void showMessageDialog(int title, String msg, int positiveBtn,
             DialogInterface.OnClickListener positiveListener) {
         getRawActivity().showMessageDialog(title, msg, positiveBtn,
