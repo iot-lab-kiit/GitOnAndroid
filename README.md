@@ -1,6 +1,6 @@
-# MGit
+# GitOnAndroid
 
-MGit is a Git client Android App.
+GitOnAndroid is a Git client Android App.
 
 This is a continuation of [the SGit project](https://github.com/sheimi/SGit).
 
@@ -24,9 +24,9 @@ This is a continuation of [the SGit project](https://github.com/sheimi/SGit).
 
 ### Editing Files
 
-As of version 15.7, MGit no longer provides an internal texteditor, instead if you wish to edit files, you will need to have an editor app installed. 
+As of version 15.7, GitOnAndroid no longer provides an internal texteditor, instead if you wish to edit files, you will need to have an editor app installed. 
 
-An open source editor that has been tested to work with MGit is ["Turbo Editor"]( https://play.google.com/store/apps/details?id=com.maskyn.fileeditorpro)
+An open source editor that has been tested to work with GitOnAndroid is ["Turbo Editor"]( https://play.google.com/store/apps/details?id=com.maskyn.fileeditorpro)
 
 but others that support File Providers should also work.
 
@@ -45,7 +45,7 @@ but others that support File Providers should also work.
 * Private key management
 * Manually choose code language
 * `git diff` between commits
-* Import existing repositories (that is, you can copy a repository from computer and import to MGit)
+* Import existing repositories (that is, you can copy a repository from computer and import to GitOnAndroid)
 * Checkout remote branches
 * Merge branches
 * Push merged content
@@ -68,10 +68,10 @@ but others that support File Providers should also work.
 
 1. Click on the `+` icon to add a new repository
 2. Enter remote URL (see URL format below)
-3. Enter local repository name - note that this is **not** the full path, as MGit stores all  
-repositories in the same local directory (can be changed in MGit settings)
+3. Enter local repository name - note that this is **not** the full path, as GitOnAndroid stores all  
+repositories in the same local directory (can be changed in GitOnAndroid settings)
 4. Click the `Clone` button
-5. If required, you will be prompted for credentials to connect to the remote repo. MGit will download the repository (all branches) to your device
+5. If required, you will be prompted for credentials to connect to the remote repo. GitOnAndroid will download the repository (all branches) to your device
 
 ### Create a local repository
 1. Click on the `+` icon to add a new repository
@@ -85,7 +85,7 @@ repositories in the same local directory (can be changed in MGit settings)
 
 * SSH running on standard port (22): `ssh://username@server_name/path/to/repo`
 * SSH running on non-standard port: `ssh://username@server_name:port/path/to/repo`
-* `username` is needed - by default, MGit tries to connect as root.
+* `username` is needed - by default, GitOnAndroid tries to connect as root.
 
 #### HTTP(S) URLs
 
@@ -93,7 +93,7 @@ repositories in the same local directory (can be changed in MGit settings)
 
 ## ToDo List
 
-[Future enhancements and bugs are tracked here on Github](https://github.com/maks/MGit/issues).
+[Future enhancements and bugs are tracked here on Github](https://github.com/maks/GitOnAndroid/issues).
 
 ## License
 
