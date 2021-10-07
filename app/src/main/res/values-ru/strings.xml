@@ -130,7 +130,7 @@
     <string name="dialog_open_remote">Открыть удаленный URL</string>
     <string name="dialog_open_remote_title">В %s remote</string>
     <string name="dialog_open_remote_no_app_available">Ни одно приложение не поддерживает эту ссылку</string>
-    <string name="dialog_permission_not_granted">MGit нужно разрещение доступа к памяти для изменения git репозиториев. Без этого MGit будет работать неправильно.</string>
+    <string name="dialog_permission_not_granted">GitOnAndroid нужно разрещение доступа к памяти для изменения git репозиториев. Без этого GitOnAndroid будет работать неправильно.</string>
 
     <!-- Others -->
     <string name="pull_msg_init">Загрузка… </string>
@@ -173,12 +173,12 @@
     <string name="action_add_private_key">Добавить приватный ключ</string>
 
     <!-- Crash reporting via ACRA -->
-    <string name="crash_toast_text">Ошибка MGit - сбор информации для краш репорта</string>
+    <string name="crash_toast_text">Ошибка GitOnAndroid - сбор информации для краш репорта</string>
 
     <!-- Intent filters -->
     <string name="cloning">Клонирование … </string>
     <string name="importing">Импорт … </string>
-    <string name="clone_with_mgit">Клонированно с помощью MGit</string>
+    <string name="clone_with_mgit">Клонированно с помощью GitOnAndroid</string>
     <string name="invalid_url">Неверный URL!</string>
     <string name="initialising">Инициализация … </string>
     <string name="repository_already_present">Репозиторий уже добавлен!</string>

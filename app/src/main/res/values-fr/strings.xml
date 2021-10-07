@@ -129,7 +129,7 @@
     <string name="dialog_open_remote">Ouvrir l\'URL distante</string>
     <string name="dialog_open_remote_title">Choisir l\'app pour ouvrir %s</string>
     <string name="dialog_open_remote_no_app_available">Aucune App disponible pour ouvrir l\'URL</string>
-    <string name="dialog_permission_not_granted">MGit requires that you grant it write access to be able to write local git repos to your storage, until you do this MGit will NOT work properly.</string>
+    <string name="dialog_permission_not_granted">GitOnAndroid requires that you grant it write access to be able to write local git repos to your storage, until you do this GitOnAndroid will NOT work properly.</string>
 
 
     <!-- Others -->
@@ -174,12 +174,12 @@
 
 
     <!-- Crash reporting via ACRA -->
-    <string name="crash_toast_text">Erreur de MGit - récupération de données pour envoyer un email de rapport de bug</string>
+    <string name="crash_toast_text">Erreur de GitOnAndroid - récupération de données pour envoyer un email de rapport de bug</string>
 
     <!-- Intent filters -->
     <string name="cloning">En cours de clonage...</string>
     <string name="importing">Import …</string>
-    <string name="clone_with_mgit">Cloner avec MGit</string>
+    <string name="clone_with_mgit">Cloner avec GitOnAndroid</string>
     <string name="invalid_url">URL invalide !</string>
     <string name="initialising">Initialisation …</string>
     <string name="repository_already_present">Dépôt déjà présent !</string>

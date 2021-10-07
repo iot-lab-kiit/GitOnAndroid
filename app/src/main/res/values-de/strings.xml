@@ -173,8 +173,8 @@
     <string name="title_activity_settings">Einstellungen</string>
     <string name="title_config_repo">Repository-Konfiguration</string>
     <string name="action_import_private_key">Schlüssel importieren</string>
-    <string name="crash_toast_text">Kritischer MGit-Fehler, sammle Daten um einen E-Mail-Bericht zu senden</string>
-    <string name="clone_with_mgit">Mit MGit klonen</string>
+    <string name="crash_toast_text">Kritischer GitOnAndroid-Fehler, sammle Daten um einen E-Mail-Bericht zu senden</string>
+    <string name="clone_with_mgit">Mit GitOnAndroid klonen</string>
     <string name="invalid_url">Ungültige URL!</string>
     <string name="repository_already_present">Repository existiert bereits!</string>
     <string name="action_mode_edit_key_password">Edit key password</string>
