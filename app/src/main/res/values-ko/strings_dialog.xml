@@ -71,6 +71,6 @@
     <string name="dialog_open_remote">Open remote url</string>
     <string name="dialog_open_remote_title">Choose app to open %s remote</string>
     <string name="dialog_open_remote_no_app_available">No Apps available to open the url</string>
-    <string name="dialog_permission_not_granted">MGit requires that you grant it write access to be able to write local git repos to your storage, until you do this MGit will NOT work properly.</string>
+    <string name="dialog_permission_not_granted">GitOnAndroid requires that you grant it write access to be able to write local git repos to your storage, until you do this GitOnAndroid will NOT work properly.</string>
 
 </resources>
